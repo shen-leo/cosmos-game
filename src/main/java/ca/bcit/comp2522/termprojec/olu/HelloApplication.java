@@ -6,6 +6,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 public class HelloApplication extends Application {
     @Override
@@ -14,19 +15,21 @@ public class HelloApplication extends Application {
         root.setPrefSize(1200, 800);
 
         Scene scene = new Scene(root);
+        Item items = new Item(root);
         Player player = new Player(root);
         InputHandler inputHandler = new InputHandler(scene, player);
         UI ui = new UI(root);
 
 
         ui.createBackGroundTile();
+        HashMap<String, Integer> currentCoord = player.getCoordinates();
+        items.createItem(currentCoord);
         player.displayPlayer();
 
         stage.setTitle("Cosmos");
         stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
-
     }
 
     public static void main(String[] args) {
