@@ -18,12 +18,15 @@ public class Player {
     private ImageView imageView;
     private final Random random;
     private final UI ui;
-    private int x = 0;
-    private int y = 0;
+    private int x;
+    private int y;
     public Player(StackPane pane, UI ui) {
         this.pane = pane;
         this.ui = ui;
         random = new Random();
+
+        x = generateRandomCoordinate();
+        y = generateRandomCoordinate();
     }
     private int nextPowerOf2(int n)
     {
@@ -55,8 +58,6 @@ public class Player {
         imageView = new ImageView(img);
         imageView.setFitWidth(64);
         imageView.setFitHeight(64);
-        x = generateRandomCoordinate();
-        y = generateRandomCoordinate();
         imageView.setTranslateX(x);
         imageView.setTranslateY(y);
         System.out.println(y);
