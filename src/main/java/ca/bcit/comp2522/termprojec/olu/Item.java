@@ -55,10 +55,12 @@ public class Item {
         imageView.setFitWidth(64);
         imageView.setFitHeight(64);
 
-        while(x == playerCoordinates.get("x") && y == playerCoordinates.get("y")) {
+        do {
             x = generateRandomCoordinate();
             y = generateRandomCoordinate();
         }
+        while (x == playerCoordinates.get("x") && y == playerCoordinates.get("y"));
+
         imageView.setTranslateX(x);
         imageView.setTranslateY(y);
         System.out.println(y);
