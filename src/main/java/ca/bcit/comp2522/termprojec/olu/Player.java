@@ -17,10 +17,12 @@ public class Player {
     private final StackPane pane;
     private ImageView imageView;
     private final Random random;
+    private final UI ui;
     private int x = 0;
     private int y = 0;
-    public Player(StackPane pane) {
+    public Player(StackPane pane, UI ui) {
         this.pane = pane;
+        this.ui = ui;
         random = new Random();
     }
     private int nextPowerOf2(int n)
@@ -67,6 +69,8 @@ public class Player {
         if (clamp(x,64)) {
             x = x + 64;
             imageView.setTranslateX(x);
+        } else {
+            ui.removeHeart();
         }
     }
     public void moveLeft() {

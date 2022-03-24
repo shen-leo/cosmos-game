@@ -11,24 +11,11 @@ import java.util.HashMap;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        StackPane root = new StackPane();
-        root.setPrefSize(1200, 800);
-
-        Scene scene = new Scene(root);
-        Item items = new Item(root);
-        Player player = new Player(root);
-        InputHandler inputHandler = new InputHandler(scene, player);
-        UI ui = new UI(root);
-
-
-        ui.createBackGroundTile();
-        HashMap<String, Integer> currentCoord = player.getCoordinates();
-        items.createItem(currentCoord);
-        player.displayPlayer();
+        SceneManager sceneManager = new SceneManager(stage);
 
         stage.setTitle("Cosmos");
         stage.setResizable(false);
-        stage.setScene(scene);
+        stage.setScene(sceneManager.createGame());
         stage.show();
     }
 
