@@ -3,14 +3,12 @@ package ca.bcit.comp2522.termprojec.olu;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
-import javafx.util.Pair;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 public class Player {
@@ -94,7 +92,7 @@ public class Player {
     }
 
     public HashMap<String, Integer> getCoordinates() {
-        HashMap<String, Integer> coordinates = new HashMap<String, Integer>();
+        HashMap<String, Integer> coordinates = new HashMap<>();
         coordinates.put("x", this.x);
         coordinates.put("y", this.y);
         return coordinates;
