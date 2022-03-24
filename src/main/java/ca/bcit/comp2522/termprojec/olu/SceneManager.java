@@ -61,7 +61,4 @@ public class SceneManager {
     public void gameOver() {
         stage.setScene(gameOverScene);
     }
-    public void playGame() {
-
-    }
 }
