@@ -24,7 +24,8 @@ public class SceneManager {
         root.setPrefSize(1200, 800);
 
         Scene scene = new Scene(root);
-        Item items = new Item(root);
+//        Item items = new Item(root);
+
         SceneManager sceneManager = new SceneManager(stage);
         UI ui = new UI(root, sceneManager);
         Player player = new Player(root, ui);
@@ -33,7 +34,9 @@ public class SceneManager {
 
         ui.createBackGroundTile();
         HashMap<String, Integer> currentCoord = player.getCoordinates();
-        items.createItem(currentCoord);
+        ItemSpawner itemSpawn = new ItemSpawner(root, currentCoord);
+        itemSpawn.spawnItems();
+//        items.createItem(currentCoord);
         player.displayPlayer();
         ui.createHeart();
         return scene;

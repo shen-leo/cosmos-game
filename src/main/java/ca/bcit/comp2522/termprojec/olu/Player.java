@@ -23,8 +23,8 @@ public class Player {
         this.ui = ui;
         random = new Random();
 
-        x = generateRandomCoordinate();
-        y = generateRandomCoordinate();
+//        x = generateRandomCoordinate();
+//        y = generateRandomCoordinate();
     }
     private int nextPowerOf2(int n)
     {
@@ -56,6 +56,8 @@ public class Player {
         imageView = new ImageView(img);
         imageView.setFitWidth(64);
         imageView.setFitHeight(64);
+        x = generateRandomCoordinate();
+        y = generateRandomCoordinate();
         imageView.setTranslateX(x);
         imageView.setTranslateY(y);
         System.out.println(y);

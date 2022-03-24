@@ -55,15 +55,25 @@ public class Item {
         imageView.setFitWidth(64);
         imageView.setFitHeight(64);
 
-        do {
-            x = generateRandomCoordinate();
-            y = generateRandomCoordinate();
-        }
-        while (x == playerCoordinates.get("x") && y == playerCoordinates.get("y"));
+//        do {
+//            x = generateRandomCoordinate();
+//            y = generateRandomCoordinate();
+//        }
+//        while (x == playerCoordinates.get("x") && y == playerCoordinates.get("y"));
+
+        x = generateRandomCoordinate();
+        y = generateRandomCoordinate();
 
         imageView.setTranslateX(x);
         imageView.setTranslateY(y);
         System.out.println(y);
         pane.getChildren().addAll(imageView);
+    }
+
+    public HashMap<String, Integer> getCoordinates() {
+        HashMap<String, Integer> coordinates = new HashMap<>();
+        coordinates.put("x", this.x);
+        coordinates.put("y", this.y);
+        return coordinates;
     }
 }
