@@ -55,12 +55,6 @@ public class Item {
         imageView.setFitWidth(64);
         imageView.setFitHeight(64);
 
-//        do {
-//            x = generateRandomCoordinate();
-//            y = generateRandomCoordinate();
-//        }
-//        while (x == playerCoordinates.get("x") && y == playerCoordinates.get("y"));
-
         x = generateRandomCoordinate();
         y = generateRandomCoordinate();
 

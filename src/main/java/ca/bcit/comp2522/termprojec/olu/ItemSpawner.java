@@ -4,18 +4,16 @@ import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 
 public class ItemSpawner {
 
-    private Item item1;
-    private Item item2;
-    private Item item3;
+    private final Item item1;
+    private final Item item2;
+    private final Item item3;
     private final HashMap<String, Integer> playerCoord;
 
-    public ItemSpawner(StackPane root, HashMap<String, Integer> playerCoord) {
+    public ItemSpawner(final StackPane root, final HashMap<String, Integer> playerCoord) {
 
         this.item1 = new Item(root);
         this.item2 = new Item(root);
@@ -44,7 +42,7 @@ public class ItemSpawner {
 
         for (int i = 0; i < coordinateList.size(); i++) {
             for (int j = i + 1; j < coordinateList.size(); j++) {
-                if (coordinateList.get(i) == coordinateList.get(j)) {
+                if (coordinateList.get(i).equals(coordinateList.get(j))) {
                     return false;
                 }
             }
