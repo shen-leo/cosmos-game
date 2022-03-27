@@ -28,13 +28,13 @@ public class SceneManager {
         SceneManager sceneManager = new SceneManager(stage);
         UI ui = new UI(root, sceneManager);
         Player player = new Player(root, ui);
-        ItemSpawner itemSpawner = new ItemSpawner(root, player);
+        ItemSpawner itemSpawner = new ItemSpawner(root);
         InputHandler inputHandler = new InputHandler(scene, player, itemSpawner);
 
 
         ui.createBackGroundTile();
         player.displayPlayer();
-        itemSpawner.spawnItems();
+        itemSpawner.spawnItems(player);
         ui.createHeart();
         return scene;
     }
