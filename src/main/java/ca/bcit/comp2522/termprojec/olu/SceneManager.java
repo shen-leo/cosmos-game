@@ -24,20 +24,17 @@ public class SceneManager {
         root.setPrefSize(1200, 800);
 
         Scene scene = new Scene(root);
-//        Item items = new Item(root);
 
         SceneManager sceneManager = new SceneManager(stage);
         UI ui = new UI(root, sceneManager);
         Player player = new Player(root, ui);
-        InputHandler inputHandler = new InputHandler(scene, player);
+        ItemSpawner itemSpawner = new ItemSpawner(root, player);
+        InputHandler inputHandler = new InputHandler(scene, player, itemSpawner);
 
 
         ui.createBackGroundTile();
-        HashMap<String, Integer> currentCoord = player.getCoordinates();
-        ItemSpawner itemSpawn = new ItemSpawner(root, currentCoord);
-        itemSpawn.spawnItems();
-//        items.createItem(currentCoord);
         player.displayPlayer();
+        itemSpawner.spawnItems();
         ui.createHeart();
         return scene;
     }

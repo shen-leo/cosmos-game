@@ -45,7 +45,10 @@ public class Item {
         }
     }
 
-    public void createItem(final HashMap<String, Integer> playerCoordinates) throws IOException {
+    public void createItem() throws IOException {
+
+        x = generateRandomCoordinate();
+        y = generateRandomCoordinate();
 
         InputStream is = Files.newInputStream(Paths.get("src/main/resources/images/heart_icon.png"));
         Image img = new Image(is);
@@ -54,9 +57,6 @@ public class Item {
         imageView = new ImageView(img);
         imageView.setFitWidth(64);
         imageView.setFitHeight(64);
-
-        x = generateRandomCoordinate();
-        y = generateRandomCoordinate();
 
         imageView.setTranslateX(x);
         imageView.setTranslateY(y);
@@ -69,5 +69,9 @@ public class Item {
         coordinates.put("x", this.x);
         coordinates.put("y", this.y);
         return coordinates;
+    }
+
+    public void nullImage() {
+        this.imageView.setImage(null);
     }
 }

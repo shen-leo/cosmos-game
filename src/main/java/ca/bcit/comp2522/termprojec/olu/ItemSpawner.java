@@ -10,34 +10,46 @@ public class ItemSpawner {
 
     private final Item item1;
     private final Item item2;
-    private final Item item3;
+//    private final Item item3;
     private final HashMap<String, Integer> playerCoord;
 
-    public ItemSpawner(final StackPane root, final HashMap<String, Integer> playerCoord) {
+    public ItemSpawner(final StackPane root, final Player player) {
 
         this.item1 = new Item(root);
         this.item2 = new Item(root);
-        this.item3 = new Item(root);
-        this.playerCoord = playerCoord;
+//        this.item3 = new Item(root);
+        this.playerCoord = player.getCoordinates();
     }
 
     public void spawnItems() throws IOException {
 
         do {
-            item1.createItem(this.playerCoord);
-            item2.createItem(this.playerCoord);
-            item3.createItem(this.playerCoord);
+            item1.createItem();
+            item2.createItem();
+//            item3.createItem();
         }
         while (!checkEqual());
+    }
+
+    public void checkItemState(final Player player) {
+
+        if (player.getCoordinates().equals(item1.getCoordinates())) {
+            item1.nullImage();
+            System.out.println("Touch Item1");
+        }
+
+        if (player.getCoordinates().equals(item2.getCoordinates())) {
+            item2.nullImage();
+            System.out.println("Touch Item2");
+        }
     }
 
     private boolean checkEqual() {
 
         ArrayList<HashMap<String, Integer>> coordinateList = new ArrayList<>();
-
         coordinateList.add(item1.getCoordinates());
         coordinateList.add(item2.getCoordinates());
-        coordinateList.add(item3.getCoordinates());
+//        coordinateList.add(item3.getCoordinates());
         coordinateList.add(playerCoord);
 
         for (int i = 0; i < coordinateList.size(); i++) {
