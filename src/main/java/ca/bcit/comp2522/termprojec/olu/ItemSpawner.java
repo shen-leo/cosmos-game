@@ -35,11 +35,13 @@ public class ItemSpawner {
 
         if (player.getCoordinates().equals(item1.getCoordinates())) {
             item1.nullImage();
+            item1.consume();
             System.out.println("Touch Item1");
         }
 
         if (player.getCoordinates().equals(item2.getCoordinates())) {
             item2.nullImage();
+            item2.consume();
             System.out.println("Touch Item2");
         }
     }

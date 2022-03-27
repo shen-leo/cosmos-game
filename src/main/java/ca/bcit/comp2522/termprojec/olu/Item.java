@@ -45,6 +45,7 @@ public class Item {
         }
     }
 
+    // creates the visual representation of the item instance
     public void createItem() throws IOException {
 
         x = generateRandomCoordinate();
@@ -64,6 +65,7 @@ public class Item {
         pane.getChildren().addAll(imageView);
     }
 
+    // returns the coordinates of the current item instance
     public HashMap<String, Integer> getCoordinates() {
         HashMap<String, Integer> coordinates = new HashMap<>();
         coordinates.put("x", this.x);
@@ -71,7 +73,14 @@ public class Item {
         return coordinates;
     }
 
+    // removes item instance's imageview
     public void nullImage() {
         this.imageView.setImage(null);
+    }
+
+    // removes the item from the playable board
+    public void consume() {
+        this.x = -1;
+        this.y = -1;
     }
 }
