@@ -9,17 +9,15 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.util.HashMap;
 
 public class SceneManager {
     private final Scene gameOverScene;
     private final Stage stage;
-    public SceneManager(Stage stage) throws IOException {
+    public SceneManager(Stage stage) {
         this.stage = stage;
         this.gameOverScene = createGameOverScene();
     }
-    public Scene createGame() throws IOException {
+    public Scene createGame() throws Exception {
         StackPane root = new StackPane();
         root.setPrefSize(1200, 800);
 
@@ -28,7 +26,7 @@ public class SceneManager {
         SceneManager sceneManager = new SceneManager(stage);
         UI ui = new UI(root, sceneManager);
         Player player = new Player(root, ui);
-        ItemSpawner itemSpawner = new ItemSpawner(root);
+        ItemSpawner itemSpawner = new ItemSpawner(root, ui);
         InputHandler inputHandler = new InputHandler(scene, player, itemSpawner);
 
 
@@ -50,7 +48,7 @@ public class SceneManager {
         EventHandler<ActionEvent> event = e -> {
             try {
                 stage.setScene(createGame());
-            } catch (IOException ex) {
+            } catch (Exception ex) {
                 ex.printStackTrace();
             }
         };

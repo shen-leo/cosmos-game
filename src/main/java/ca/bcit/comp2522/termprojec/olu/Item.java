@@ -4,54 +4,36 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
-import java.util.Random;
 
 
 public class Item {
     private final StackPane pane;
     private ImageView imageView;
-    private final Random random;
     private int x = 0;
     private int y = 0;
 
     public Item(StackPane pane) {
         this.pane = pane;
-        random = new Random();
     }
 
-    private int nextPowerOf2(int n) {
-        n = n - 1;
-
-        while ((n & n - 1) != 0) {
-            n = n & n - 1;
-        }
-
-        int nextPowerOf2 = n << 1;
-        if (nextPowerOf2 < 64 && nextPowerOf2 != 0) {
-            return nextPowerOf2(random.nextInt(0, 257));
-        }
-        return nextPowerOf2;
-    }
-    private int generateRandomCoordinate() {
-        if (random.nextInt(0,2) == 0) {
-            return nextPowerOf2(random.nextInt(0, 257));
-        } else {
-            return nextPowerOf2(random.nextInt(0, 257)) * -1;
-        }
-    }
 
     // creates the visual representation of the item instance
-    public void createItem() throws IOException {
+    public void createItem(int itemName) throws Exception {
+        InputStream is = null;
 
-        x = generateRandomCoordinate();
-        y = generateRandomCoordinate();
+        switch (itemName) {
+            case 1 -> is = Files.newInputStream(Paths.get("src/main/resources/images/items/heart_icon.png"));
+            case 2 -> is = Files.newInputStream(Paths.get("src/main/resources/images/items/coin.png"));
+        }
 
-        InputStream is = Files.newInputStream(Paths.get("src/main/resources/images/heart_icon.png"));
+        x = HelloApplication.generateRandomCoordinate();
+        y = HelloApplication.generateRandomCoordinate();
+
+        assert is != null;
         Image img = new Image(is);
         is.close();
 
@@ -63,6 +45,16 @@ public class Item {
         imageView.setTranslateY(y);
         System.out.println(y);
         pane.getChildren().addAll(imageView);
+    }
+
+    public void setX(int x) {
+        this.x = x;
+        imageView.setTranslateX(x);
+    }
+
+    public void setY(int y) {
+        this.y = y;
+        imageView.setTranslateY(y);
     }
 
     // returns the coordinates of the current item instance
@@ -82,5 +74,11 @@ public class Item {
     public void consume() {
         this.x = -1;
         this.y = -1;
+    }
+
+    public void collectable() {
+    }
+
+    public void respawn() {
     }
 }

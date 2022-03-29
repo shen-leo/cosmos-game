@@ -4,6 +4,8 @@ package ca.bcit.comp2522.termprojec.olu;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 
 import java.io.IOException;
@@ -12,19 +14,25 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class UI {
+
     private final StackPane stackPane;
     private final SceneManager sceneManager;
+
     private ImageView heartOne;
     private ImageView heartTwo;
     private ImageView heartThree;
+
+    private Text coinCounterText;
+
     public UI(StackPane stackPane, SceneManager sceneManager) {
         this.stackPane = stackPane;
         this.sceneManager = sceneManager;
+        createCoinCounter();
     }
 
 
     public void createBackGroundTile()throws IOException {
-        InputStream is = Files.newInputStream(Paths.get("src/main/resources/images/background.png"));
+        InputStream is = Files.newInputStream(Paths.get("src/main/resources/images/backgrounds/background.png"));
         Image img = new Image(is);
         ImageView imageView = new ImageView(img);
         imageView.setFitWidth(576);
@@ -33,6 +41,7 @@ public class UI {
 
         is.close();
     }
+
     public void createHeart() throws IOException {
         InputStream firstHeart = Files.newInputStream(Paths.get("src/main/resources/images/c.png"));
         InputStream secondHeart = Files.newInputStream(Paths.get("src/main/resources/images/c.png"));
@@ -84,5 +93,17 @@ public class UI {
         if (!heartOne.isVisible()) {
             sceneManager.gameOver();
         }
+    }
+
+    private void createCoinCounter() {
+        coinCounterText = new Text("0");
+        coinCounterText.setFont(Font.font(50));
+        coinCounterText.setTranslateY(-350);
+        stackPane.getChildren().addAll(coinCounterText);
+    }
+    public void updateCoinCounter() {
+        int currentCount = Integer.parseInt(coinCounterText.getText());
+        currentCount++;
+        coinCounterText.setText(String.valueOf(currentCount));
     }
 }

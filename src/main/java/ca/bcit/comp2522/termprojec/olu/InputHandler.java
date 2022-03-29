@@ -13,6 +13,7 @@ public class InputHandler {
     private final Scene scene;
     private final Player player;
     private final ItemSpawner itemSpawner;
+
     public InputHandler(Scene scene, Player player, ItemSpawner itemSpawner) {
         this.scene = scene;
         this.player = player;
@@ -24,24 +25,48 @@ public class InputHandler {
         scene.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
             switch (key.getCode()) {
                 // Change face direction
-                case A -> {
-                    player.moveLeft();
-                    this.itemSpawner.checkItemState(player); }
-                case D -> {
-                    player.moveRight();
-                    this.itemSpawner.checkItemState(player); }
-                case W -> {
-                    player.moveUp();
-                    this.itemSpawner.checkItemState(player); }
-                case S -> {
-                    player.moveDown();
-                    this.itemSpawner.checkItemState(player); }
-                // Move direction
-                case RIGHT -> System.out.println("You pressed right");
-                case LEFT -> System.out.println("You pressed left");
-                case DOWN -> System.out.println("You pressed down");
-                case UP -> System.out.println("You pressed up");
+                case A, LEFT -> moveLeft();
+                case D, RIGHT -> moveRight();
+                case W, UP -> moveUp();
+                case S, DOWN -> moveDown();
             }
         });
+    }
+
+    private void moveRight() {
+        player.moveRight();
+        try {
+            this.itemSpawner.checkItemState(player);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void moveLeft() {
+        player.moveLeft();
+        try {
+            this.itemSpawner.checkItemState(player);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void moveUp() {
+        player.moveUp();
+        try {
+            this.itemSpawner.checkItemState(player);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void moveDown() {
+        player.moveDown();
+        try {
+            this.itemSpawner.checkItemState(player);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }

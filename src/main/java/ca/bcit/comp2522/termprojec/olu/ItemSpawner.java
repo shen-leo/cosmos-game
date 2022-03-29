@@ -2,60 +2,57 @@ package ca.bcit.comp2522.termprojec.olu;
 
 import javafx.scene.layout.StackPane;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ItemSpawner {
 
-    private final Item item1;
+    private final Item coin;
     private final Item item2;
-//    private final Item item3;
-//    private final HashMap<String, Integer> initialPlayerCoord;
 
-    public ItemSpawner(final StackPane root) {
+    public ItemSpawner(final StackPane root, final UI ui) {
 
-        this.item1 = new Item(root);
+        this.coin = new Coin(root, ui);
         this.item2 = new Item(root);
-//        this.item3 = new Item(root);
-//        this.initialPlayerCoord = player.getCoordinates();
     }
 
-    public void spawnItems(Player player) throws IOException {
+    public void spawnItems(Player player) throws Exception {
 
         do {
-            item1.createItem();
-            item2.createItem();
-//            item3.createItem();
+
+            coin.createItem(2);
+            item2.createItem(1);
+
         }
-        while (!checkEqual(player));
+        while (checkEqual(player));
     }
 
     private boolean checkEqual(final Player player) {
 
         ArrayList<HashMap<String, Integer>> coordinateList = new ArrayList<>();
-        coordinateList.add(item1.getCoordinates());
+        coordinateList.add(coin.getCoordinates());
         coordinateList.add(item2.getCoordinates());
-//        coordinateList.add(item3.getCoordinates());
         coordinateList.add(player.getCoordinates());
 
         for (int i = 0; i < coordinateList.size(); i++) {
             for (int j = i + 1; j < coordinateList.size(); j++) {
                 if (coordinateList.get(i).equals(coordinateList.get(j))) {
-                    return false;
+                    return true;
                 }
             }
         }
-        return true;
+        return false;
     }
 
 
     public void checkItemState(final Player player) {
 
-        if (player.getCoordinates().equals(item1.getCoordinates())) {
-            item1.nullImage();
-            item1.consume();
-            System.out.println("Touch Item1");
+        if (player.getCoordinates().equals(coin.getCoordinates())) {
+            coin.collectable();
+            do {
+                coin.respawn();
+            }
+            while (checkEqual(player));
         }
 
         if (player.getCoordinates().equals(item2.getCoordinates())) {
