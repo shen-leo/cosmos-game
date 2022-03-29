@@ -8,12 +8,12 @@ import java.util.HashMap;
 public class ItemSpawner {
 
     private final Item coin;
-    private final Item item2;
+    private final Item heart;
 
     public ItemSpawner(final StackPane root, final UI ui) {
 
         this.coin = new Coin(root, ui);
-        this.item2 = new Item(root);
+        this.heart = new Heart(root, ui);
     }
 
     public void spawnItems(Player player) throws Exception {
@@ -21,7 +21,7 @@ public class ItemSpawner {
         do {
 
             coin.createItem(2);
-            item2.createItem(1);
+            heart.createItem(1);
 
         }
         while (checkEqual(player));
@@ -31,7 +31,7 @@ public class ItemSpawner {
 
         ArrayList<HashMap<String, Integer>> coordinateList = new ArrayList<>();
         coordinateList.add(coin.getCoordinates());
-        coordinateList.add(item2.getCoordinates());
+        coordinateList.add(heart.getCoordinates());
         coordinateList.add(player.getCoordinates());
 
         for (int i = 0; i < coordinateList.size(); i++) {
@@ -55,9 +55,10 @@ public class ItemSpawner {
             while (checkEqual(player));
         }
 
-        if (player.getCoordinates().equals(item2.getCoordinates())) {
-            item2.nullImage();
-            item2.consume();
+        if (player.getCoordinates().equals(heart.getCoordinates())) {
+            heart.collectable();
+            heart.nullImage();
+            heart.consume();
             System.out.println("Touch Item2");
         }
     }

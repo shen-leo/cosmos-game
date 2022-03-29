@@ -51,18 +51,24 @@ public class Player {
         if (clamp(x,-64)) {
             x = x - 64;
             imageView.setTranslateX(x);
+        } else {
+            ui.removeHeart();
         }
     }
     public void moveUp() {
         if (clamp(y,-64)) {
             y = y - 64;
             imageView.setTranslateY(y);
+        } else {
+            ui.removeHeart();
         }
     }
     public void moveDown() {
         if (clamp(y,64)) {
             y = y + 64;
             imageView.setTranslateY(y);
+        } else {
+            ui.removeHeart();
         }
     }
 

@@ -89,6 +89,13 @@ public class UI {
         }
         checkPlayerDead();
     }
+    public void addHeart() {
+        if (!heartTwo.isVisible()) {
+            heartTwo.setVisible(true);
+        } else if (!heartThree.isVisible()) {
+            heartThree.setVisible(true);
+        }
+    }
     private void checkPlayerDead() {
         if (!heartOne.isVisible()) {
             sceneManager.gameOver();
