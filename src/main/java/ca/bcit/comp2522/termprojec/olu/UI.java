@@ -117,14 +117,22 @@ public class UI {
     }
 
     private void createCountdown() {
-        countdown timer = new countdown();
+        Countdown timer = new Countdown();
         timer.startCountdown(this, 30);
         countdownText = new Text("30");
         countdownText.setFont(Font.font(50));
         countdownText.setTranslateY(-350);
         stackPane.getChildren().addAll(countdownText);
     }
-    public void updateCountdown(int time) {
+
+    public void updateCountdown(final int time) {
         countdownText.setText(String.valueOf(time));
+        if (time == 0) {
+            int currentCount = Integer.parseInt(coinCounterText.getText());
+            if (currentCount < 10) {
+                sceneManager.gameOver();
+                System.out.println("Time ended");
+            }
+        }
     }
 }
