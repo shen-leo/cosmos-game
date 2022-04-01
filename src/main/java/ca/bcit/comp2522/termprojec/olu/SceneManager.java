@@ -14,10 +14,12 @@ public class SceneManager {
     private final Scene gameOverScene;
     private Scene nextLevelScene;
     private final Stage stage;
-    public SceneManager(Stage stage) {
+    private final LevelManager levelManager;
+    public SceneManager(Stage stage, LevelManager levelManager) {
         this.stage = stage;
+        this.levelManager = levelManager;
         this.gameOverScene = createGameOverScene();
-        this.nextLevelScene = createNextLevelScene();
+        this.nextLevelScene = createNextLevelScene(levelManager.getLevel());
     }
     public Scene createGame() throws Exception {
         StackPane root = new StackPane();
@@ -25,7 +27,7 @@ public class SceneManager {
 
         Scene scene = new Scene(root);
 
-        SceneManager sceneManager = new SceneManager(stage);
+        SceneManager sceneManager = new SceneManager(stage, levelManager);
         UI ui = new UI(root, sceneManager);
         Player player = new Player(root, ui);
         ItemSpawner itemSpawner = new ItemSpawner(root, ui);
@@ -49,6 +51,7 @@ public class SceneManager {
         button.setTranslateY(50);
         EventHandler<ActionEvent> event = e -> {
             try {
+                levelManager.resetLevel(); // reset the game to level one
                 stage.setScene(createGame());
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -62,14 +65,14 @@ public class SceneManager {
         stage.setScene(gameOverScene);
     }
 
-    private Scene createNextLevelScene() {
+    private Scene createNextLevelScene(int level) {
         StackPane root = new StackPane();
         root.setPrefSize(1200, 800);
 
         Scene scene = new Scene(root);
         Text text = new Text("YOU WON!");
         text.setFont(Font.font(20));
-        Button button = new Button("Next Level");
+        Button button = new Button("Next Level: " + level);
         button.setTranslateY(60);
         EventHandler<ActionEvent> event = e -> {
             try {
@@ -84,7 +87,9 @@ public class SceneManager {
     }
 
     public void nextLevel() {
-        this.nextLevelScene = createNextLevelScene();
+        this.levelManager.nextLevel();
+        this.nextLevelScene = createNextLevelScene(levelManager.getLevel());
         stage.setScene(this.nextLevelScene);
+        System.out.println("Current Level: " + levelManager.getLevel());
     }
 }
