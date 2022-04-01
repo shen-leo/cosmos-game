@@ -129,7 +129,10 @@ public class UI {
         countdownText.setText(String.valueOf(time));
         if (time == 0) {
             int currentCount = Integer.parseInt(coinCounterText.getText());
-            if (currentCount < 10) {
+            if (currentCount >= 10) {
+                sceneManager.nextLevel();
+                System.out.println("Next Level Success");
+            } else {
                 sceneManager.gameOver();
                 System.out.println("Time ended");
             }

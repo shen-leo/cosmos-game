@@ -12,10 +12,12 @@ import javafx.stage.Stage;
 
 public class SceneManager {
     private final Scene gameOverScene;
+    private Scene nextLevelScene;
     private final Stage stage;
     public SceneManager(Stage stage) {
         this.stage = stage;
         this.gameOverScene = createGameOverScene();
+        this.nextLevelScene = createNextLevelScene();
     }
     public Scene createGame() throws Exception {
         StackPane root = new StackPane();
@@ -58,5 +60,31 @@ public class SceneManager {
     }
     public void gameOver() {
         stage.setScene(gameOverScene);
+    }
+
+    private Scene createNextLevelScene() {
+        StackPane root = new StackPane();
+        root.setPrefSize(1200, 800);
+
+        Scene scene = new Scene(root);
+        Text text = new Text("YOU WON!");
+        text.setFont(Font.font(20));
+        Button button = new Button("Next Level");
+        button.setTranslateY(60);
+        EventHandler<ActionEvent> event = e -> {
+            try {
+                stage.setScene(createGame());
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        };
+        button.setOnAction(event);
+        root.getChildren().addAll(text, button);
+        return scene;
+    }
+
+    public void nextLevel() {
+        this.nextLevelScene = createNextLevelScene();
+        stage.setScene(this.nextLevelScene);
     }
 }
