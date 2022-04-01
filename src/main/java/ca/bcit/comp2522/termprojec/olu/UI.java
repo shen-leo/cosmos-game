@@ -23,11 +23,13 @@ public class UI {
     private ImageView heartThree;
 
     private Text coinCounterText;
+    private Text countdownText;
 
     public UI(StackPane stackPane, SceneManager sceneManager) {
         this.stackPane = stackPane;
         this.sceneManager = sceneManager;
         createCoinCounter();
+        createCountdown();
     }
 
 
@@ -105,12 +107,24 @@ public class UI {
     private void createCoinCounter() {
         coinCounterText = new Text("0");
         coinCounterText.setFont(Font.font(50));
-        coinCounterText.setTranslateY(-350);
+        coinCounterText.setTranslateY(350);
         stackPane.getChildren().addAll(coinCounterText);
     }
     public void updateCoinCounter() {
         int currentCount = Integer.parseInt(coinCounterText.getText());
         currentCount++;
         coinCounterText.setText(String.valueOf(currentCount));
+    }
+
+    private void createCountdown() {
+        countdown timer = new countdown();
+        timer.startCountdown(this, 30);
+        countdownText = new Text("30");
+        countdownText.setFont(Font.font(50));
+        countdownText.setTranslateY(-350);
+        stackPane.getChildren().addAll(countdownText);
+    }
+    public void updateCountdown(int time) {
+        countdownText.setText(String.valueOf(time));
     }
 }

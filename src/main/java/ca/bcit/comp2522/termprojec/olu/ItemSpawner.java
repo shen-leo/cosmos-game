@@ -8,7 +8,7 @@ import java.util.HashMap;
 public class ItemSpawner {
 
     private final Item coin;
-    private final Item heart;
+    private Item heart;
 
     public ItemSpawner(final StackPane root, final UI ui) {
 
@@ -59,8 +59,7 @@ public class ItemSpawner {
             heart.collectable();
             heart.nullImage();
             heart.consume();
-            System.out.println("Touch Item2");
+            System.out.println("Touch Heart");
         }
     }
-
 }
