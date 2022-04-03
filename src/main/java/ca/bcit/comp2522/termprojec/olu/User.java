@@ -5,4 +5,11 @@ public class User {
     public String username;
     public String password;
 
+    public String getName() {
+        return this.name;
+    }
+
+    public String getUsername() {
+        return this.username;
+    }
 }
