@@ -127,6 +127,13 @@ public class Enemy {
 //    private void moveEnemyY(int newCoordinateY) {
 //
 //    }
+    public void moveEnemy() {
+        Random random = new Random();
+        int shouldMove = random.nextInt(11);
+        if (shouldMove < 9) {
+            startPathFind();
+        }
+    }
     public void startPathFind() {
         int[][] map = new int[9][9];
         double tempX = x/64;

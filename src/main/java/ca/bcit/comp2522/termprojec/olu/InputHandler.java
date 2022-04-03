@@ -37,7 +37,7 @@ public class InputHandler {
     }
 
     private void moveRight() {
-        enemy.startPathFind();
+        enemy.moveEnemy();
         player.moveRight();
         try {
             this.itemSpawner.checkItemState(player);
@@ -47,7 +47,7 @@ public class InputHandler {
     }
 
     private void moveLeft() {
-        enemy.startPathFind();
+        enemy.moveEnemy();
         player.moveLeft();
         try {
             this.itemSpawner.checkItemState(player);
@@ -57,7 +57,7 @@ public class InputHandler {
     }
 
     private void moveUp() {
-        enemy.startPathFind();
+        enemy.moveEnemy();
         player.moveUp();
         try {
             this.itemSpawner.checkItemState(player);
@@ -67,7 +67,7 @@ public class InputHandler {
     }
 
     private void moveDown() {
-        enemy.startPathFind();
+        enemy.moveEnemy();
         player.moveDown();
         try {
             this.itemSpawner.checkItemState(player);
