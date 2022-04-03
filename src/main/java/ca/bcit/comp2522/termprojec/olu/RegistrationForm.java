@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+//import java.sql.*;
 import java.sql.*;
 import java.util.Properties;
 
@@ -58,7 +59,7 @@ public class RegistrationForm extends JDialog {
 
         if (!password.equals(confirmPassword)) {
             JOptionPane.showMessageDialog(this,
-                    "Confirm Password does not match",
+                    "Passwords do not match",
                     "Try again",
                     JOptionPane.ERROR_MESSAGE);
             return;
@@ -76,8 +77,6 @@ public class RegistrationForm extends JDialog {
     private User addUserToDatabase(String name, String username, String password) {
         User user = null;
         final String DB_URL = "jdbc:mysql://localhost:3306/comp2522-game";
-//        final String USERNAME = "root";
-//        final String PASSWORD = "";
 
         final Properties connectionProperties = new Properties();
         connectionProperties.put("user", "root");
@@ -88,9 +87,8 @@ public class RegistrationForm extends JDialog {
             if (conn != null) {
                 System.out.println("Successfully connected to MySQL database test");
             }
-//            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            // Connected to database successfully...
 
+            // Connected to database successfully...
             assert conn != null;
             Statement stmt = conn.createStatement();
             String sql = "INSERT INTO users (name, username, password) " + "VALUES (?, ?, ?)";
@@ -111,9 +109,13 @@ public class RegistrationForm extends JDialog {
             stmt.close();
             conn.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            if (e instanceof SQLIntegrityConstraintViolationException) {
+                JOptionPane.showMessageDialog(this, "Username is already in use",
+                        "Try Again", JOptionPane.ERROR_MESSAGE);
+            } else {
+                e.printStackTrace();
+            }
         }
-
         return user;
     }
 
@@ -124,7 +126,7 @@ public class RegistrationForm extends JDialog {
         if (user != null) {
             System.out.println("Successful registration of: " + user.name);
         } else {
-            System.out.println("Registration canceled");
+            System.out.println("Registration cancelled");
         }
     }
 }
