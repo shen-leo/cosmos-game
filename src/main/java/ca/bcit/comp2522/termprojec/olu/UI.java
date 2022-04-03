@@ -118,8 +118,8 @@ public class UI {
 
     private void createCountdown() {
         Countdown timer = new Countdown();
-        timer.startCountdown(this, 30);
-        countdownText = new Text("30");
+        timer.startCountdown(this, 60);
+        countdownText = new Text("60");
         countdownText.setFont(Font.font(50));
         countdownText.setTranslateY(-350);
         stackPane.getChildren().addAll(countdownText);

@@ -8,7 +8,7 @@ import java.util.HashMap;
 public class ItemSpawner {
 
     private final Item coin;
-    private Item heart;
+    private final Item heart;
 
     public ItemSpawner(final StackPane root, final UI ui) {
 
@@ -29,7 +29,7 @@ public class ItemSpawner {
 
     private boolean checkEqual(final Player player) {
 
-        ArrayList<HashMap<String, Integer>> coordinateList = new ArrayList<>();
+        ArrayList<HashMap<String, Double>> coordinateList = new ArrayList<>();
         coordinateList.add(coin.getCoordinates());
         coordinateList.add(heart.getCoordinates());
         coordinateList.add(player.getCoordinates());

@@ -81,7 +81,7 @@ public class RegistrationForm extends JDialog {
 
         final Properties connectionProperties = new Properties();
         connectionProperties.put("user", "root");
-        connectionProperties.put("password", "");
+        connectionProperties.put("password", "Krishna");
 
         try {
             Connection conn = DriverManager.getConnection(DB_URL, connectionProperties);

@@ -13,8 +13,8 @@ import java.util.HashMap;
 public class Item {
     private final StackPane pane;
     private ImageView imageView;
-    private int x = 0;
-    private int y = 0;
+    private double x = 0;
+    private double y = 0;
 
     public Item(StackPane pane) {
         this.pane = pane;
@@ -43,7 +43,6 @@ public class Item {
 
         imageView.setTranslateX(x);
         imageView.setTranslateY(y);
-        System.out.println(y);
         pane.getChildren().addAll(imageView);
     }
 
@@ -58,8 +57,8 @@ public class Item {
     }
 
     // returns the coordinates of the current item instance
-    public HashMap<String, Integer> getCoordinates() {
-        HashMap<String, Integer> coordinates = new HashMap<>();
+    public HashMap<String, Double> getCoordinates() {
+        HashMap<String, Double> coordinates = new HashMap<>();
         coordinates.put("x", this.x);
         coordinates.put("y", this.y);
         return coordinates;
