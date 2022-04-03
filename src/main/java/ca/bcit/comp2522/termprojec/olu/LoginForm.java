@@ -55,8 +55,8 @@ public class LoginForm extends JDialog {
         final String DB_URL = "jdbc:mysql://localhost:3306/comp2522-game";
 
         final Properties connectionProperties = new Properties();
-        connectionProperties.put("user", "root");
-        connectionProperties.put("password", "");
+        connectionProperties.put("user", "root"); // change to local MySQL username
+        connectionProperties.put("password", ""); // change to local MySQL password
 
         try {
             Connection conn = DriverManager.getConnection(DB_URL, connectionProperties);
@@ -76,9 +76,12 @@ public class LoginForm extends JDialog {
 
             if (resultSet.next()) {
                 user = new User();
-                user.name = resultSet.getString("name");
-                user.username = resultSet.getString("username");
-                user.password = resultSet.getString("password");
+//                user.name = resultSet.getString("name");
+//                user.username = resultSet.getString("username");
+//                user.password = resultSet.getString("password");
+                user.setName(resultSet.getString("name"));
+                user.setUsername(resultSet.getString("username"));
+                user.setPassword(resultSet.getString("password"));
             }
 
             stmt.close();
@@ -95,8 +98,8 @@ public class LoginForm extends JDialog {
         User user = loginForm.user;
 
         if (user != null) {
-            System.out.println("Successful Authentication of: " + user.name);
-            System.out.println("          Username: " + user.username);
+            System.out.println("Successful Authentication of: " + user.getName());
+            System.out.println("          Username: " + user.getUsername());
         }
         else {
             System.out.println("Authentication cancelled");

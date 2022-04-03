@@ -84,8 +84,8 @@ public class RegistrationForm extends JDialog {
         final String DB_URL = "jdbc:mysql://localhost:3306/comp2522-game";
 
         final Properties connectionProperties = new Properties();
-        connectionProperties.put("user", "root");
-        connectionProperties.put("password", "");
+        connectionProperties.put("user", "root"); // change to local MySQL username
+        connectionProperties.put("password", ""); // change to local MySQL password
 
         try {
             Connection conn = DriverManager.getConnection(DB_URL, connectionProperties);
@@ -106,9 +106,9 @@ public class RegistrationForm extends JDialog {
             int addedRows = preparedStatement.executeUpdate();
             if (addedRows > 0) {
                 user = new User();
-                user.name = name;
-                user.username = username;
-                user.password = password;
+                user.setName(name);
+                user.setUsername(username);
+                user.setPassword(password);
             }
 
             stmt.close();
@@ -129,7 +129,7 @@ public class RegistrationForm extends JDialog {
         RegistrationForm myForm = new RegistrationForm(null);
         User user = myForm.user;
         if (user != null) {
-            System.out.println("Successful registration of: " + user.name);
+            System.out.println("Successful registration of: " + user.getUsername());
         } else {
             System.out.println("Registration cancelled");
         }
