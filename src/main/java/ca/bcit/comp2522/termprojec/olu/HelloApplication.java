@@ -6,7 +6,7 @@ import javafx.stage.Stage;
 import java.util.Random;
 
 public class HelloApplication extends Application {
-    private static final User user = null;
+    private User user;
     private static final LevelManager levelManager = LevelManager.initLevel();
     private static final Random random = new Random();
     private static int nextPowerOf2(int n) {
@@ -33,7 +33,7 @@ public class HelloApplication extends Application {
     @Override
     public void start(final Stage stage) throws Exception {
         // Create a new scene manager
-        SceneManager sceneManager = new SceneManager(stage, levelManager);
+        SceneManager sceneManager = new SceneManager(stage, levelManager, user);
 
         // set name of the game
         stage.setTitle("Cosmos");

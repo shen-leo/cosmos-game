@@ -76,9 +76,6 @@ public class LoginForm extends JDialog {
 
             if (resultSet.next()) {
                 user = new User();
-//                user.name = resultSet.getString("name");
-//                user.username = resultSet.getString("username");
-//                user.password = resultSet.getString("password");
                 user.setName(resultSet.getString("name"));
                 user.setUsername(resultSet.getString("username"));
                 user.setPassword(resultSet.getString("password"));
@@ -92,6 +89,8 @@ public class LoginForm extends JDialog {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        setVisible(false);
+        dispose();
         return user;
     }
 
@@ -99,7 +98,7 @@ public class LoginForm extends JDialog {
         return this.user;
     }
 
-    public static void main(String[] args) {
+    public static User loginUser() {
         LoginForm loginForm = new LoginForm(null);
         User user = loginForm.user;
 
@@ -109,6 +108,8 @@ public class LoginForm extends JDialog {
         } else {
             System.out.println("Authentication cancelled");
         }
+
+        return user;
     }
 }
 

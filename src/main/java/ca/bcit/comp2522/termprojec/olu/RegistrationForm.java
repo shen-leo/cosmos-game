@@ -129,10 +129,13 @@ public class RegistrationForm extends JDialog {
                 e.printStackTrace();
             }
         }
+
+        setVisible(false);
+        dispose();
         return user;
     }
 
-    public static void main(final String[] args) {
+    public static User getRegisterUser() {
 
         RegistrationForm myForm = new RegistrationForm(null);
         User user = myForm.user;
@@ -141,5 +144,7 @@ public class RegistrationForm extends JDialog {
         } else {
             System.out.println("Registration cancelled");
         }
+
+        return user;
     }
 }

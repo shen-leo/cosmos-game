@@ -15,8 +15,10 @@ public class SceneManager {
     private Scene nextLevelScene;
     private final Stage stage;
     private final LevelManager levelManager;
-    public SceneManager(Stage stage, LevelManager levelManager) {
+    private User user;
+    public SceneManager(Stage stage, LevelManager levelManager, User user) {
         this.stage = stage;
+        this.user = user;
         this.levelManager = levelManager;
         this.gameOverScene = createGameOverScene();
         this.nextLevelScene = createNextLevelScene(levelManager.getLevel());
@@ -30,12 +32,9 @@ public class SceneManager {
         Text text = new Text("Cosmos");
         text.setTranslateY(-50);
         text.setFont(Font.font(60));
+
         Button playButton = new Button("Play");
         playButton.setTranslateY(50);
-        Button loginButton = new Button("Login");
-        loginButton.setTranslateY(120);
-        Button registerButton = new Button("Register");
-        registerButton.setTranslateY(180);
         EventHandler<ActionEvent> event = e -> {
             try {
                 levelManager.resetLevel(); // reset the game to level one
@@ -45,6 +44,29 @@ public class SceneManager {
             }
         };
         playButton.setOnAction(event);
+
+        Button loginButton = new Button("Login");
+        loginButton.setTranslateY(120);
+        EventHandler<ActionEvent> loginEvent = e -> {
+            try {
+                this.user = LoginForm.loginUser();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        };
+        loginButton.setOnAction(loginEvent);
+
+        Button registerButton = new Button("Register");
+        registerButton.setTranslateY(180);
+        EventHandler<ActionEvent> registerEvent = e -> {
+            try {
+                this.user = RegistrationForm.getRegisterUser();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        };
+        registerButton.setOnAction(registerEvent);
+
         root.getChildren().addAll(text, playButton, loginButton, registerButton);
         return scene;
     }
@@ -55,7 +77,7 @@ public class SceneManager {
 
         Scene scene = new Scene(root);
 
-        SceneManager sceneManager = new SceneManager(stage, levelManager);
+        SceneManager sceneManager = new SceneManager(stage, levelManager, user);
         UI ui = new UI(root, sceneManager);
         Player player = new Player(root, ui);
         ItemSpawner itemSpawner = new ItemSpawner(root, ui);
