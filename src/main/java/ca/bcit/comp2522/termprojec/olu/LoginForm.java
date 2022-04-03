@@ -82,6 +82,8 @@ public class LoginForm extends JDialog {
                 user.setName(resultSet.getString("name"));
                 user.setUsername(resultSet.getString("username"));
                 user.setPassword(resultSet.getString("password"));
+                user.setDeaths(resultSet.getInt("totalDeaths"));
+                user.setSouls(resultSet.getInt("totalSouls"));
             }
 
             stmt.close();
@@ -100,8 +102,7 @@ public class LoginForm extends JDialog {
         if (user != null) {
             System.out.println("Successful Authentication of: " + user.getName());
             System.out.println("          Username: " + user.getUsername());
-        }
-        else {
+        } else {
             System.out.println("Authentication cancelled");
         }
     }

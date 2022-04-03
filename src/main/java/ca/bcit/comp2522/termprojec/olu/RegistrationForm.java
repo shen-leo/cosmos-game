@@ -81,6 +81,8 @@ public class RegistrationForm extends JDialog {
 
     private User addUserToDatabase(String name, String username, String password) {
         User user = null;
+        int totalDeaths = 0;
+        int totalSouls = 0;
         final String DB_URL = "jdbc:mysql://localhost:3306/comp2522-game";
 
         final Properties connectionProperties = new Properties();
@@ -96,11 +98,15 @@ public class RegistrationForm extends JDialog {
             // Connected to database successfully...
             assert conn != null;
             Statement stmt = conn.createStatement();
-            String sql = "INSERT INTO users (name, username, password) " + "VALUES (?, ?, ?)";
+            String sql = "INSERT INTO users (name, username, password, totalDeaths, totalSouls) "
+                    + "VALUES (?, ?, ?, ? , ?)";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, username);
             preparedStatement.setString(3, password);
+            preparedStatement.setInt(4, totalDeaths);
+            preparedStatement.setInt(5, totalSouls);
+
 
             //Insert row into the table
             int addedRows = preparedStatement.executeUpdate();
@@ -109,6 +115,8 @@ public class RegistrationForm extends JDialog {
                 user.setName(name);
                 user.setUsername(username);
                 user.setPassword(password);
+                user.setDeaths(totalDeaths);
+                user.setSouls(totalSouls);
             }
 
             stmt.close();

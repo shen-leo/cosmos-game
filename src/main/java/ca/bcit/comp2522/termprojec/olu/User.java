@@ -5,6 +5,9 @@ public class User {
     private String username;
     private String password;
 
+    private int totalDeaths;
+    private int totalSouls;
+
     public String getName() {
         return this.name;
     }
@@ -13,15 +16,32 @@ public class User {
         return this.username;
     }
 
-    public void setName(String name) {
+    public int getDeaths() {
+        return this.totalDeaths;
+    }
+
+    public int getSouls() {
+        return this.totalSouls;
+    }
+
+    public void setName(final String name) {
         this.name = name;
     }
 
-    public void setUsername(String username) {
+    public void setUsername(final String username) {
         this.username = username;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(final String password) {
         this.password = password;
     }
+
+    public void setDeaths(final int deaths) {
+        this.totalDeaths = deaths;
+    }
+
+    public void setSouls(final int souls) {
+        this.totalSouls = souls;
+    }
+
 }
