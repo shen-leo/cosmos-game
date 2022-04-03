@@ -12,11 +12,14 @@ import javafx.scene.input.KeyEvent;
 public class InputHandler {
     private final Scene scene;
     private final Player player;
+    private final Enemy enemy;
     private final ItemSpawner itemSpawner;
 
-    public InputHandler(Scene scene, Player player, ItemSpawner itemSpawner) {
+    public InputHandler(Scene scene, Player player, Enemy enemy,
+                        ItemSpawner itemSpawner) {
         this.scene = scene;
         this.player = player;
+        this.enemy = enemy;
         this.itemSpawner = itemSpawner;
         readInput();
     }
@@ -34,6 +37,7 @@ public class InputHandler {
     }
 
     private void moveRight() {
+        enemy.startPathFind();
         player.moveRight();
         try {
             this.itemSpawner.checkItemState(player);
@@ -43,6 +47,7 @@ public class InputHandler {
     }
 
     private void moveLeft() {
+        enemy.startPathFind();
         player.moveLeft();
         try {
             this.itemSpawner.checkItemState(player);
@@ -52,6 +57,7 @@ public class InputHandler {
     }
 
     private void moveUp() {
+        enemy.startPathFind();
         player.moveUp();
         try {
             this.itemSpawner.checkItemState(player);
@@ -61,6 +67,7 @@ public class InputHandler {
     }
 
     private void moveDown() {
+        enemy.startPathFind();
         player.moveDown();
         try {
             this.itemSpawner.checkItemState(player);
