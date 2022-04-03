@@ -28,6 +28,8 @@ CREATE TABLE `users` (
                          `username` varchar(255) NOT NULL,
                          `name` varchar(255) NOT NULL,
                          `password` varchar(255) NOT NULL,
+                         `totalDeaths` int NOT NULL,
+                         `totalSouls` int NOT NULL,
                          PRIMARY KEY (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -38,7 +40,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('test','test account', 'test1234');
+INSERT INTO `users` VALUES ('test','test account', 'test1234', 0, 0);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

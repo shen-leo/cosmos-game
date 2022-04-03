@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.util.Random;
 
 public class HelloApplication extends Application {
+    private static final User user = null;
     private static final LevelManager levelManager = LevelManager.initLevel();
     private static final Random random = new Random();
     private static final int PIXEL_COUNT = 64;
@@ -57,7 +58,8 @@ public class HelloApplication extends Application {
         // ensure user cannot resize
         stage.setResizable(false);
         // make scene-manager generate a new level
-        stage.setScene(sceneManager.createGame());
+//        stage.setScene(sceneManager.createGame());
+        stage.setScene(sceneManager.createTitleScene());
         // show the game on screen
         stage.show();
     }

@@ -21,6 +21,34 @@ public class SceneManager {
         this.gameOverScene = createGameOverScene();
         this.nextLevelScene = createNextLevelScene(levelManager.getLevel());
     }
+
+    public Scene createTitleScene() {
+        StackPane root = new StackPane();
+        root.setPrefSize(1200, 800);
+
+        Scene scene = new Scene(root);
+        Text text = new Text("Cosmos");
+        text.setTranslateY(-50);
+        text.setFont(Font.font(60));
+        Button playButton = new Button("Play");
+        playButton.setTranslateY(50);
+        Button loginButton = new Button("Login");
+        loginButton.setTranslateY(120);
+        Button registerButton = new Button("Register");
+        registerButton.setTranslateY(180);
+        EventHandler<ActionEvent> event = e -> {
+            try {
+                levelManager.resetLevel(); // reset the game to level one
+                stage.setScene(createGame());
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        };
+        playButton.setOnAction(event);
+        root.getChildren().addAll(text, playButton, loginButton, registerButton);
+        return scene;
+    }
+
     public Scene createGame() throws Exception {
         StackPane root = new StackPane();
         root.setPrefSize(1200, 800);
