@@ -50,6 +50,7 @@ public class SceneManager {
         EventHandler<ActionEvent> loginEvent = e -> {
             try {
                 this.user = LoginForm.loginUser();
+                HelloApplication.setUser(user);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -61,6 +62,7 @@ public class SceneManager {
         EventHandler<ActionEvent> registerEvent = e -> {
             try {
                 this.user = RegistrationForm.getRegisterUser();
+                HelloApplication.setUser(user);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
