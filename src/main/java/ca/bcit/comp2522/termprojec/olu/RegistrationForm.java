@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.util.Properties;
 
 public class RegistrationForm extends JDialog {
     private JTextField tfName;
@@ -78,13 +79,22 @@ public class RegistrationForm extends JDialog {
     private User addUserToDatabase(String name, String username, String password) {
         User user = null;
         final String DB_URL = "jdbc:mysql://localhost:3306/comp2522-game";
-        final String USERNAME = "root";
-        final String PASSWORD = "";
+//        final String USERNAME = "root";
+//        final String PASSWORD = "";
+
+        final Properties connectionProperties = new Properties();
+        connectionProperties.put("user", "root");
+        connectionProperties.put("password", "");
 
         try {
-            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            Connection conn = DriverManager.getConnection(DB_URL, connectionProperties);
+            if (conn != null) {
+                System.out.println("Successfully connected to MySQL database test");
+            }
+//            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
             // Connected to database successfully...
 
+            assert conn != null;
             Statement stmt = conn.createStatement();
             String sql = "INSERT INTO users (name, username, password) " + "VALUES (?, ?, ?)";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
@@ -111,6 +121,7 @@ public class RegistrationForm extends JDialog {
     }
 
     public static void main(final String[] args) {
+
         RegistrationForm myForm = new RegistrationForm(null);
         User user = myForm.user;
         if (user != null) {
