@@ -95,6 +95,10 @@ public class LoginForm extends JDialog {
         return user;
     }
 
+    public User getUser() {
+        return this.user;
+    }
+
     public static void main(String[] args) {
         LoginForm loginForm = new LoginForm(null);
         User user = loginForm.user;
