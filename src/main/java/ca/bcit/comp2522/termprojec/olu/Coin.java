@@ -19,4 +19,8 @@ public class Coin extends Item implements Collectable{
         super.setX(HelloApplication.generateRandomCoordinate());
         super.setY(HelloApplication.generateRandomCoordinate());
     }
+    @Override
+    public String getType() {
+        return "Coin";
+    }
 }

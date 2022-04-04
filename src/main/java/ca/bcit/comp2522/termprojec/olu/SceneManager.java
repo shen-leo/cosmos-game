@@ -82,7 +82,7 @@ public class SceneManager {
         SceneManager sceneManager = new SceneManager(stage, levelManager, user);
         UI ui = new UI(root, sceneManager);
         Player player = new Player(root, ui);
-        Enemy enemy = new Enemy(player, root);
+        Enemy enemy = new Enemy(player, root, ui);
         ItemSpawner itemSpawner = new ItemSpawner(root, ui);
         InputHandler inputHandler = new InputHandler(scene, player, enemy, itemSpawner);
 

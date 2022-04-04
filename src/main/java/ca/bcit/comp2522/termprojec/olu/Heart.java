@@ -14,5 +14,8 @@ public class Heart extends Item implements Collectable {
     public void collectable() {
         ui.addHeart();
     }
-
+    @Override
+    public String getType() {
+        return "Heart";
+    }
 }

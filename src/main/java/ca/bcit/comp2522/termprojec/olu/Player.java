@@ -15,6 +15,7 @@ public class Player {
     private final UI ui;
     private double x;
     private double y;
+    public boolean playerHasSword = false;
     public Player(StackPane pane, UI ui) {
         this.pane = pane;
         this.ui = ui;
@@ -35,8 +36,6 @@ public class Player {
         if (clamp(x,64)) {
             x = x + 64;
             imageView.setTranslateX(x);
-            System.out.println("X " + x/64);
-            System.out.println("Y " + y/64);
         } else {
             ui.removeHeart();
         }
@@ -45,8 +44,6 @@ public class Player {
         if (clamp(x,-64)) {
             x = x - 64;
             imageView.setTranslateX(x);
-            System.out.println("X " + x/64);
-            System.out.println("Y " + y/64);
         } else {
             ui.removeHeart();
         }
@@ -55,8 +52,6 @@ public class Player {
         if (clamp(y,-64)) {
             y = y - 64;
             imageView.setTranslateY(y);
-            System.out.println("X " + x/64);
-            System.out.println("Y " + y/64);
         } else {
             ui.removeHeart();
         }
@@ -65,8 +60,6 @@ public class Player {
         if (clamp(y,64)) {
             y = y + 64;
             imageView.setTranslateY(y);
-            System.out.println("X " + x/64);
-            System.out.println("Y " + y/64);
         } else {
             ui.removeHeart();
         }
@@ -83,4 +76,6 @@ public class Player {
         coordinates.put("y", this.y);
         return coordinates;
     }
+    @Override
+    public String toString() { return String.format("(%f, %f)", x, y); }
 }

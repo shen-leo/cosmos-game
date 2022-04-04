@@ -22,12 +22,13 @@ public class Item {
 
 
     // creates the visual representation of the item instance
-    public void createItem(int itemName) throws Exception {
+    public void createItem(int itemID) throws Exception {
         InputStream is = null;
 
-        switch (itemName) {
+        switch (itemID) {
             case 1 -> is = Files.newInputStream(Paths.get("src/main/resources/images/items/heart_icon.png"));
             case 2 -> is = Files.newInputStream(Paths.get("src/main/resources/images/items/coin.png"));
+            case 3 -> is = Files.newInputStream(Paths.get("src/main/resources/images/items/sword.png"));
         }
 
         x = HelloApplication.generateRandomCoordinate();
@@ -79,5 +80,11 @@ public class Item {
     }
 
     public void respawn() {
+    }
+    @Override
+    public String toString() { return String.format("(%f, %f)", x, y); }
+
+    public String getType() {
+        return "";
     }
 }

@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
 
 public class UI {
 
@@ -21,6 +22,7 @@ public class UI {
     private ImageView heartOne;
     private ImageView heartTwo;
     private ImageView heartThree;
+    private ImageView sword;
 
     private Text coinCounterText;
     private Text countdownText;
@@ -136,6 +138,28 @@ public class UI {
                 sceneManager.gameOver();
                 System.out.println("Time ended");
             }
+        }
+    }
+    public void addSword() {
+        try {
+            InputStream is = Files.newInputStream(Paths.get("src/main/resources/images/items/sword.png"));
+            Image img = new Image(is);
+            sword = new ImageView(img);
+            sword.setFitWidth(64);
+            sword.setFitHeight(64);
+            sword.setTranslateX(456);
+            sword.setTranslateY(-350);
+            stackPane.getChildren().addAll(sword);
+
+            is.close();
+        } catch (Exception e) {
+            System.out.println(Arrays.toString(e.getStackTrace()));
+        }
+
+    }
+    public void removeSword() {
+        if (sword.isVisible()) {
+            stackPane.getChildren().remove(sword);
         }
     }
 }

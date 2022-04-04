@@ -41,6 +41,7 @@ public class InputHandler {
         player.moveRight();
         try {
             this.itemSpawner.checkItemState(player);
+            enemy.checkEnemyState(player);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -51,6 +52,7 @@ public class InputHandler {
         player.moveLeft();
         try {
             this.itemSpawner.checkItemState(player);
+            enemy.checkEnemyState(player);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -61,6 +63,7 @@ public class InputHandler {
         player.moveUp();
         try {
             this.itemSpawner.checkItemState(player);
+            enemy.checkEnemyState(player);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -71,6 +74,7 @@ public class InputHandler {
         player.moveDown();
         try {
             this.itemSpawner.checkItemState(player);
+            enemy.checkEnemyState(player);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -17,13 +17,14 @@ public class Enemy {
     private final Player player;
     private final StackPane pane;
     private ImageView imageView;
+    private final UI ui;
     private double x;
     private double y;
 
-    public Enemy(Player player, StackPane pane) {
+    public Enemy(Player player, StackPane pane, UI ui) {
         this.player = player;
         this.pane = pane;
-
+        this.ui = ui;
     }
     public void displayEnemy() throws IOException {
         InputStream is = Files.newInputStream(Paths.get("src/main/resources/images/enemy.png"));
@@ -51,12 +52,20 @@ public class Enemy {
 
         @Override
         public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
             Point point = (Point) o;
             return x == point.x && y == point.y;
         }
 
         @Override
-        public int hashCode() { return Objects.hash(x, y); }
+        public int hashCode() {
+            return Objects.hash(x, y, previous);
+        }
 
         public Point offset(int ox, int oy) { return new Point(x + ox, y + oy, this);  }
     }
@@ -114,19 +123,7 @@ public class Enemy {
         }
         return path;
     }
-//    private void moveEnemyX(int newCoordinateX) {
-//        Random random = new Random();
-//        int choice = random.nextInt(5);
-//        switch (choice) {
-//            case 1, 2 -> {
-//                imageView.setTranslateX(newCoordinateX);
-//
-//            }
-//        }
-//    }
-//    private void moveEnemyY(int newCoordinateY) {
-//
-//    }
+
     public void moveEnemy() {
         Random random = new Random();
         int shouldMove = random.nextInt(11);
@@ -185,6 +182,24 @@ public class Enemy {
             System.out.println("No path found");
         x = imageView.getTranslateX();
         y = imageView.getTranslateY();
+    }
+    @Override
+    public String toString() { return String.format("(%f, %f)", x, y); }
+    public void checkEnemyState(final Player player) {
+
+        if (player.toString().equals(toString())) {
+            if (!player.playerHasSword) {
+                ui.removeHeart();
+                System.out.println("Player hit");
+            } else {
+                player.playerHasSword = false;
+                ui.removeSword();
+            }
+            x = HelloApplication.generateRandomCoordinate();
+            y = HelloApplication.generateRandomCoordinate();
+            imageView.setTranslateX(x);
+            imageView.setTranslateY(y);
+        }
     }
 }
 // https://gamedev.stackexchange.com/questions/197165/java-simple-2d-grid-pathfinding
