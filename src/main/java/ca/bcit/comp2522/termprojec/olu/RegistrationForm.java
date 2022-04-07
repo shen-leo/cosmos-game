@@ -79,11 +79,13 @@ public class RegistrationForm extends JDialog {
         }
     }
 
-    private User addUserToDatabase(String name, String username, String password) {
+    private User addUserToDatabase(final String name, final String username, final String inputPassword) {
         User user = null;
         int totalDeaths = 0;
         int totalSouls = 0;
         final String DB_URL = "jdbc:mysql://localhost:3306/comp2522-game";
+
+        String password = PasswordHash.hash(inputPassword);
 
         final Properties connectionProperties = new Properties();
         connectionProperties.put("user", "root"); // change to local MySQL username

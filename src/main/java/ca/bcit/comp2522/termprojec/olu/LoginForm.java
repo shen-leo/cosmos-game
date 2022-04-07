@@ -49,8 +49,10 @@ public class LoginForm extends JDialog {
         setVisible(true);
     }
 
-    private User getAuthenticatedUser(String username, String password) {
+    private User getAuthenticatedUser(String username, String inputPassword) {
         User user = null;
+
+        String password = PasswordHash.hash(inputPassword);
 
         final String DB_URL = "jdbc:mysql://localhost:3306/comp2522-game";
 
