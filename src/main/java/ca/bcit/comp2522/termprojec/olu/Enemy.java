@@ -35,6 +35,8 @@ public class Enemy {
         y = imageView.getTranslateY();
         pane.getChildren().addAll(imageView);
     }
+    public void hideEnemy() {
+    }
     public static class Point {
         public double x;
         public double y;
@@ -188,6 +190,7 @@ public class Enemy {
                 player.playerHasSword = false;
                 ui.removeSword();
             }
+            this.imageView.setVisible(false);
             return new Enemy(player, pane, ui);
         }
         return null;

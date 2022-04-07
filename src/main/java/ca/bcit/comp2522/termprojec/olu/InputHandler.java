@@ -3,6 +3,7 @@ package ca.bcit.comp2522.termprojec.olu;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 
+import java.io.IOException;
 import java.util.Random;
 
 /**
@@ -28,7 +29,11 @@ public class InputHandler {
 
     private void readInput() {
         scene.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
-            moveEnemy();
+            try {
+                moveEnemy();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             switch (key.getCode()) {
                 // Change face direction
                 case A, LEFT -> moveLeft();
@@ -38,7 +43,7 @@ public class InputHandler {
             }
         });
     }
-    private void moveEnemy() {
+    private void moveEnemy() throws IOException {
         Random random = new Random();
         Enemy tempEnemy;
         int shouldMove = random.nextInt(11);
@@ -46,9 +51,12 @@ public class InputHandler {
             enemy.startPathFind();
         }
         tempEnemy = enemy.checkEnemyState(player);
+
         if (tempEnemy != null) {
             this.enemy = tempEnemy;
+            this.enemy.displayEnemy();
         }
+
     }
     private void moveRight() {
         player.moveRight();

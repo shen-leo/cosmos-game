@@ -16,11 +16,10 @@ public class ItemSpawner {
     }
 
     public void spawnItems(Player player) throws Exception {
-        initialSpawn();
-        while (!checkEqual(player)) {
+        do {
             removeSprites();
             initialSpawn();
-        }
+        } while (!checkEqual(player));
     }
     private void removeSprites() {
         for (Item item : items) {
