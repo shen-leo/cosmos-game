@@ -72,8 +72,8 @@ public class Item {
 
     // removes the item from the playable board
     public void consume() {
-        this.x = -1;
-        this.y = -1;
+        this.x = -1000;
+        this.y = -1000;
     }
 
     public void collectable() {

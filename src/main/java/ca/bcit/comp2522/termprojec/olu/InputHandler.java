@@ -14,7 +14,7 @@ import java.util.Random;
 public class InputHandler {
     private final Scene scene;
     private final Player player;
-    private final Enemy enemy;
+    private Enemy enemy;
     private final ItemSpawner itemSpawner;
 
     public InputHandler(Scene scene, Player player, Enemy enemy,
@@ -40,18 +40,20 @@ public class InputHandler {
     }
     private void moveEnemy() {
         Random random = new Random();
+        Enemy tempEnemy;
         int shouldMove = random.nextInt(11);
         if (shouldMove < 9) {
             enemy.startPathFind();
-            enemy.checkEnemyState(player);
         }
-//        enemy.moveEnemy();
+        tempEnemy = enemy.checkEnemyState(player);
+        if (tempEnemy != null) {
+            this.enemy = tempEnemy;
+        }
     }
     private void moveRight() {
         player.moveRight();
         try {
             this.itemSpawner.checkItemState(player);
-            enemy.checkEnemyState(player);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -61,7 +63,6 @@ public class InputHandler {
         player.moveLeft();
         try {
             this.itemSpawner.checkItemState(player);
-            enemy.checkEnemyState(player);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -71,7 +72,6 @@ public class InputHandler {
         player.moveUp();
         try {
             this.itemSpawner.checkItemState(player);
-            enemy.checkEnemyState(player);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -81,7 +81,6 @@ public class InputHandler {
         player.moveDown();
         try {
             this.itemSpawner.checkItemState(player);
-            enemy.checkEnemyState(player);
         } catch (Exception e) {
             e.printStackTrace();
         }

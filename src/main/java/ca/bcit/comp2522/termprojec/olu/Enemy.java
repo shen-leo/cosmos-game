@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.Random;
 
 public class Enemy {
     private final Player player;
@@ -124,9 +123,6 @@ public class Enemy {
         return path;
     }
 
-    public void moveEnemy() {
-        startPathFind();
-    }
     public void startPathFind() {
         int[][] map = new int[9][9];
         double tempX = x/64;
@@ -174,14 +170,15 @@ public class Enemy {
             }
 
         }
-        else
+        else {
             System.out.println("No path found");
-        x = imageView.getTranslateX();
-        y = imageView.getTranslateY();
+        }
+        this.x = imageView.getTranslateX();
+        this.y = imageView.getTranslateY();
     }
     @Override
-    public String toString() { return String.format("(%f, %f)", x, y); }
-    public void checkEnemyState(final Player player) {
+    public String toString() { return String.format("(%f, %f)", this.x, this.y); }
+    public Enemy checkEnemyState(final Player player) {
 
         if (player.toString().equals(toString())) {
             if (!player.playerHasSword) {
@@ -191,11 +188,9 @@ public class Enemy {
                 player.playerHasSword = false;
                 ui.removeSword();
             }
-            x = HelloApplication.generateRandomCoordinate();
-            y = HelloApplication.generateRandomCoordinate();
-            imageView.setTranslateX(x);
-            imageView.setTranslateY(y);
+            return new Enemy(player, pane, ui);
         }
+        return null;
     }
 }
 // https://gamedev.stackexchange.com/questions/197165/java-simple-2d-grid-pathfinding

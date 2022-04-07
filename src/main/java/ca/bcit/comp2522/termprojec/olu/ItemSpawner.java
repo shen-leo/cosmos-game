@@ -3,29 +3,43 @@ package ca.bcit.comp2522.termprojec.olu;
 import javafx.scene.layout.StackPane;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class ItemSpawner {
 
     private final ArrayList<Item> items = new ArrayList<>();
-
+    private final StackPane root;
+    private final UI ui;
     public ItemSpawner(final StackPane root, final UI ui) {
+        this.root = root;
+        this.ui = ui;
+    }
 
+    public void spawnItems(Player player) throws Exception {
+        initialSpawn();
+        while (!checkEqual(player)) {
+            removeSprites();
+            initialSpawn();
+        }
+    }
+    private void removeSprites() {
+        for (Item item : items) {
+            item.nullImage();
+            item.consume();
+        }
+        Iterator<Item> it = items.iterator();
+        while (it.hasNext()) {
+            it.next();
+            it.remove();
+        }
+    }
+    private void initialSpawn() throws Exception {
         Item coin = new Coin(root, ui);
         Item heart = new Heart(root, ui);
         Item sword = new Sword(root, ui);
         items.add(sword);
         items.add(heart);
         items.add(coin);
-    }
-
-    public void spawnItems(Player player) throws Exception {
-        initialSpawn();
-        while (!checkEqual(player)) {
-            initialSpawn();
-        }
-    }
-
-    private void initialSpawn() throws Exception {
         for (Item item : items) {
             if (item.getType().equals("Sword")) {
                 item.createItem(3);
