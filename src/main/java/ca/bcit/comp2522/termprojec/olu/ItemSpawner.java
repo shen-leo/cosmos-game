@@ -19,15 +19,20 @@ public class ItemSpawner {
     }
 
     public void spawnItems(Player player) throws Exception {
-        while (checkEqual(player)) {
-            for (Item item : items) {
-                if (item.getType().equals("Sword")) {
-                    item.createItem(3);
-                } else if (item.getType().equals("Coin")) {
-                    item.createItem(2);
-                } else if (item.getType().equals("Heart")) {
-                    item.createItem(1);
-                }
+        initialSpawn();
+        while (!checkEqual(player)) {
+            initialSpawn();
+        }
+    }
+
+    private void initialSpawn() throws Exception {
+        for (Item item : items) {
+            if (item.getType().equals("Sword")) {
+                item.createItem(3);
+            } else if (item.getType().equals("Coin")) {
+                item.createItem(2);
+            } else if (item.getType().equals("Heart")) {
+                item.createItem(1);
             }
         }
     }

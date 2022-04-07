@@ -125,11 +125,7 @@ public class Enemy {
     }
 
     public void moveEnemy() {
-        Random random = new Random();
-        int shouldMove = random.nextInt(11);
-        if (shouldMove < 9) {
-            startPathFind();
-        }
+        startPathFind();
     }
     public void startPathFind() {
         int[][] map = new int[9][9];
