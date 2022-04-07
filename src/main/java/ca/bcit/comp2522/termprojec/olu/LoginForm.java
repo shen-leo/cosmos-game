@@ -52,7 +52,7 @@ public class LoginForm extends JDialog {
     private User getAuthenticatedUser(String username, String inputPassword) {
         User user = null;
 
-        String password = PasswordHash.hash(inputPassword);
+        String password = PasswordHash.encrypt(inputPassword);
 
         final String DB_URL = "jdbc:mysql://localhost:3306/comp2522-game";
 
@@ -106,7 +106,7 @@ public class LoginForm extends JDialog {
 
         if (user != null) {
             System.out.println("Successful Authentication of: " + user.getName());
-            System.out.println("          Username: " + user.getUsername());
+            System.out.println("Username: " + user.getUsername());
         } else {
             System.out.println("Authentication cancelled");
         }
