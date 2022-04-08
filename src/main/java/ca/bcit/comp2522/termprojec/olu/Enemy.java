@@ -3,6 +3,7 @@ package ca.bcit.comp2522.termprojec.olu;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -26,7 +27,7 @@ public class Enemy {
         this.ui = ui;
     }
     public void displayEnemy() throws IOException {
-        InputStream is = Files.newInputStream(Paths.get("src/main/resources/images/enemy.png"));
+        InputStream is = Files.newInputStream(Paths.get(HelloApplication.getMapManager().getEnemy(HelloApplication.getLevelManager().getLevel())));
         imageView = HelloApplication.displaySprite(is);
         is.close();
         imageView.setTranslateX(0);

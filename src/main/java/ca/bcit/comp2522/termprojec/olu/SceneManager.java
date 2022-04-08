@@ -18,12 +18,13 @@ public class SceneManager {
     private Scene nextLevelScene;
     private final Stage stage;
     private final LevelManager levelManager;
+    private final MapManager mapManager;
     private User user;
-    private MapManager mapManager = new MapManager();
-    public SceneManager(Stage stage, LevelManager levelManager, User user) {
+    public SceneManager(Stage stage, LevelManager levelManager, MapManager mapManager, User user) {
         this.stage = stage;
         this.user = user;
         this.levelManager = levelManager;
+        this.mapManager = mapManager;
         this.gameOverScene = createGameOverScene();
         this.nextLevelScene = createNextLevelScene(levelManager.getLevel());
     }
@@ -98,7 +99,7 @@ public class SceneManager {
         Background bGround = new Background(bImg);
         root.setBackground(bGround);
 
-        SceneManager sceneManager = new SceneManager(stage, levelManager, user);
+        SceneManager sceneManager = new SceneManager(stage, levelManager, mapManager, user);
         UI ui = new UI(root, sceneManager);
         Player player = new Player(root, ui);
         Enemy enemy = new Enemy(player, root, ui);

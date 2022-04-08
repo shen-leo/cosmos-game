@@ -12,6 +12,7 @@ import java.util.Random;
 public class HelloApplication extends Application {
     private static User user = new User();
     private static final LevelManager levelManager = LevelManager.initLevel();
+    private static final MapManager mapManager = new MapManager();
     private static final Random random = new Random();
     private static final int PIXEL_COUNT = 64;
     public static ImageView displaySprite(InputStream inputStream) throws IOException {
@@ -51,7 +52,7 @@ public class HelloApplication extends Application {
     @Override
     public void start(final Stage stage) throws Exception {
         // Create a new scene manager
-        SceneManager sceneManager = new SceneManager(stage, levelManager, user);
+        SceneManager sceneManager = new SceneManager(stage, levelManager, mapManager, user);
 
         // set name of the game
         stage.setTitle("Cosmos");
@@ -62,6 +63,14 @@ public class HelloApplication extends Application {
         stage.setScene(sceneManager.createTitleScene());
         // show the game on screen
         stage.show();
+    }
+
+    public static MapManager getMapManager() {
+        return mapManager;
+    }
+
+    public static LevelManager getLevelManager() {
+        return levelManager;
     }
 
     public static void setUser(User inputUser) {
