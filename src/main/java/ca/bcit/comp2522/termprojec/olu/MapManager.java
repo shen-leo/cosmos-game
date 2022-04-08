@@ -11,7 +11,7 @@ public class MapManager {
         backgroundMap.put(1, new File("src/main/resources/images/Backgrounds/green-background.jpg"));
         backgroundMap.put(2, new File("src/main/resources/images/Backgrounds/pink-background.jpg"));
 
-        enemiesMap.put(1, "src/main/resources/images/enemy/eye_monster.gif");
+        enemiesMap.put(1, "src/main/resources/images/enemy/warlock.gif");
         enemiesMap.put(2, "src/main/resources/images/enemy/archfiend.gif");
     }
 
