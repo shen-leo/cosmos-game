@@ -84,8 +84,9 @@ public class User {
             preparedStatement.setInt(2, this.totalSouls);
             preparedStatement.setString(3, this.username);
             preparedStatement.executeUpdate();
-            // SQL query to insert a new tuple into the users table
-//            stmt.executeUpdate("UPDATE users SET totalDeaths = ?, totalSouls = ? WHERE username = ?");
+
+            stmt.close();
+            connection.close();
 
         } catch (SQLException e) {
             System.out.println("SQL Exception caught, invalid SQL query!");

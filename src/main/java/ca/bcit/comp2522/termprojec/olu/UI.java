@@ -122,8 +122,8 @@ public class UI {
 
     private void createCountdown() {
         Countdown timer = new Countdown();
-        timer.startCountdown(this, 60);
-        countdownText = new Text("60");
+        timer.startCountdown(this, 30); // changed for testing purposes
+        countdownText = new Text("30"); // changed for testing purposes
         countdownText.setFont(Font.font(50));
         countdownText.setTranslateY(-350);
         stackPane.getChildren().addAll(countdownText);
@@ -133,7 +133,7 @@ public class UI {
         countdownText.setText(String.valueOf(time));
         if (time == 0) {
             int currentCount = Integer.parseInt(coinCounterText.getText());
-            if (currentCount >= 2) { // set to easy required amount for testing
+            if (currentCount >= 2) { // changed for testing purposes
                 sceneManager.nextLevel();
                 System.out.println("Next Level Success");
             } else {
