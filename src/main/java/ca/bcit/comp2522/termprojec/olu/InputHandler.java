@@ -17,7 +17,8 @@ public class InputHandler {
     private final Player player;
     private Enemy enemy;
     private final ItemSpawner itemSpawner;
-
+    private boolean respawnEnemy = false;
+    private int enemyRespawnCounter = 0;
     public InputHandler(Scene scene, Player player, Enemy enemy,
                         ItemSpawner itemSpawner) {
         this.scene = scene;
@@ -29,10 +30,15 @@ public class InputHandler {
 
     private void readInput() {
         scene.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
-            try {
+            if (respawnEnemy) {
+                enemyRespawnCounter++;
+                try {
+                    respawnEnemy();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
                 moveEnemy();
-            } catch (IOException e) {
-                e.printStackTrace();
             }
             switch (key.getCode()) {
                 // Change face direction
@@ -43,7 +49,14 @@ public class InputHandler {
             }
         });
     }
-    private void moveEnemy() throws IOException {
+    private void respawnEnemy() throws IOException {
+        if (enemyRespawnCounter == 3) {
+            this.enemy.displayEnemy();
+            respawnEnemy = false;
+            enemyRespawnCounter = 0;
+        }
+    }
+    private void moveEnemy() {
         Random random = new Random();
         Enemy tempEnemy;
         int shouldMove = random.nextInt(11);
@@ -54,7 +67,7 @@ public class InputHandler {
 
         if (tempEnemy != null) {
             this.enemy = tempEnemy;
-            this.enemy.displayEnemy();
+            respawnEnemy = true;
         }
 
     }

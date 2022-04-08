@@ -10,6 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -36,8 +37,7 @@ public class Enemy {
         y = imageView.getTranslateY();
         pane.getChildren().addAll(imageView);
     }
-    public void hideEnemy() {
-    }
+
     public static class Point {
         public double x;
         public double y;
@@ -181,9 +181,16 @@ public class Enemy {
     }
     @Override
     public String toString() { return String.format("(%f, %f)", this.x, this.y); }
+    public HashMap<String, Double> getCoordinates() {
+        HashMap<String, Double> coordinates = new HashMap<>();
+        coordinates.put("x", this.x);
+        coordinates.put("y", this.y);
+        return coordinates;
+    }
+
     public Enemy checkEnemyState(final Player player) {
 
-        if (player.toString().equals(toString())) {
+        if (player.getCoordinates().equals(getCoordinates())) {
             if (!player.playerHasSword) {
                 ui.removeHeart();
                 System.out.println("Player hit");
