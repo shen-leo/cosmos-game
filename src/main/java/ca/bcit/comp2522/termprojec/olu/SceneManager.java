@@ -101,6 +101,9 @@ public class SceneManager {
         Scene scene = new Scene(root);
         Text text = new Text("Game Over");
         text.setFont(Font.font(15));
+
+        this.getUser().incrementDeaths();
+
         Button button = new Button("Play game");
         button.setTranslateY(50);
         EventHandler<ActionEvent> event = e -> {
@@ -127,6 +130,7 @@ public class SceneManager {
         Text text = new Text("YOU WON!");
         text.setFont(Font.font(20));
         Button button = new Button("Next Level: " + level);
+
         button.setTranslateY(60);
         EventHandler<ActionEvent> event = e -> {
             try {
@@ -136,7 +140,21 @@ public class SceneManager {
             }
         };
         button.setOnAction(event);
-        root.getChildren().addAll(text, button);
+
+        Button saveButton = new Button("Save");
+        saveButton.setTranslateY(180);
+        EventHandler<ActionEvent> saveEvent = e -> {
+            try {
+                if (this.user.getUsername() != null) {
+                    this.user.saveGame();
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        };
+        saveButton.setOnAction(saveEvent);
+
+        root.getChildren().addAll(text, button, saveButton);
         return scene;
     }
 
@@ -145,5 +163,9 @@ public class SceneManager {
         this.nextLevelScene = createNextLevelScene(levelManager.getLevel());
         stage.setScene(this.nextLevelScene);
         System.out.println("Current Level: " + levelManager.getLevel());
+    }
+
+    public User getUser() {
+        return this.user;
     }
 }

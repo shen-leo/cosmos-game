@@ -10,7 +10,7 @@ import java.io.InputStream;
 import java.util.Random;
 
 public class HelloApplication extends Application {
-    private static User user;
+    private static User user = new User();
     private static final LevelManager levelManager = LevelManager.initLevel();
     private static final Random random = new Random();
     private static final int PIXEL_COUNT = 64;

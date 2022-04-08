@@ -115,6 +115,8 @@ public class UI {
     public void updateCoinCounter() {
         int currentCount = Integer.parseInt(coinCounterText.getText());
         currentCount++;
+        // update total coin counter
+        sceneManager.getUser().incrementSouls();
         coinCounterText.setText(String.valueOf(currentCount));
     }
 
@@ -131,7 +133,7 @@ public class UI {
         countdownText.setText(String.valueOf(time));
         if (time == 0) {
             int currentCount = Integer.parseInt(coinCounterText.getText());
-            if (currentCount >= 10) {
+            if (currentCount >= 2) { // set to easy required amount for testing
                 sceneManager.nextLevel();
                 System.out.println("Next Level Success");
             } else {
@@ -140,6 +142,7 @@ public class UI {
             }
         }
     }
+
     public void addSword() {
         try {
             InputStream is = Files.newInputStream(Paths.get("src/main/resources/images/items/sword.png"));
