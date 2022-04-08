@@ -3,6 +3,7 @@ package ca.bcit.comp2522.termprojec.olu;
 import javafx.scene.layout.StackPane;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 public class ItemSpawner {
@@ -51,13 +52,11 @@ public class ItemSpawner {
     }
 
     private boolean checkEqual(final Player player) {
-
-        ArrayList<String> coordinateList = new ArrayList<>();
+        ArrayList<HashMap<String, Double>> coordinateList = new ArrayList<>();
         for (Item item : items) {
-            coordinateList.add(item.toString());
+            coordinateList.add(item.getCoordinates());
         }
-        coordinateList.add(player.toString());
-
+        coordinateList.add(player.getCoordinates());
         for (int i = 0; i < coordinateList.size(); i++) {
             for (int j = i + 1; j < coordinateList.size(); j++) {
                 if (coordinateList.get(i).equals(coordinateList.get(j))) {
