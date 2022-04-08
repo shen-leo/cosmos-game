@@ -4,10 +4,13 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import java.io.File;
 
 
 public class SceneManager {
@@ -16,6 +19,7 @@ public class SceneManager {
     private final Stage stage;
     private final LevelManager levelManager;
     private User user;
+    private MapManager mapManager = new MapManager();
     public SceneManager(Stage stage, LevelManager levelManager, User user) {
         this.stage = stage;
         this.user = user;
@@ -78,6 +82,21 @@ public class SceneManager {
         root.setPrefSize(1200, 800);
 
         Scene scene = new Scene(root);
+        File backgroundFile;
+        if (mapManager.getMap(levelManager.getLevel()) != null) {
+            backgroundFile = mapManager.getMap(levelManager.getLevel());
+        } else {
+            backgroundFile = new File("src/main/resources/images/Backgrounds/default-background.jpg");
+        }
+
+        Image img = new Image(backgroundFile.toURI().toString());
+        BackgroundImage bImg = new BackgroundImage(img,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+        Background bGround = new Background(bImg);
+        root.setBackground(bGround);
 
         SceneManager sceneManager = new SceneManager(stage, levelManager, user);
         UI ui = new UI(root, sceneManager);
