@@ -15,6 +15,9 @@ public class HelloApplication extends Application {
     private static final MapManager mapManager = new MapManager();
     private static final Random random = new Random();
     private static final int PIXEL_COUNT = 64;
+    public static int BACKGROUND_WIDTH = 576;
+    public static int BACKGROUND_HEIGHT = 576;
+    public static int BACKGROUND_BOUND = 257;
     public static ImageView displaySprite(InputStream inputStream) throws IOException {
         Image img = new Image(inputStream);
         inputStream.close();
@@ -50,7 +53,7 @@ public class HelloApplication extends Application {
     }
 
     @Override
-    public void start(final Stage stage) throws Exception {
+    public void start(final Stage stage) {
         // Create a new scene manager
         SceneManager sceneManager = new SceneManager(stage, levelManager, mapManager, user);
 
@@ -63,6 +66,17 @@ public class HelloApplication extends Application {
         stage.setScene(sceneManager.createTitleScene());
         // show the game on screen
         stage.show();
+    }
+
+    public static void setBackgroundHeight(int backgroundHeight) {
+        BACKGROUND_HEIGHT = backgroundHeight;
+    }
+
+    public static void setBackgroundWidth(int backgroundWidth) {
+        BACKGROUND_WIDTH = backgroundWidth;
+    }
+    public static void setBackgroundBound(int backgroundBound) {
+        BACKGROUND_BOUND = backgroundBound;
     }
 
     public static MapManager getMapManager() {

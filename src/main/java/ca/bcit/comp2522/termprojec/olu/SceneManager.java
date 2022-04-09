@@ -31,7 +31,7 @@ public class SceneManager {
 
     public Scene createTitleScene() {
         StackPane root = new StackPane();
-        root.setPrefSize(1200, 800);
+        root.setPrefSize(1200, 850);
 
         Scene scene = new Scene(root);
         Text text = new Text("Cosmos");
@@ -80,7 +80,7 @@ public class SceneManager {
 
     public Scene createGame() throws Exception {
         StackPane root = new StackPane();
-        root.setPrefSize(1200, 800);
+        root.setPrefSize(1200, 850);
 
         Scene scene = new Scene(root);
         File backgroundFile;
@@ -106,8 +106,11 @@ public class SceneManager {
         ItemSpawner itemSpawner = new ItemSpawner(root, ui);
         InputHandler inputHandler = new InputHandler(scene, player, enemy, itemSpawner);
 
-
-        ui.createBackGroundTile();
+        if (levelManager.getLevel() % 3 == 0) {
+            ui.createSpecialBackGroundTile();
+        } else {
+            ui.createBackGroundTile();
+        }
         enemy.displayEnemy();
         player.displayPlayer();
         itemSpawner.spawnItems(player);

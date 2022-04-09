@@ -26,26 +26,33 @@ public class UI {
 
     private Text coinCounterText;
     private Text countdownText;
-
-    public UI(StackPane stackPane, SceneManager sceneManager) {
+    public UI(StackPane stackPane, SceneManager sceneManager) throws IOException {
         this.stackPane = stackPane;
         this.sceneManager = sceneManager;
         createCoinCounter();
         createCountdown();
     }
 
-
-    public void createBackGroundTile()throws IOException {
-        InputStream is = Files.newInputStream(Paths.get("src/main/resources/images/backgrounds/background.png"));
+    private void createBackGround(InputStream is) {
         Image img = new Image(is);
         ImageView imageView = new ImageView(img);
-        imageView.setFitWidth(576);
-        imageView.setFitHeight(576);
+        imageView.setFitWidth(HelloApplication.BACKGROUND_WIDTH);
+        imageView.setFitHeight(HelloApplication.BACKGROUND_HEIGHT);
         stackPane.getChildren().addAll(imageView);
-
+    }
+    public void createBackGroundTile()throws IOException {
+        InputStream is = Files.newInputStream(Paths.get("src/main/resources/images/backgrounds/background.png"));
+        createBackGround(is);
         is.close();
     }
-
+    public void createSpecialBackGroundTile()throws IOException {
+        countdownText.setTranslateY(-390);
+        InputStream is = Files.newInputStream(Paths.get("src/main/resources/images/backgrounds/biggerBackground.png"));
+        HelloApplication.setBackgroundHeight(704);
+        HelloApplication.setBackgroundWidth(704);
+        createBackGround(is);
+        is.close();
+    }
     public void createHeart() throws IOException {
         InputStream firstHeart = Files.newInputStream(Paths.get("src/main/resources/images/c.png"));
         InputStream secondHeart = Files.newInputStream(Paths.get("src/main/resources/images/c.png"));
@@ -68,14 +75,14 @@ public class UI {
         heartThree.setFitWidth(64);
         heartThree.setFitHeight(64);
 
-        heartOne.setTranslateX(-530);
-        heartOne.setTranslateY(-350);
+        heartOne.setTranslateX(-540);
+        heartOne.setTranslateY(-380);
 
-        heartTwo.setTranslateX(-456);
-        heartTwo.setTranslateY(-350);
+        heartTwo.setTranslateX(-466);
+        heartTwo.setTranslateY(-380);
 
-        heartThree.setTranslateX(-382);
-        heartThree.setTranslateY(-350);
+        heartThree.setTranslateX(-392);
+        heartThree.setTranslateY(-380);
 
         stackPane.getChildren().addAll(heartOne, heartTwo, heartThree);
 
@@ -106,11 +113,19 @@ public class UI {
         }
     }
 
-    private void createCoinCounter() {
+    private void createCoinCounter() throws IOException {
+        InputStream is = Files.newInputStream(Paths.get("src/main/resources/images/items/coin.png"));
+        Image img = new Image(is);
+        ImageView coinDisplay = new ImageView(img);
+        coinDisplay.setFitWidth(64);
+        coinDisplay.setFitHeight(64);
+        coinDisplay.setTranslateX(456);
+        coinDisplay.setTranslateY(-350);
         coinCounterText = new Text("0");
         coinCounterText.setFont(Font.font(50));
-        coinCounterText.setTranslateY(350);
-        stackPane.getChildren().addAll(coinCounterText);
+        coinCounterText.setTranslateX(505);
+        coinCounterText.setTranslateY(-353);
+        stackPane.getChildren().addAll(coinCounterText, coinDisplay);
     }
     public void updateCoinCounter() {
         int currentCount = Integer.parseInt(coinCounterText.getText());
@@ -126,6 +141,7 @@ public class UI {
         countdownText = new Text("30"); // changed for testing purposes
         countdownText.setFont(Font.font(50));
         countdownText.setTranslateY(-350);
+
         stackPane.getChildren().addAll(countdownText);
     }
 
@@ -151,7 +167,7 @@ public class UI {
             sword.setFitWidth(64);
             sword.setFitHeight(64);
             sword.setTranslateX(456);
-            sword.setTranslateY(-350);
+            sword.setTranslateY(-250);
             stackPane.getChildren().addAll(sword);
 
             is.close();

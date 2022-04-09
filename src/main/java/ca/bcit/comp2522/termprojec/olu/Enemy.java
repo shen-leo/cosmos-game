@@ -45,39 +45,7 @@ public class Enemy {
         pane.getChildren().addAll(imageView);
     }
 
-    public static class Point {
-        public double x;
-        public double y;
-        public Point previous;
 
-        public Point(double x, double y, Point previous) {
-            this.x = x;
-            this.y = y;
-            this.previous = previous;
-        }
-
-        @Override
-        public String toString() { return String.format("(%f, %f)", x, y); }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) {
-                return true;
-            }
-            if (o == null || getClass() != o.getClass()) {
-                return false;
-            }
-            Point point = (Point) o;
-            return x == point.x && y == point.y;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(x, y, previous);
-        }
-
-        public Point offset(int ox, int oy) { return new Point(x + ox, y + oy, this);  }
-    }
     public static boolean IsWalkable(int[][] map, Point point) {
         if (point.y < 0 || point.y > map.length - 1) return false;
         if (point.x < 0 || point.x > map[0].length - 1) return false;
@@ -166,25 +134,27 @@ public class Enemy {
         Point end = new Point(playerTempX, playerTempY, null);
         List<Point> path = FindPath(map, start, end);
         if (path != null) {
+            double x;
             if (xIsNeg || playerXIsNeg) {
-                imageView.setTranslateX(path.get(0).x * 64 * -1);
+                x = path.get(0).x * 64 * -1;
             } else {
-                imageView.setTranslateX(path.get(0).x * 64);
+                x = path.get(0).x * 64;
             }
+            imageView.setTranslateX(x);
+            this.x = x;
+            double y;
             if (yIsNeg || playerYIsNeg) {
-                imageView.setTranslateY(path.get(0).y * 64 * -1);
-
+                y = path.get(0).y * 64 * -1;
             } else  {
-                imageView.setTranslateY(path.get(0).y * 64);
-
+                y = path.get(0).y * 64;
             }
+            imageView.setTranslateY(y);
+            this.y = y;
 
         }
         else {
             System.out.println("No path found");
         }
-        this.x = imageView.getTranslateX();
-        this.y = imageView.getTranslateY();
     }
     @Override
     public String toString() { return String.format("(%f, %f)", this.x, this.y); }

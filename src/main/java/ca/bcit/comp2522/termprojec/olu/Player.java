@@ -30,7 +30,7 @@ public class Player {
         pane.getChildren().addAll(imageView);
     }
     public boolean clamp(Double cordToCompare,int nextCord) {
-        return cordToCompare + nextCord <= 64 * 4 && cordToCompare + nextCord >= 64 * -4;
+        return cordToCompare + nextCord <= (HelloApplication.BACKGROUND_BOUND -1) && cordToCompare + nextCord >= (HelloApplication.BACKGROUND_BOUND - 1) * -1;
     }
     public void moveRight() {
         if (clamp(x,64)) {

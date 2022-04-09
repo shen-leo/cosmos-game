@@ -17,10 +17,12 @@ public class ItemSpawner {
     }
 
     public void spawnItems(Player player) throws Exception {
-        do {
+
+        initialSpawn();
+        while (checkEqual(player)) {
             removeSprites();
             initialSpawn();
-        } while (!checkEqual(player));
+        }
     }
     private void removeSprites() {
         for (Item item : items) {
@@ -57,6 +59,8 @@ public class ItemSpawner {
             coordinateList.add(item.getCoordinates());
         }
         coordinateList.add(player.getCoordinates());
+
+
         for (int i = 0; i < coordinateList.size(); i++) {
             for (int j = i + 1; j < coordinateList.size(); j++) {
                 if (coordinateList.get(i).equals(coordinateList.get(j))) {
@@ -80,10 +84,12 @@ public class ItemSpawner {
                 removeSword = true;
             } else if (item.getType().equals("Coin") && player.getCoordinates().equals(item.getCoordinates())) {
                 item.collectable();
-                do {
-                    item.respawn();
+                item.setX(HelloApplication.generateRandomCoordinate());
+                item.setY(HelloApplication.generateRandomCoordinate());
+                while (checkEqual(player)) {
+                    item.setX(HelloApplication.generateRandomCoordinate());
+                    item.setY(HelloApplication.generateRandomCoordinate());
                 }
-                while (checkEqual(player));
             } else if (item.getType().equals("Heart") && player.getCoordinates().equals(item.getCoordinates())) {
                 item.collectable();
                 item.nullImage();
