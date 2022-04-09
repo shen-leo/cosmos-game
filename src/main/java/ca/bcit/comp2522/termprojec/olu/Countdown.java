@@ -6,8 +6,8 @@ import java.util.TimerTask;
 
 
 public class Countdown {
-    private int interval;
-    private Timer timer;
+    private static int interval;
+    private static Timer timer;
 
 
     public void startCountdown(final UI ui, final int duration) {
@@ -18,7 +18,9 @@ public class Countdown {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override public void run() {
                 Platform.runLater(() -> {
-                    ui.updateCountdown(setInterval());
+                    int time = setInterval();
+                    System.out.println(time);
+                    ui.updateCountdown(time);
                 });
             }
         }, delay, period);
@@ -27,9 +29,14 @@ public class Countdown {
     private int setInterval() {
         if (interval == 1) {
             System.out.println("Cancelled!");
-            this.timer.cancel();
-            this.timer = null;
+            timer.cancel();
+            timer = null;
         }
         return --interval;
+    }
+
+    public void stopTimer() {
+        timer.cancel();
+        timer = null;
     }
 }
