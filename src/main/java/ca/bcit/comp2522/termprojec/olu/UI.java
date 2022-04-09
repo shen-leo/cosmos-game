@@ -47,6 +47,7 @@ public class UI {
     }
     public void createSpecialBackGroundTile()throws IOException {
         countdownText.setTranslateY(-390);
+        HelloApplication.setBackgroundBound(321);
         InputStream is = Files.newInputStream(Paths.get("src/main/resources/images/backgrounds/biggerBackground.png"));
         HelloApplication.setBackgroundHeight(704);
         HelloApplication.setBackgroundWidth(704);

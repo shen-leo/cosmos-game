@@ -100,19 +100,27 @@ public class SceneManager {
         enemies.add(enemy);
 
 
-        if (levelManager.getLevel() >= 3) {
-            Enemy enemy2 = new Enemy(player, root, ui);
-            ui.createSpecialBackGroundTile();
-            for (int i = 0; i < 5; i++) {
-                damageTiles.add(new DamageTile(player, root, ui));
-            }
-            enemy2.displayEnemy();
-            enemies.add(enemy2);
-            InputHandler inputHandler = new InputHandler(scene, player, enemies, itemSpawner, damageTiles);
-        } else {
-            InputHandler inputHandler = new InputHandler(scene, player, enemies, itemSpawner);
-            ui.createBackGroundTile();
+//        if (levelManager.getLevel() >= 3) {
+//            Enemy enemy2 = new Enemy(player, root, ui);
+//            ui.createSpecialBackGroundTile();
+//            for (int i = 0; i < 5; i++) {
+//                damageTiles.add(new DamageTile(player, root, ui));
+//            }
+//            enemy2.displayEnemy();
+//            enemies.add(enemy2);
+//            InputHandler inputHandler = new InputHandler(scene, player, enemies, itemSpawner, damageTiles);
+//        } else {
+//            InputHandler inputHandler = new InputHandler(scene, player, enemies, itemSpawner);
+//            ui.createBackGroundTile();
+//        }
+        Enemy enemy2 = new Enemy(player, root, ui);
+        ui.createSpecialBackGroundTile();
+        for (int i = 0; i < 5; i++) {
+            damageTiles.add(new DamageTile(player, root, ui));
         }
+        enemy2.displayEnemy();
+        enemies.add(enemy2);
+        InputHandler inputHandler = new InputHandler(scene, player, enemies, itemSpawner, damageTiles);
         enemy.displayEnemy();
         player.displayPlayer();
         itemSpawner.spawnItems(player);
