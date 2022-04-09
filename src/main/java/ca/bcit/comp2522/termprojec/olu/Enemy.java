@@ -153,6 +153,8 @@ public class Enemy {
 
         }
         else {
+            System.out.println("Enemy" + tempX + ", " + tempY);
+            System.out.println(playerTempX + ", " + playerTempY);
             System.out.println("No path found");
         }
     }
@@ -167,7 +169,7 @@ public class Enemy {
 
     public Enemy checkEnemyState(final Player player) {
 
-        if (player.getCoordinates().equals(getCoordinates())) {
+        if (player.getCoordinates().equals(getCoordinates()) && this.imageView != null) {
             if (!player.playerHasSword) {
                 ui.removeHeart();
                 System.out.println("Player hit");
@@ -179,6 +181,15 @@ public class Enemy {
             return new Enemy(player, pane, ui);
         }
         return null;
+    }
+    public void nullImage() {
+        this.imageView.setImage(null);
+    }
+
+    // removes the item from the playable board
+    public void consume() {
+        this.x = -1000;
+        this.y = -1000;
     }
 }
 // https://gamedev.stackexchange.com/questions/197165/java-simple-2d-grid-pathfinding

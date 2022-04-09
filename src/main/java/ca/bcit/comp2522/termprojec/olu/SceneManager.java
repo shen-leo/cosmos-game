@@ -16,7 +16,6 @@ import java.util.List;
 
 
 public class SceneManager {
-    private final Scene gameOverScene;
     private Scene nextLevelScene;
     private final Stage stage;
     private final LevelManager levelManager;
@@ -27,7 +26,6 @@ public class SceneManager {
         this.user = user;
         this.levelManager = levelManager;
         this.mapManager = mapManager;
-        this.gameOverScene = createGameOverScene();
         this.nextLevelScene = createNextLevelScene(levelManager.getLevel());
     }
 
@@ -41,16 +39,7 @@ public class SceneManager {
         text.setFont(Font.font(60));
 
         Button playButton = new Button("Play");
-        playButton.setTranslateY(50);
-        EventHandler<ActionEvent> event = e -> {
-            try {
-                levelManager.resetLevel(); // reset the game to level one
-                stage.setScene(createGame());
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        };
-        playButton.setOnAction(event);
+        resetButton(playButton);
 
         Button loginButton = new Button("Login");
         loginButton.setTranslateY(120);
@@ -106,15 +95,22 @@ public class SceneManager {
         Player player = new Player(root, ui);
         Enemy enemy = new Enemy(player, root, ui);
         ItemSpawner itemSpawner = new ItemSpawner(root, ui);
+
+        List<Enemy> enemies = new ArrayList<>();
+        enemies.add(enemy);
+
+
         if (levelManager.getLevel() >= 3) {
+            Enemy enemy2 = new Enemy(player, root, ui);
             ui.createSpecialBackGroundTile();
             for (int i = 0; i < 5; i++) {
                 damageTiles.add(new DamageTile(player, root, ui));
             }
-            InputHandler inputHandler = new InputHandler(scene, player, enemy, itemSpawner, damageTiles);
+            enemy2.displayEnemy();
+            enemies.add(enemy2);
+            InputHandler inputHandler = new InputHandler(scene, player, enemies, itemSpawner, damageTiles);
         } else {
-            InputHandler inputHandler = new InputHandler(scene, player, enemy, itemSpawner);
-            damageTiles = new ArrayList<>();
+            InputHandler inputHandler = new InputHandler(scene, player, enemies, itemSpawner);
             ui.createBackGroundTile();
         }
         enemy.displayEnemy();
@@ -128,12 +124,32 @@ public class SceneManager {
         root.setPrefSize(1200, 800);
 
         Scene scene = new Scene(root);
-        Text text = new Text("Game Over");
-        text.setFont(Font.font(15));
+        Text gameOver = new Text("Game Over");
+        gameOver.setFont(Font.font(50));
+        gameOver.setTranslateY(-175);
+
+        Text coinsCollected = new Text("Coins Collected: " +
+                HelloApplication.stats.getCoinsCollected());
+        coinsCollected.setFont(Font.font(20));
+        coinsCollected.setTranslateX(-200);
+        coinsCollected.setTranslateY(-50);
+
+        Text damageTaken = new Text("Number of Enemies that hit you: " +
+                HelloApplication.stats.getNumberOfEnemiesPlayerHit());
+        damageTaken.setFont(Font.font(20));
+        damageTaken.setTranslateX(200);
+        damageTaken.setTranslateY(-50);
+
 
         this.getUser().incrementDeaths();
 
         Button button = new Button("Play game");
+        resetButton(button);
+        root.getChildren().addAll(gameOver, button, coinsCollected, damageTaken);
+        return scene;
+    }
+
+    private void resetButton(Button button) {
         button.setTranslateY(50);
         EventHandler<ActionEvent> event = e -> {
             try {
@@ -144,11 +160,10 @@ public class SceneManager {
             }
         };
         button.setOnAction(event);
-        root.getChildren().addAll(text, button);
-        return scene;
     }
+
     public void gameOver() {
-        stage.setScene(gameOverScene);
+        stage.setScene(createGameOverScene());
     }
 
     private Scene createNextLevelScene(int level) {

@@ -19,7 +19,6 @@ public class Countdown {
             @Override public void run() {
                 Platform.runLater(() -> {
                     int time = setInterval();
-                    System.out.println(time);
                     ui.updateCountdown(time);
                 });
             }
@@ -36,7 +35,9 @@ public class Countdown {
     }
 
     public void stopTimer() {
-        timer.cancel();
+        if (timer != null) {
+            timer.cancel();
+        }
         timer = null;
     }
 }

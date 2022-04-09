@@ -14,6 +14,7 @@ public class HelloApplication extends Application {
     private static final LevelManager levelManager = LevelManager.initLevel();
     private static final MapManager mapManager = new MapManager();
     private static final Random random = new Random();
+    public static final Stats stats = new Stats();
     private static final int PIXEL_COUNT = 64;
     public static int BACKGROUND_WIDTH = 576;
     public static int BACKGROUND_HEIGHT = 576;

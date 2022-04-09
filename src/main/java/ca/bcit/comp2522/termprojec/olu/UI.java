@@ -91,6 +91,7 @@ public class UI {
         thirdHeart.close();
     }
     public void removeHeart() {
+        HelloApplication.stats.incrementNumberOfEnemiesPlayerHit();
         if (heartThree.isVisible()) {
             heartThree.setVisible(false);
         } else if (heartTwo.isVisible()) {
@@ -130,6 +131,7 @@ public class UI {
         stackPane.getChildren().addAll(coinCounterText, coinDisplay);
     }
     public void updateCoinCounter() {
+        HelloApplication.stats.incrementCoinsCollected();
         int currentCount = Integer.parseInt(coinCounterText.getText());
         currentCount++;
         // update total coin counter

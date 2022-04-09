@@ -16,30 +16,38 @@ import java.util.Random;
 public class InputHandler {
     private final Scene scene;
     private final Player player;
-    private Enemy enemy;
     private List<DamageTile> damageTiles;
+    private final List<Enemy> enemies;
     private final ItemSpawner itemSpawner;
     private boolean respawnEnemy = false;
     private int enemyRespawnCounter = 0;
-    public InputHandler(Scene scene, Player player, Enemy enemy,
+    public InputHandler(Scene scene, Player player, List<Enemy> enemies,
                         ItemSpawner itemSpawner) {
         this.scene = scene;
         this.player = player;
-        this.enemy = enemy;
+        this.enemies = enemies;
         this.itemSpawner = itemSpawner;
         readInput();
     }
-    public InputHandler(Scene scene, Player player, Enemy enemy,
+    public InputHandler(Scene scene, Player player, List<Enemy> enemies,
                         ItemSpawner itemSpawner, List<DamageTile> damageTiles) {
         this.scene = scene;
         this.player = player;
-        this.enemy = enemy;
+        this.enemies = enemies;
         this.itemSpawner = itemSpawner;
         this.damageTiles = damageTiles;
         readInput();
     }
     private void readInput() {
         scene.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
+
+            switch (key.getCode()) {
+                // Change face direction
+                case A, LEFT -> moveLeft();
+                case D, RIGHT -> moveRight();
+                case W, UP -> moveUp();
+                case S, DOWN -> moveDown();
+            }
             if (respawnEnemy) {
                 enemyRespawnCounter++;
                 try {
@@ -50,21 +58,14 @@ public class InputHandler {
             } else {
                 moveEnemy();
             }
-            switch (key.getCode()) {
-                // Change face direction
-                case A, LEFT -> moveLeft();
-                case D, RIGHT -> moveRight();
-                case W, UP -> moveUp();
-                case S, DOWN -> moveDown();
-            }
             checkPlayerOverDamageTiles();
+            checkPlayerOverEnemy();
         });
     }
     private void checkPlayerOverDamageTiles() {
         if (damageTiles != null) {
             for (DamageTile damageTile : damageTiles) {
                 if (damageTile.getCoordinates().equals(player.getCoordinates())) {
-                    System.out.println("On tile");
                     player.takeDamage();
                 }
             }
@@ -72,24 +73,40 @@ public class InputHandler {
     }
     private void respawnEnemy() throws IOException {
         if (enemyRespawnCounter == 3) {
-            this.enemy.displayEnemy();
+            for (Enemy enemy : enemies) {
+                enemy.displayEnemy();
+            }
             respawnEnemy = false;
             enemyRespawnCounter = 0;
         }
     }
+    private void checkPlayerOverEnemy() {
+        Enemy tempEnemy = null;
+        Enemy enemyToRemove = null;
+        for (Enemy enemy : enemies) {
+            tempEnemy = enemy.checkEnemyState(player);
+
+            if (tempEnemy != null) {
+                enemyToRemove = enemy;
+                enemy.consume();
+                enemy.nullImage();
+                respawnEnemy = true;
+            }
+        }
+        if (tempEnemy != null) {
+            enemies.add(tempEnemy);
+            enemies.remove(enemyToRemove);
+        }
+    }
     private void moveEnemy() {
         Random random = new Random();
-        Enemy tempEnemy;
-        int shouldMove = random.nextInt(11);
-        if (shouldMove < 9) {
-            enemy.startPathFind();
+        for (Enemy enemy : enemies) {
+            int shouldMove = random.nextInt(11);
+            if (shouldMove < 8) {
+                enemy.startPathFind();
+            }
         }
-        tempEnemy = enemy.checkEnemyState(player);
 
-        if (tempEnemy != null) {
-            this.enemy = tempEnemy;
-            respawnEnemy = true;
-        }
 
     }
     private void moveRight() {
