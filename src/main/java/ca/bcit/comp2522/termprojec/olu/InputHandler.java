@@ -4,6 +4,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -16,6 +17,7 @@ public class InputHandler {
     private final Scene scene;
     private final Player player;
     private Enemy enemy;
+    private List<DamageTile> damageTiles;
     private final ItemSpawner itemSpawner;
     private boolean respawnEnemy = false;
     private int enemyRespawnCounter = 0;
@@ -27,7 +29,15 @@ public class InputHandler {
         this.itemSpawner = itemSpawner;
         readInput();
     }
-
+    public InputHandler(Scene scene, Player player, Enemy enemy,
+                        ItemSpawner itemSpawner, List<DamageTile> damageTiles) {
+        this.scene = scene;
+        this.player = player;
+        this.enemy = enemy;
+        this.itemSpawner = itemSpawner;
+        this.damageTiles = damageTiles;
+        readInput();
+    }
     private void readInput() {
         scene.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
             if (respawnEnemy) {
@@ -47,7 +57,18 @@ public class InputHandler {
                 case W, UP -> moveUp();
                 case S, DOWN -> moveDown();
             }
+            checkPlayerOverDamageTiles();
         });
+    }
+    private void checkPlayerOverDamageTiles() {
+        if (damageTiles != null) {
+            for (DamageTile damageTile : damageTiles) {
+                if (damageTile.getCoordinates().equals(player.getCoordinates())) {
+                    System.out.println("On tile");
+                    player.takeDamage();
+                }
+            }
+        }
     }
     private void respawnEnemy() throws IOException {
         if (enemyRespawnCounter == 3) {

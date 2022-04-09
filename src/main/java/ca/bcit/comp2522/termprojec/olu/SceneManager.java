@@ -11,6 +11,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class SceneManager {
@@ -98,17 +100,21 @@ public class SceneManager {
                 BackgroundSize.DEFAULT);
         Background bGround = new Background(bImg);
         root.setBackground(bGround);
-
+        List<DamageTile> damageTiles = new ArrayList<>();
         SceneManager sceneManager = new SceneManager(stage, levelManager, mapManager, user);
         UI ui = new UI(root, sceneManager);
         Player player = new Player(root, ui);
         Enemy enemy = new Enemy(player, root, ui);
         ItemSpawner itemSpawner = new ItemSpawner(root, ui);
-        InputHandler inputHandler = new InputHandler(scene, player, enemy, itemSpawner);
-
-        if (levelManager.getLevel() % 3 == 0) {
+        if (levelManager.getLevel() >= 3) {
             ui.createSpecialBackGroundTile();
+            for (int i = 0; i < 5; i++) {
+                damageTiles.add(new DamageTile(player, root, ui));
+            }
+            InputHandler inputHandler = new InputHandler(scene, player, enemy, itemSpawner, damageTiles);
         } else {
+            InputHandler inputHandler = new InputHandler(scene, player, enemy, itemSpawner);
+            damageTiles = new ArrayList<>();
             ui.createBackGroundTile();
         }
         enemy.displayEnemy();

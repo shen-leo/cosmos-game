@@ -64,6 +64,7 @@ public class Player {
             ui.removeHeart();
         }
     }
+    public void takeDamage() {ui.removeHeart();}
     public double getX() {
         return this.x;
     }
