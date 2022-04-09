@@ -18,7 +18,7 @@ public class UI {
 
     private final StackPane stackPane;
     private final SceneManager sceneManager;
-
+    private final Countdown timer = new Countdown();
     private ImageView heartOne;
     private ImageView heartTwo;
     private ImageView heartThree;
@@ -109,6 +109,8 @@ public class UI {
     }
     private void checkPlayerDead() {
         if (!heartOne.isVisible()) {
+            // add code to stop timer
+            timer.stopTimer();
             sceneManager.gameOver();
         }
     }
@@ -136,7 +138,6 @@ public class UI {
     }
 
     private void createCountdown() {
-        Countdown timer = new Countdown();
         timer.startCountdown(this, 30); // changed for testing purposes
         countdownText = new Text("30"); // changed for testing purposes
         countdownText.setFont(Font.font(50));
