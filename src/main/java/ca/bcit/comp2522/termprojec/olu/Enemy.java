@@ -28,7 +28,14 @@ public class Enemy {
         this.ui = ui;
     }
     public void displayEnemy() throws IOException {
-        InputStream is = Files.newInputStream(Paths.get(HelloApplication.getMapManager().getEnemy(HelloApplication.getLevelManager().getLevel())));
+
+        InputStream is;
+        if (HelloApplication.getMapManager().getEnemy(HelloApplication.getLevelManager().getLevel()) != null) {
+            is = Files.newInputStream(Paths.get(HelloApplication.getMapManager().getEnemy(HelloApplication.getLevelManager().getLevel())));
+        } else {
+            is = Files.newInputStream(Paths.get("src/main/resources/images/enemy/archfiend.gif"));
+        }
+
         imageView = HelloApplication.displaySprite(is);
         is.close();
         imageView.setTranslateX(0);
