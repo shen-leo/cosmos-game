@@ -156,11 +156,6 @@ public class Enemy {
             this.y = y;
 
         }
-        else {
-            System.out.println("Enemy" + tempX + ", " + tempY);
-            System.out.println(playerTempX + ", " + playerTempY);
-            System.out.println("No path found");
-        }
     }
     @Override
     public String toString() { return String.format("(%f, %f)", this.x, this.y); }

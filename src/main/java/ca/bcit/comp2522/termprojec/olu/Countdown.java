@@ -27,7 +27,6 @@ public class Countdown {
 
     private int setInterval() {
         if (interval == 1) {
-            System.out.println("Cancelled!");
             timer.cancel();
             timer = null;
         }

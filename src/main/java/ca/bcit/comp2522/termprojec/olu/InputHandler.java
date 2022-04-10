@@ -76,7 +76,6 @@ public class InputHandler {
         }
     }
     private void respawnEnemy() throws IOException {
-        System.out.println(specialLevel);
         if (enemyRespawnCounter == 3) {
             if (specialLevel) {
                 enemies = itemSpawner.spawnEnemy(player, 2);

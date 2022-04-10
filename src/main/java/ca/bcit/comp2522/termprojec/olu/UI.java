@@ -155,10 +155,8 @@ public class UI {
             int currentCount = Integer.parseInt(coinCounterText.getText());
             if (currentCount >= 2) { // changed for testing purposes
                 sceneManager.nextLevel();
-                System.out.println("Next Level Success");
             } else {
                 sceneManager.gameOver();
-                System.out.println("Time ended");
             }
         }
     }

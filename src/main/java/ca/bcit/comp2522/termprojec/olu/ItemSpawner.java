@@ -94,7 +94,6 @@ public class ItemSpawner {
                 item.collectable();
                 item.nullImage();
                 item.consume();
-                System.out.println("Touch Heart");
             }
         }
         if (removeSword) {

@@ -173,9 +173,11 @@ public class SceneManager {
 
         Scene scene = new Scene(root);
         Text text = new Text("YOU WON!");
-        text.setFont(Font.font(20));
+        text.setFont(Font.font(50));
+        text.setTranslateY(-50);
         Button button = new Button("Next Level: " + level);
-
+        button.setPrefHeight(50);
+        button.setPrefWidth(150);
         button.setTranslateY(60);
         EventHandler<ActionEvent> event = e -> {
             try {
