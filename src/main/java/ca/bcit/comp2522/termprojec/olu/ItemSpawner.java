@@ -101,4 +101,11 @@ public class ItemSpawner {
             items.remove(swordIndex);
         }
     }
+    public ArrayList<Enemy> spawnEnemy(Player player, int quantity) {
+        ArrayList<Enemy> enemies = new ArrayList<>();
+        for (int i = 0; i < quantity; i++) {
+            enemies.add(new Enemy(player, root, ui));
+        }
+        return enemies;
+    }
 }

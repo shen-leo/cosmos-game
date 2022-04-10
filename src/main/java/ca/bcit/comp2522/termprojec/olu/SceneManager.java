@@ -100,27 +100,19 @@ public class SceneManager {
         enemies.add(enemy);
 
 
-//        if (levelManager.getLevel() >= 3) {
-//            Enemy enemy2 = new Enemy(player, root, ui);
-//            ui.createSpecialBackGroundTile();
-//            for (int i = 0; i < 5; i++) {
-//                damageTiles.add(new DamageTile(player, root, ui));
-//            }
-//            enemy2.displayEnemy();
-//            enemies.add(enemy2);
-//            InputHandler inputHandler = new InputHandler(scene, player, enemies, itemSpawner, damageTiles);
-//        } else {
-//            InputHandler inputHandler = new InputHandler(scene, player, enemies, itemSpawner);
-//            ui.createBackGroundTile();
-//        }
-        Enemy enemy2 = new Enemy(player, root, ui);
-        ui.createSpecialBackGroundTile();
-        for (int i = 0; i < 5; i++) {
-            damageTiles.add(new DamageTile(player, root, ui));
+        if (levelManager.getLevel() >= 3) {
+            Enemy enemy2 = new Enemy(player, root, ui);
+            ui.createSpecialBackGroundTile();
+            for (int i = 0; i < 5; i++) {
+                damageTiles.add(new DamageTile(player, root, ui));
+            }
+            enemy2.displayEnemy();
+            enemies.add(enemy2);
+            InputHandler inputHandler = new InputHandler(scene, player, enemies, itemSpawner, damageTiles);
+        } else {
+            InputHandler inputHandler = new InputHandler(scene, player, enemies, itemSpawner);
+            ui.createBackGroundTile();
         }
-        enemy2.displayEnemy();
-        enemies.add(enemy2);
-        InputHandler inputHandler = new InputHandler(scene, player, enemies, itemSpawner, damageTiles);
         enemy.displayEnemy();
         player.displayPlayer();
         itemSpawner.spawnItems(player);
@@ -128,6 +120,7 @@ public class SceneManager {
         return scene;
     }
     private Scene createGameOverScene() {
+        levelManager.setLevel(1);
         StackPane root = new StackPane();
         root.setPrefSize(1200, 800);
 
@@ -142,7 +135,7 @@ public class SceneManager {
         coinsCollected.setTranslateX(-200);
         coinsCollected.setTranslateY(-50);
 
-        Text damageTaken = new Text("Number of Enemies that hit you: " +
+        Text damageTaken = new Text("Damage taken: " +
                 HelloApplication.stats.getNumberOfEnemiesPlayerHit());
         damageTaken.setFont(Font.font(20));
         damageTaken.setTranslateX(200);

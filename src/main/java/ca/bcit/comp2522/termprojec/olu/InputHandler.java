@@ -17,10 +17,11 @@ public class InputHandler {
     private final Scene scene;
     private final Player player;
     private List<DamageTile> damageTiles;
-    private final List<Enemy> enemies;
+    private List<Enemy> enemies;
     private final ItemSpawner itemSpawner;
     private boolean respawnEnemy = false;
     private int enemyRespawnCounter = 0;
+    private boolean specialLevel;
     public InputHandler(Scene scene, Player player, List<Enemy> enemies,
                         ItemSpawner itemSpawner) {
         this.scene = scene;
@@ -36,6 +37,7 @@ public class InputHandler {
         this.enemies = enemies;
         this.itemSpawner = itemSpawner;
         this.damageTiles = damageTiles;
+        this.specialLevel = true;
         readInput();
     }
     private void readInput() {
@@ -59,7 +61,9 @@ public class InputHandler {
                 moveEnemy();
             }
             checkPlayerOverDamageTiles();
-            checkPlayerOverEnemy();
+            if (enemies != null) {
+                checkPlayerOverEnemy();
+            }
         });
     }
     private void checkPlayerOverDamageTiles() {
@@ -72,7 +76,13 @@ public class InputHandler {
         }
     }
     private void respawnEnemy() throws IOException {
+        System.out.println(specialLevel);
         if (enemyRespawnCounter == 3) {
+            if (specialLevel) {
+                enemies = itemSpawner.spawnEnemy(player, 2);
+            } else {
+                enemies = itemSpawner.spawnEnemy(player, 1);
+            }
             for (Enemy enemy : enemies) {
                 enemy.displayEnemy();
             }
@@ -81,22 +91,22 @@ public class InputHandler {
         }
     }
     private void checkPlayerOverEnemy() {
-        Enemy tempEnemy = null;
-        Enemy enemyToRemove = null;
+        boolean emptyEnemyList = false;
         for (Enemy enemy : enemies) {
-            tempEnemy = enemy.checkEnemyState(player);
-
-            if (tempEnemy != null) {
-                enemyToRemove = enemy;
-                enemy.consume();
-                enemy.nullImage();
+            if (enemy.checkEnemyState(player)) {
+                emptyEnemyList = true;
                 respawnEnemy = true;
             }
+
         }
-        if (tempEnemy != null) {
-            enemies.add(tempEnemy);
-            enemies.remove(enemyToRemove);
+        if (emptyEnemyList) {
+            for (Enemy enemy : enemies) {
+                enemy.consume();
+                enemy.nullImage();
+            }
+            enemies = null;
         }
+
     }
     private void moveEnemy() {
         Random random = new Random();
