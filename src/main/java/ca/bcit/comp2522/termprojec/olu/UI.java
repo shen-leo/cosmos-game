@@ -191,7 +191,7 @@ public class UI {
         }
     }
 
-    private void createRequiredSouls() throws IOException {
+    private void createRequiredSouls() {
         requiredSoulsText = new Text(String.format("Required Souls: %d", HelloApplication.getLevelManager().getLevel()));
         requiredSoulsText.setFill(Color.WHITE);
         requiredSoulsText.setFont(Font.font(25));
@@ -202,7 +202,7 @@ public class UI {
 
     public void addSword() {
         try {
-            InputStream is = Files.newInputStream(Paths.get("src/main/resources/images/items/green_blade.png"));
+            InputStream is = Files.newInputStream(Paths.get("src/main/resources/images/items/shield.png"));
             Image img = new Image(is);
             sword = new ImageView(img);
             sword.setFitWidth(64);

@@ -29,7 +29,7 @@ public class Item {
             case 1 -> is = Files.newInputStream(Paths.get("src/main/resources/images/items/red_potion.gif"));
 //            case 2 -> is = Files.newInputStream(Paths.get("src/main/resources/images/items/coin.png"));
             case 2 -> is = Files.newInputStream(Paths.get("src/main/resources/images/items/soul.gif"));
-            case 3 -> is = Files.newInputStream(Paths.get("src/main/resources/images/items/green_blade.png"));
+            case 3 -> is = Files.newInputStream(Paths.get("src/main/resources/images/items/shield.png"));
         }
 
         x = HelloApplication.generateRandomCoordinate();

@@ -134,7 +134,7 @@ public class SceneManager {
                 BackgroundSize.DEFAULT);
         Background bGround = new Background(bImg);
         root.setBackground(bGround);
-        Text gameOver = new Text("Game Over");
+        Text gameOver = new Text("You Died...");
         gameOver.setFill(Color.WHITE);
         gameOver.setFont(Font.font(50));
         gameOver.setTranslateY(-175);
