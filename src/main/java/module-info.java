@@ -8,6 +8,7 @@ module ca.bcit.comp2522.termprojec.olu {
     requires java.desktop;
     requires java.sql;
     requires mysql.connector.java;
+    requires javafx.media;
 
     opens ca.bcit.comp2522.termprojec.olu to javafx.fxml;
     exports ca.bcit.comp2522.termprojec.olu;
