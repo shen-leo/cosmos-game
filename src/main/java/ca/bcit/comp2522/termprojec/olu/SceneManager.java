@@ -84,7 +84,7 @@ public class SceneManager {
         if (mapManager.getMap(levelManager.getLevel()) != null) {
             backgroundFile = mapManager.getMap(levelManager.getLevel());
         } else {
-            backgroundFile = new File("src/main/resources/images/Backgrounds/default-background.jpg");
+            backgroundFile = new File("src/main/resources/images/Backgrounds/wallpapers/galaxy.jpg");
         }
 
         Image img = new Image(backgroundFile.toURI().toString());
@@ -209,6 +209,10 @@ public class SceneManager {
         this.nextLevelScene = createNextLevelScene(levelManager.getLevel());
         stage.setScene(this.nextLevelScene);
         System.out.println("Current Level: " + levelManager.getLevel());
+    }
+
+    public MapManager getMapManager() {
+        return this.mapManager;
     }
 
     public User getUser() {

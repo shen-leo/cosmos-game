@@ -4,6 +4,7 @@ package ca.bcit.comp2522.termprojec.olu;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
@@ -44,7 +45,16 @@ public class UI {
         stackPane.getChildren().addAll(imageView);
     }
     public void createBackGroundTile()throws IOException {
-        InputStream is = Files.newInputStream(Paths.get("src/main/resources/images/backgrounds/background.png"));
+
+        InputStream is;
+        if (HelloApplication.getMapManager().getEnemy(HelloApplication.getLevelManager().getLevel()) != null) {
+            is = Files.newInputStream(Paths.get(HelloApplication.getMapManager()
+                    .getTiles(HelloApplication.getLevelManager().getLevel())));
+        } else {
+            is = Files.newInputStream(Paths.get("src/main/resources/images/backgrounds/background.png"));
+        }
+
+//        InputStream is = Files.newInputStream(Paths.get("src/main/resources/images/backgrounds/background.png"));
         HelloApplication.setBackgroundBound(257);
         HelloApplication.setBackgroundHeight(576);
         HelloApplication.setBackgroundWidth(576);
@@ -55,7 +65,15 @@ public class UI {
         this.specialLevel = true;
         countdownText.setTranslateY(-390);
         HelloApplication.setBackgroundBound(321);
-        InputStream is = Files.newInputStream(Paths.get("src/main/resources/images/backgrounds/biggerBackground.png"));
+
+        InputStream is;
+        if (HelloApplication.getMapManager().getEnemy(HelloApplication.getLevelManager().getLevel()) != null) {
+            is = Files.newInputStream(Paths.get(HelloApplication.getMapManager()
+                    .getBigTiles(HelloApplication.getLevelManager().getLevel())));
+        } else {
+            is = Files.newInputStream(Paths.get("src/main/resources/images/backgrounds/biggerBackground.png"));
+        }
+
         HelloApplication.setBackgroundHeight(704);
         HelloApplication.setBackgroundWidth(704);
         createBackGround(is);
@@ -134,6 +152,7 @@ public class UI {
         coinDisplay.setTranslateX(456);
         coinDisplay.setTranslateY(-350);
         coinCounterText = new Text("0");
+        coinCounterText.setFill(Color.WHITE);
         coinCounterText.setFont(Font.font(50));
         coinCounterText.setTranslateX(505);
         coinCounterText.setTranslateY(-353);
@@ -149,8 +168,9 @@ public class UI {
     }
 
     private void createCountdown() {
-        timer.startCountdown(this, 30); // changed for testing purposes
+        timer.startCountdown(this, 10); // changed for testing purposes
         countdownText = new Text("30"); // changed for testing purposes
+        countdownText.setFill(Color.WHITE);
         countdownText.setFont(Font.font(50));
         countdownText.setTranslateY(-350);
 
@@ -161,7 +181,7 @@ public class UI {
         countdownText.setText(String.valueOf(time));
         if (time == 0) {
             int currentCount = Integer.parseInt(coinCounterText.getText());
-            if (currentCount >= 2) { // changed for testing purposes
+            if (currentCount >= 1) { // changed for testing purposes
                 sceneManager.nextLevel();
             } else {
                 sceneManager.gameOver();
