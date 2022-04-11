@@ -177,10 +177,10 @@ public class Enemy {
 
         if (player.getCoordinates().equals(getCoordinates()) && this.imageView != null) {
 
-            if (!player.playerHasSword) {
+            if (!player.getPlayerHasSword()) {
                 ui.removeHeart();
             } else {
-                player.playerHasSword = false;
+                player.setPlayerHasSword(false);
                 ui.removeSword();
             }
             this.imageView.setVisible(false);

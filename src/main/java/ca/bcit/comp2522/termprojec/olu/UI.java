@@ -27,7 +27,6 @@ public class UI {
 
 
     private Text coinCounterText;
-    private Text requiredSoulsText;
     private Text countdownText;
     public boolean respawnSword = false;
     private boolean specialLevel = false;
@@ -56,7 +55,6 @@ public class UI {
             is = Files.newInputStream(Paths.get("src/main/resources/images/backgrounds/background.png"));
         }
 
-//        InputStream is = Files.newInputStream(Paths.get("src/main/resources/images/backgrounds/background.png"));
         HelloApplication.setBackgroundBound(257);
         HelloApplication.setBackgroundHeight(576);
         HelloApplication.setBackgroundWidth(576);
@@ -192,7 +190,8 @@ public class UI {
     }
 
     private void createRequiredSouls() {
-        requiredSoulsText = new Text(String.format("Required Souls: %d", HelloApplication.getLevelManager().getLevel()));
+        Text requiredSoulsText = new Text(
+                String.format("Required Souls: %d", HelloApplication.getLevelManager().getLevel()));
         requiredSoulsText.setFill(Color.WHITE);
         requiredSoulsText.setFont(Font.font(25));
         requiredSoulsText.setTranslateX(480);

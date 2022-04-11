@@ -7,17 +7,33 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+/**
+ * Spawn and Manage Items.
+ * @author Urjit, Leo
+ * @version 2022
+ */
 public class ItemSpawner {
 
     private final ArrayList<Item> items = new ArrayList<>();
     private final StackPane root;
     private final UI ui;
+
+    /**
+     * Constructor for ItemSpawner.
+     * @param root Root to add items to
+     * @param ui UI to update and manage items
+     */
     public ItemSpawner(final StackPane root, final UI ui) {
         this.root = root;
         this.ui = ui;
     }
 
-    public void spawnItems(Player player) throws Exception {
+    /**
+     * Spawns items.
+     * @param player Player
+     * @throws Exception If file for item is not found
+     */
+    public void spawnItems(final Player player) throws Exception {
 
         initialSpawn();
         while (checkEqual(player)) {
@@ -37,6 +53,9 @@ public class ItemSpawner {
         }
     }
     private void initialSpawn() throws Exception {
+        final int swordID = 3;
+        final int coinID = 2;
+        final int heartID = 1;
         Item coin = new Coin(root, ui);
         Item heart = new Heart(root, ui);
         Item sword = new Sword(root, ui);
@@ -45,11 +64,11 @@ public class ItemSpawner {
         items.add(coin);
         for (Item item : items) {
             if (item.getType().equals("Sword")) {
-                item.createItem(3);
+                item.createItem(swordID);
             } else if (item.getType().equals("Coin")) {
-                item.createItem(2);
+                item.createItem(coinID);
             } else if (item.getType().equals("Heart")) {
-                item.createItem(1);
+                item.createItem(heartID);
             }
         }
     }
@@ -72,20 +91,22 @@ public class ItemSpawner {
         return false;
     }
 
-
+    /**
+     * Check if items or player collide.
+     * @param player Player
+     */
     public void checkItemState(final Player player) {
         for (Item item : items) {
             if (item.getType().equals("Sword")) {
                 if (player.getCoordinates().equals(item.getCoordinates())) {
-                    player.playerHasSword = true;
+                    player.setPlayerHasSword(true);
                     item.collectable();
-                    item.setX(-800);
-                    item.setY(900);
-                    item.imageView.setVisible(false);
+                    item.consume();
+                    item.setImageView(false);
                 }
                 if (ui.respawnSword) {
                     ui.setRespawnSword(false);
-                    item.imageView.setVisible(true);
+                    item.setImageView(true);
                     item.setX(HelloApplication.generateRandomCoordinate());
                     item.setY(HelloApplication.generateRandomCoordinate());
                     while (checkEqual(player)) {
@@ -94,7 +115,6 @@ public class ItemSpawner {
                     }
                 }
             } else if (item.getType().equals("Coin") && player.getCoordinates().equals(item.getCoordinates())) {
-
                 item.collectable();
                 item.setX(HelloApplication.generateRandomCoordinate());
                 item.setY(HelloApplication.generateRandomCoordinate());
@@ -109,7 +129,14 @@ public class ItemSpawner {
             }
         }
     }
-    public ArrayList<Enemy> spawnEnemy(Player player, int quantity) {
+
+    /**
+     * Spawn new enemies.
+     * @param player Player
+     * @param quantity Number of enemies to spawn
+     * @return Arraylist of enemies
+     */
+    public ArrayList<Enemy> spawnEnemy(final Player player, final int quantity) {
         ArrayList<Enemy> enemies = new ArrayList<>();
         for (int i = 0; i < quantity; i++) {
             enemies.add(new Enemy(player, root, ui));

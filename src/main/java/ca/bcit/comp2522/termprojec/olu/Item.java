@@ -8,57 +8,84 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.Objects;
 
-
+/**
+ * Create and update Items.
+ * @author Urjit, Leo
+ * @version 2022
+ */
 public class Item {
+    private static final int PIXEL_SIZE = 64;
     private final StackPane pane;
-    public ImageView imageView;
+    private ImageView imageView;
     private double x = 0;
     private double y = 0;
-
-    public Item(StackPane pane) {
+    /**
+     * Constructor for Item class.
+     * @param pane Pane to add item to
+     */
+    public Item(final StackPane pane) {
         this.pane = pane;
     }
 
 
-    // creates the visual representation of the item instance
-    public void createItem(int itemID) throws Exception {
-        InputStream is = null;
-
+    /**
+     * Creates and displays the Item.
+     * @param itemID ID of the item to create
+     * @throws Exception If file not found
+     */
+    public void createItem(final int itemID) throws Exception {
+        InputStream is;
+        final int caseThree = 3;
         switch (itemID) {
-            case 1 -> is = Files.newInputStream(Paths.get("src/main/resources/images/items/red_potion.gif"));
-//            case 2 -> is = Files.newInputStream(Paths.get("src/main/resources/images/items/coin.png"));
-            case 2 -> is = Files.newInputStream(Paths.get("src/main/resources/images/items/soul.gif"));
-            case 3 -> is = Files.newInputStream(Paths.get("src/main/resources/images/items/shield.png"));
+            case 2 -> {
+                is = Files.newInputStream(Paths.get("src/main/resources/images/items/soul.gif"));
+            }
+            case caseThree -> {
+                is = Files.newInputStream(Paths.get("src/main/resources/images/items/shield.png"));
+            }
+            default -> {
+                is = Files.newInputStream(Paths.get("src/main/resources/images/items/red_potion.gif"));
+            }
         }
 
         x = HelloApplication.generateRandomCoordinate();
         y = HelloApplication.generateRandomCoordinate();
 
-        assert is != null;
         Image img = new Image(is);
         is.close();
 
         imageView = new ImageView(img);
-        imageView.setFitWidth(64);
-        imageView.setFitHeight(64);
+        imageView.setFitWidth(PIXEL_SIZE);
+        imageView.setFitHeight(PIXEL_SIZE);
 
         imageView.setTranslateX(x);
         imageView.setTranslateY(y);
         pane.getChildren().addAll(imageView);
     }
 
-    public void setX(int x) {
+    /**
+     * Set Item X coordinate.
+     * @param x New X coordinate
+     */
+    public void setX(final int x) {
         this.x = x;
         imageView.setTranslateX(x);
     }
-
-    public void setY(int y) {
+    /**
+     * Set Item Y coordinate.
+     * @param y New Y coordinate
+     */
+    public void setY(final int y) {
         this.y = y;
         imageView.setTranslateY(y);
     }
 
-    // returns the coordinates of the current item instance
+    /**
+     * Get the Items X and Y coordinate.
+     * @return Returns the coordinates of the current item instance.
+     */
     public HashMap<String, Double> getCoordinates() {
         HashMap<String, Double> coordinates = new HashMap<>();
         coordinates.put("x", this.x);
@@ -66,26 +93,79 @@ public class Item {
         return coordinates;
     }
 
-    // removes item instance's imageview
+    /**
+     * Removes item instance's imageview.
+     */
     public void nullImage() {
         this.imageView.setImage(null);
     }
 
-    // removes the item from the playable board
+    /**
+     * Removes the item from the playable board.
+     */
     public void consume() {
-        this.x = -100000;
-        this.y = -100000;
+        final int outOfBounds = -100000;
+        this.x = outOfBounds;
+        this.y = outOfBounds;
     }
 
+    /**
+     * Collectable method.
+     */
     public void collectable() {
     }
 
-    public void respawn() {
+    /**
+     * Set the items image view visibility.
+     * @param visibility True or False
+     */
+    public void setImageView(final boolean visibility) {
+        this.imageView.setVisible(visibility);
     }
-    @Override
-    public String toString() { return String.format("(%f, %f)", x, y); }
 
+    /**
+     * To string method.
+     * @return This item coordinates
+     */
+    @Override
+    public String toString() {
+        return String.format("(%f, %f)", x, y);
+    }
+
+    /**
+     * Get type of this item.
+     * @return String Type of this Item
+     */
     public String getType() {
         return "";
+    }
+
+    /**
+     * Equals method.
+     * @param o Object to compare
+     * @return True if objects are same else false
+     */
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Item item = (Item) o;
+        return Double.compare(item.x, x) == 0
+                && Double.compare(item.y, y) == 0
+                && Objects.equals(pane, item.pane)
+                && Objects.equals(imageView, item.imageView);
+    }
+
+    /**
+     * Hashcode method.
+     * @return Hashcode
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(pane, imageView, x, y);
     }
 }
