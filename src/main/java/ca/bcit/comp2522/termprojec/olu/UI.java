@@ -125,7 +125,8 @@ public class UI {
     }
 
     private void createCoinCounter() throws IOException {
-        InputStream is = Files.newInputStream(Paths.get("src/main/resources/images/items/coin.png"));
+//        InputStream is = Files.newInputStream(Paths.get("src/main/resources/images/items/coin.png"));
+        InputStream is = Files.newInputStream(Paths.get("src/main/resources/images/items/soul.gif"));
         Image img = new Image(is);
         ImageView coinDisplay = new ImageView(img);
         coinDisplay.setFitWidth(64);

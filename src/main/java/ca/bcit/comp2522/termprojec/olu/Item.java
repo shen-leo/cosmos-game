@@ -27,7 +27,8 @@ public class Item {
 
         switch (itemID) {
             case 1 -> is = Files.newInputStream(Paths.get("src/main/resources/images/items/heart_icon.png"));
-            case 2 -> is = Files.newInputStream(Paths.get("src/main/resources/images/items/coin.png"));
+//            case 2 -> is = Files.newInputStream(Paths.get("src/main/resources/images/items/coin.png"));
+            case 2 -> is = Files.newInputStream(Paths.get("src/main/resources/images/items/soul.gif"));
             case 3 -> is = Files.newInputStream(Paths.get("src/main/resources/images/items/sword.png"));
         }
 

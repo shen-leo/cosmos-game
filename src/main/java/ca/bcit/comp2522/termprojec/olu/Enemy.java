@@ -1,11 +1,18 @@
 package ca.bcit.comp2522.termprojec.olu;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -71,7 +78,7 @@ public class Enemy {
         used.add(start);
         while (!finished) {
             List<Point> newOpen = new ArrayList<>();
-            for(int i = 0; i < used.size(); ++i){
+            for (int i = 0; i < used.size(); ++i) {
                 Point point = used.get(i);
                 for (Point neighbor : FindNeighbors(map, point)) {
                     if (!used.contains(neighbor) && !newOpen.contains(neighbor)) {
@@ -80,7 +87,7 @@ public class Enemy {
                 }
             }
 
-            for(Point point : newOpen) {
+            for (Point point : newOpen) {
                 used.add(point);
                 if (end.equals(point)) {
                     finished = true;
@@ -169,6 +176,7 @@ public class Enemy {
     public boolean checkEnemyState(final Player player) {
 
         if (player.getCoordinates().equals(getCoordinates()) && this.imageView != null) {
+
             if (!player.playerHasSword) {
                 ui.removeHeart();
             } else {
@@ -176,10 +184,40 @@ public class Enemy {
                 ui.removeSword();
             }
             this.imageView.setVisible(false);
+            animateDeath();
             return true;
         }
         return false;
     }
+
+    private void animateDeath() {
+
+        try {
+            Image image = new Image(new FileInputStream("src/main/resources/images/effects/explosion.gif"));
+
+            ImageView deathAnimation = new ImageView(image);
+
+            deathAnimation.setTranslateX(this.player.getX());
+            deathAnimation.setTranslateY(this.player.getY());
+
+            deathAnimation.setFitHeight(64);
+            deathAnimation.setFitWidth(64);
+
+            pane.getChildren().addAll(deathAnimation);
+            String musicFile = "src/main/resources/sfx/knife_stab.mp3";
+
+            Media sound = new Media(new File(musicFile).toURI().toString());
+            MediaPlayer mediaPlayer = new MediaPlayer(sound);
+            mediaPlayer.play();
+            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> deathAnimation.setVisible(false)));
+
+            timeline.play();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void nullImage() {
         this.imageView.setImage(null);
     }
