@@ -74,15 +74,25 @@ public class ItemSpawner {
 
 
     public void checkItemState(final Player player) {
-        int swordIndex = 0;
-        boolean removeSword = false;
         for (Item item : items) {
-            if (item.getType().equals("Sword") && player.getCoordinates().equals(item.getCoordinates())) {
-                player.playerHasSword = true;
-                item.collectable();
-                item.nullImage();
-                item.consume();
-                removeSword = true;
+            if (item.getType().equals("Sword")) {
+                if (player.getCoordinates().equals(item.getCoordinates())) {
+                    player.playerHasSword = true;
+                    item.collectable();
+                    item.setX(-800);
+                    item.setY(900);
+                    item.imageView.setVisible(false);
+                }
+                if (ui.respawnSword) {
+                    ui.setRespawnSword(false);
+                    item.imageView.setVisible(true);
+                    item.setX(HelloApplication.generateRandomCoordinate());
+                    item.setY(HelloApplication.generateRandomCoordinate());
+                    while (checkEqual(player)) {
+                        item.setX(HelloApplication.generateRandomCoordinate());
+                        item.setY(HelloApplication.generateRandomCoordinate());
+                    }
+                }
             } else if (item.getType().equals("Coin") && player.getCoordinates().equals(item.getCoordinates())) {
 
                 item.collectable();
@@ -97,9 +107,6 @@ public class ItemSpawner {
                 item.nullImage();
                 item.consume();
             }
-        }
-        if (removeSword) {
-            items.remove(swordIndex);
         }
     }
     public ArrayList<Enemy> spawnEnemy(Player player, int quantity) {

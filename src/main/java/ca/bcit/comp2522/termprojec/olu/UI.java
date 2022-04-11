@@ -27,6 +27,8 @@ public class UI {
 
     private Text coinCounterText;
     private Text countdownText;
+    public boolean respawnSword = false;
+    private boolean specialLevel = false;
     public UI(StackPane stackPane, SceneManager sceneManager) throws IOException {
         this.stackPane = stackPane;
         this.sceneManager = sceneManager;
@@ -50,6 +52,7 @@ public class UI {
         is.close();
     }
     public void createSpecialBackGroundTile()throws IOException {
+        this.specialLevel = true;
         countdownText.setTranslateY(-390);
         HelloApplication.setBackgroundBound(321);
         InputStream is = Files.newInputStream(Paths.get("src/main/resources/images/backgrounds/biggerBackground.png"));
@@ -184,7 +187,14 @@ public class UI {
     }
     public void removeSword() {
         if (sword.isVisible()) {
+            if (specialLevel) {
+                respawnSword = true;
+            }
             stackPane.getChildren().remove(sword);
         }
+    }
+
+    public void setRespawnSword(boolean respawnSword) {
+        this.respawnSword = respawnSword;
     }
 }

@@ -83,7 +83,7 @@ public class HelloApplication extends Application {
 
         Media sound = new Media(new File(musicFile).toURI().toString());
         mediaPlayer = new MediaPlayer(sound);
-        mediaPlayer.setVolume(0.5);
+        mediaPlayer.setVolume(0.1);
         mediaPlayer.setCycleCount(INDEFINITE);
         mediaPlayer.play();
     }

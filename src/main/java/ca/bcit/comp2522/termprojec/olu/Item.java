@@ -12,7 +12,7 @@ import java.util.HashMap;
 
 public class Item {
     private final StackPane pane;
-    private ImageView imageView;
+    public ImageView imageView;
     private double x = 0;
     private double y = 0;
 
@@ -72,8 +72,8 @@ public class Item {
 
     // removes the item from the playable board
     public void consume() {
-        this.x = -1000;
-        this.y = -1000;
+        this.x = -100000;
+        this.y = -100000;
     }
 
     public void collectable() {

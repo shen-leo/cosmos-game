@@ -95,7 +95,6 @@ public class SceneManager {
                 BackgroundSize.DEFAULT);
         Background bGround = new Background(bImg);
         root.setBackground(bGround);
-        List<DamageTile> damageTiles = new ArrayList<>();
         SceneManager sceneManager = new SceneManager(stage, levelManager, mapManager, user);
         UI ui = new UI(root, sceneManager);
         Player player = new Player(root, ui);
@@ -107,17 +106,9 @@ public class SceneManager {
 
 
         if (levelManager.getLevel() >= 3) {
-            System.out.println("Special");
-            Enemy enemy2 = new Enemy(player, root, ui);
             ui.createSpecialBackGroundTile();
-            for (int i = 0; i < 5; i++) {
-                damageTiles.add(new DamageTile(player, root, ui));
-            }
-            enemy2.displayEnemy();
-            enemies.add(enemy2);
-            InputHandler inputHandler = new InputHandler(scene, player, enemies, itemSpawner, damageTiles);
+            InputHandler inputHandler = new InputHandler(scene, player, enemies, itemSpawner, true);
         } else {
-            System.out.println("Non Special");
             InputHandler inputHandler = new InputHandler(scene, player, enemies, itemSpawner);
             ui.createBackGroundTile();
         }

@@ -16,7 +16,6 @@ import java.util.Random;
 public class InputHandler {
     private final Scene scene;
     private final Player player;
-    private List<DamageTile> damageTiles;
     private List<Enemy> enemies;
     private final ItemSpawner itemSpawner;
     private boolean respawnEnemy = false;
@@ -31,12 +30,11 @@ public class InputHandler {
         readInput();
     }
     public InputHandler(Scene scene, Player player, List<Enemy> enemies,
-                        ItemSpawner itemSpawner, List<DamageTile> damageTiles) {
+                        ItemSpawner itemSpawner, boolean specialLevel) {
         this.scene = scene;
         this.player = player;
         this.enemies = enemies;
         this.itemSpawner = itemSpawner;
-        this.damageTiles = damageTiles;
         this.specialLevel = true;
         readInput();
     }
@@ -60,21 +58,12 @@ public class InputHandler {
             } else {
                 moveEnemy();
             }
-            checkPlayerOverDamageTiles();
             if (enemies != null) {
                 checkPlayerOverEnemy();
             }
         });
     }
-    private void checkPlayerOverDamageTiles() {
-        if (damageTiles != null) {
-            for (DamageTile damageTile : damageTiles) {
-                if (damageTile.getCoordinates().equals(player.getCoordinates())) {
-                    player.takeDamage();
-                }
-            }
-        }
-    }
+
     private void respawnEnemy() throws IOException {
         if (enemyRespawnCounter == 3) {
             if (specialLevel) {
