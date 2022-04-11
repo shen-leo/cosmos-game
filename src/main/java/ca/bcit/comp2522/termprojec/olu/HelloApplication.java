@@ -1,7 +1,6 @@
 package ca.bcit.comp2522.termprojec.olu;
 
 import javafx.application.Application;
-import javafx.concurrent.Task;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
