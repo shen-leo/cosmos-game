@@ -193,4 +193,3 @@ public class Enemy {
         return new Enemy(player, pane, ui);
     }
 }
-// https://gamedev.stackexchange.com/questions/197165/java-simple-2d-grid-pathfinding

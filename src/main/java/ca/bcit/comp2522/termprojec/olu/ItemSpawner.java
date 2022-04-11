@@ -2,6 +2,7 @@ package ca.bcit.comp2522.termprojec.olu;
 
 import javafx.scene.layout.StackPane;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -83,6 +84,7 @@ public class ItemSpawner {
                 item.consume();
                 removeSword = true;
             } else if (item.getType().equals("Coin") && player.getCoordinates().equals(item.getCoordinates())) {
+
                 item.collectable();
                 item.setX(HelloApplication.generateRandomCoordinate());
                 item.setY(HelloApplication.generateRandomCoordinate());

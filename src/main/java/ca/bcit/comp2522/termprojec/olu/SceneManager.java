@@ -1,11 +1,14 @@
 package ca.bcit.comp2522.termprojec.olu;
 
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -13,6 +16,8 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import static javafx.scene.media.MediaPlayer.INDEFINITE;
 
 
 public class SceneManager {
@@ -22,6 +27,7 @@ public class SceneManager {
     private final MapManager mapManager;
     private User user;
     public SceneManager(Stage stage, LevelManager levelManager, MapManager mapManager, User user) {
+
         this.stage = stage;
         this.user = user;
         this.levelManager = levelManager;
@@ -101,6 +107,7 @@ public class SceneManager {
 
 
         if (levelManager.getLevel() >= 3) {
+            System.out.println("Special");
             Enemy enemy2 = new Enemy(player, root, ui);
             ui.createSpecialBackGroundTile();
             for (int i = 0; i < 5; i++) {
@@ -110,6 +117,7 @@ public class SceneManager {
             enemies.add(enemy2);
             InputHandler inputHandler = new InputHandler(scene, player, enemies, itemSpawner, damageTiles);
         } else {
+            System.out.println("Non Special");
             InputHandler inputHandler = new InputHandler(scene, player, enemies, itemSpawner);
             ui.createBackGroundTile();
         }

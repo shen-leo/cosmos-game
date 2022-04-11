@@ -1,13 +1,19 @@
 package ca.bcit.comp2522.termprojec.olu;
 
 import javafx.application.Application;
+import javafx.concurrent.Task;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Random;
+
+import static javafx.scene.media.MediaPlayer.INDEFINITE;
 
 public class HelloApplication extends Application {
     private static User user = new User();
@@ -15,6 +21,8 @@ public class HelloApplication extends Application {
     private static final MapManager mapManager = new MapManager();
     private static final Random random = new Random();
     public static final Stats stats = new Stats();
+    MediaPlayer mediaPlayer;
+
     private static final int PIXEL_COUNT = 64;
     public static int BACKGROUND_WIDTH = 576;
     public static int BACKGROUND_HEIGHT = 576;
@@ -55,6 +63,7 @@ public class HelloApplication extends Application {
 
     @Override
     public void start(final Stage stage) {
+        playMusic();
         // Create a new scene manager
         SceneManager sceneManager = new SceneManager(stage, levelManager, mapManager, user);
 
@@ -67,8 +76,17 @@ public class HelloApplication extends Application {
         stage.setScene(sceneManager.createTitleScene());
         // show the game on screen
         stage.show();
-    }
 
+    }
+    private void playMusic() {
+        String musicFile = "src/main/resources/sfx/background.wav";
+
+        Media sound = new Media(new File(musicFile).toURI().toString());
+        mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.setVolume(0.5);
+        mediaPlayer.setCycleCount(INDEFINITE);
+        mediaPlayer.play();
+    }
     public static void setBackgroundHeight(int backgroundHeight) {
         BACKGROUND_HEIGHT = backgroundHeight;
     }

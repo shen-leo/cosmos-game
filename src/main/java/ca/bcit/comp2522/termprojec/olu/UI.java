@@ -24,6 +24,7 @@ public class UI {
     private ImageView heartThree;
     private ImageView sword;
 
+
     private Text coinCounterText;
     private Text countdownText;
     public UI(StackPane stackPane, SceneManager sceneManager) throws IOException {
@@ -42,6 +43,9 @@ public class UI {
     }
     public void createBackGroundTile()throws IOException {
         InputStream is = Files.newInputStream(Paths.get("src/main/resources/images/backgrounds/background.png"));
+        HelloApplication.setBackgroundBound(257);
+        HelloApplication.setBackgroundHeight(576);
+        HelloApplication.setBackgroundWidth(576);
         createBackGround(is);
         is.close();
     }
