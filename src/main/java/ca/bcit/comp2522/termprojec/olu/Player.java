@@ -22,7 +22,8 @@ public class Player {
     }
 
     public void displayPlayer() throws IOException {
-        InputStream is = Files.newInputStream(Paths.get("src/main/resources/images/player.png"));
+//        InputStream is = Files.newInputStream(Paths.get("src/main/resources/images/player.png"));
+        InputStream is = Files.newInputStream(Paths.get("src/main/resources/images/player.gif"));
         imageView = HelloApplication.displaySprite(is);
         is.close();
         x = imageView.getTranslateX();

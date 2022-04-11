@@ -30,7 +30,7 @@ public class MapManager {
 
         enemiesMap.put(1, "src/main/resources/images/enemy/eye_monster.gif");
         enemiesMap.put(2, "src/main/resources/images/enemy/chimera.gif");
-        enemiesMap.put(3, "src/main/resources/images/enemy/mummy.gif");
+        enemiesMap.put(3, "src/main/resources/images/enemy/anubis.gif");
         enemiesMap.put(4, "src/main/resources/images/enemy/warlock.gif");
         enemiesMap.put(5, "src/main/resources/images/enemy/archfiend.gif");
     }
