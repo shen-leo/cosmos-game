@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -124,26 +125,38 @@ public class SceneManager {
         root.setPrefSize(1200, 800);
 
         Scene scene = new Scene(root);
+        File backgroundFile = new File("src/main/resources/images/Backgrounds/wallpapers/game_over.jpeg");
+        Image img = new Image(backgroundFile.toURI().toString());
+        BackgroundImage bImg = new BackgroundImage(img,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+        Background bGround = new Background(bImg);
+        root.setBackground(bGround);
         Text gameOver = new Text("Game Over");
+        gameOver.setFill(Color.WHITE);
         gameOver.setFont(Font.font(50));
         gameOver.setTranslateY(-175);
 
-        Text coinsCollected = new Text("Coins Collected: " +
-                HelloApplication.stats.getCoinsCollected());
+        Text coinsCollected = new Text("Total Coins Collected: "
+                + HelloApplication.stats.getCoinsCollected());
         coinsCollected.setFont(Font.font(20));
+        coinsCollected.setFill(Color.WHITE);
         coinsCollected.setTranslateX(-200);
         coinsCollected.setTranslateY(-50);
 
-        Text damageTaken = new Text("Damage taken: " +
-                HelloApplication.stats.getNumberOfEnemiesPlayerHit());
+        Text damageTaken = new Text("Total Damage taken: "
+                + HelloApplication.stats.getNumberOfEnemiesPlayerHit());
         damageTaken.setFont(Font.font(20));
+        damageTaken.setFill(Color.WHITE);
         damageTaken.setTranslateX(200);
         damageTaken.setTranslateY(-50);
 
 
         this.getUser().incrementDeaths();
 
-        Button button = new Button("Play game");
+        Button button = new Button("Play Again");
         resetButton(button);
         root.getChildren().addAll(gameOver, button, coinsCollected, damageTaken);
         return scene;
