@@ -6,7 +6,7 @@ All the assets and sound used are royalty free, and under the public domain copy
 ### Artwork
 
 ### Enemy Ai
-Our enemy AI is a modified version of the Dijkstra's search algorithm found [here](https://gamedev.stackexchange.com/questions/197165/java-simple-2d-grid-pathfinding)
+Our enemy AI is a modified version of the Dijkstra's search algorithm. Original code can be found [here](https://gamedev.stackexchange.com/questions/197165/java-simple-2d-grid-pathfinding)
 
 ### Sound effects
 [Coin sound effect](https://www.fesliyanstudios.com/royalty-free-sound-effects-download/coin-272)
