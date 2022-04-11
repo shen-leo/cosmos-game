@@ -44,7 +44,7 @@ public class RegistrationForm extends JDialog {
 
     /**
      * Declares the registration form settings and defines action listeners for buttons.
-     * @param parent the parent JFrame parent window
+     * @param parent the JFrame parent window
      */
     public RegistrationForm(final JFrame parent) {
         super(parent);

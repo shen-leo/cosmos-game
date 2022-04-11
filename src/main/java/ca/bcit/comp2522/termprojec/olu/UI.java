@@ -297,7 +297,7 @@ public class UI {
             stackPane.getChildren().addAll(sword);
 
             is.close();
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println(Arrays.toString(e.getStackTrace()));
         }
     }
