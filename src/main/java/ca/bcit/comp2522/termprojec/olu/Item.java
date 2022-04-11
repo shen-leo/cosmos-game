@@ -15,7 +15,7 @@ import java.util.Objects;
  * @author Urjit, Leo
  * @version 2022
  */
-public class Item {
+public abstract class Item {
     private static final int PIXEL_SIZE = 64;
     private final StackPane pane;
     private ImageView imageView;
@@ -131,6 +131,11 @@ public class Item {
     public String toString() {
         return String.format("(%f, %f)", x, y);
     }
+
+    /**
+     * Respawn Method for item.
+     */
+    public abstract void respawn();
 
     /**
      * Get type of this item.
