@@ -1,14 +1,11 @@
 package ca.bcit.comp2522.termprojec.olu;
 
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -18,7 +15,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import static javafx.scene.media.MediaPlayer.INDEFINITE;
 
 
 public class SceneManager {
@@ -140,14 +136,14 @@ public class SceneManager {
         gameOver.setTranslateY(-175);
 
         Text coinsCollected = new Text("Total Coins Collected: "
-                + HelloApplication.stats.getCoinsCollected());
+                + HelloApplication.STATS.getCoinsCollected());
         coinsCollected.setFont(Font.font(20));
         coinsCollected.setFill(Color.WHITE);
         coinsCollected.setTranslateX(-200);
         coinsCollected.setTranslateY(-50);
 
         Text damageTaken = new Text("Total Damage taken: "
-                + HelloApplication.stats.getNumberOfEnemiesPlayerHit());
+                + HelloApplication.STATS.getNumberOfEnemiesPlayerHit());
         damageTaken.setFont(Font.font(20));
         damageTaken.setFill(Color.WHITE);
         damageTaken.setTranslateX(200);

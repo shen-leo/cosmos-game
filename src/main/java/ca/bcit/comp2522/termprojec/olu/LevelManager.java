@@ -1,6 +1,10 @@
 package ca.bcit.comp2522.termprojec.olu;
-
-public class LevelManager {
+/**
+ * Manages Levels.
+ * @author Urjit, Leo
+ * @version 2022
+ */
+public final class LevelManager {
     private int level;
 
     private LevelManager() {
@@ -12,18 +16,33 @@ public class LevelManager {
         return new LevelManager();
     }
 
+    /**
+     * Increments the level.
+     */
     public void nextLevel() {
         this.level++;
     }
 
+    /**
+     * Resets the level.
+     */
     public void resetLevel() {
         this.level = 1;
     }
 
+    /**
+     * Gets the Level.
+     * @return Current level
+     */
     public int getLevel() {
         return this.level;
     }
-    public void setLevel(int level) {
+
+    /**
+     * Sets the level.
+     * @param level New level
+     */
+    public void setLevel(final int level) {
         this.level = level;
     }
 

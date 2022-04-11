@@ -2,9 +2,17 @@ package ca.bcit.comp2522.termprojec.olu;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
+/**
+ * Hashes Password for security.
+ * @author Urjit, Leo
+ * @version 2022
+ */
 public class PasswordHash {
-
+    /**
+     * Encrypts password given.
+     * @param passwordToHash Password to hash
+     * @return Hashed password
+     */
     public static String encrypt(final String passwordToHash) {
         String generatedPassword = null;
 

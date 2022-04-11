@@ -106,13 +106,13 @@ public class ItemSpawner {
                 }
                 if (ui.respawnSword) {
                     ui.setRespawnSword(false);
-                    item.setImageView(true);
-                    item.setX(HelloApplication.generateRandomCoordinate());
-                    item.setY(HelloApplication.generateRandomCoordinate());
-                    while (checkEqual(player)) {
-                        item.setX(HelloApplication.generateRandomCoordinate());
-                        item.setY(HelloApplication.generateRandomCoordinate());
-                    }
+                    //item.setImageView(true);
+//                    item.setX(HelloApplication.generateRandomCoordinate());
+//                    item.setY(HelloApplication.generateRandomCoordinate());
+//                    while (checkEqual(player)) {
+//                        item.setX(HelloApplication.generateRandomCoordinate());
+//                        item.setY(HelloApplication.generateRandomCoordinate());
+//                    }
                 }
             } else if (item.getType().equals("Coin") && player.getCoordinates().equals(item.getCoordinates())) {
                 item.collectable();

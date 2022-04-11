@@ -8,9 +8,8 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * .
- *
- * @author Urjit
+ * Input Handler.
+ * @author Urjit, Leo
  * @version 2022
  */
 public class InputHandler {
@@ -21,32 +20,49 @@ public class InputHandler {
     private boolean respawnEnemy = false;
     private int enemyRespawnCounter = 0;
     private boolean specialLevel;
-    public InputHandler(Scene scene, Player player, List<Enemy> enemies,
-                        ItemSpawner itemSpawner) {
+
+    /**
+     * Constructor for new Input Handler.
+     * @param scene Scene
+     * @param player Player
+     * @param enemies List of enemies
+     * @param itemSpawner Item spawner
+     */
+    public InputHandler(final Scene scene, final Player player, final List<Enemy> enemies,
+                        final ItemSpawner itemSpawner) {
         this.scene = scene;
         this.player = player;
         this.enemies = enemies;
         this.itemSpawner = itemSpawner;
         readInput();
     }
-    public InputHandler(Scene scene, Player player, List<Enemy> enemies,
-                        ItemSpawner itemSpawner, boolean specialLevel) {
+
+    /**
+     * Constructor for new Input Handler for special levels.
+     * @param scene Scene
+     * @param player Player
+     * @param enemies List of enemies
+     * @param itemSpawner Item spawner
+     * @param specialLevel Boolean, true if special level
+     */
+    public InputHandler(final Scene scene, final Player player, final List<Enemy> enemies,
+                        final ItemSpawner itemSpawner, final boolean specialLevel) {
         this.scene = scene;
         this.player = player;
         this.enemies = enemies;
         this.itemSpawner = itemSpawner;
-        this.specialLevel = true;
+        this.specialLevel = specialLevel;
         readInput();
     }
     private void readInput() {
         scene.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
-
             switch (key.getCode()) {
                 // Change face direction
                 case A, LEFT -> moveLeft();
                 case D, RIGHT -> moveRight();
                 case W, UP -> moveUp();
                 case S, DOWN -> moveDown();
+                default -> System.out.println("Press W, A, S, D or Arrow keys");
             }
             if (respawnEnemy) {
                 enemyRespawnCounter++;
@@ -65,7 +81,8 @@ public class InputHandler {
     }
 
     private void respawnEnemy() throws IOException {
-        if (enemyRespawnCounter == 3) {
+        final int respawnCount = 3;
+        if (enemyRespawnCounter == respawnCount) {
             if (specialLevel) {
                 enemies = itemSpawner.spawnEnemy(player, 2);
             } else {
@@ -97,10 +114,12 @@ public class InputHandler {
 
     }
     private void moveEnemy() {
+        final int bound = 11;
+        final int canMove = 8;
         Random random = new Random();
         for (Enemy enemy : enemies) {
-            int shouldMove = random.nextInt(11);
-            if (shouldMove < 8) {
+            int shouldMove = random.nextInt(bound);
+            if (shouldMove < canMove) {
                 enemy.startPathFind();
             }
         }

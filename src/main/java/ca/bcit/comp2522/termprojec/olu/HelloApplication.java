@@ -13,20 +13,33 @@ import java.io.InputStream;
 import java.util.Random;
 
 import static javafx.scene.media.MediaPlayer.INDEFINITE;
-
+/**
+ * Application Manager.
+ * @author Urjit, Leo
+ * @version 2022
+ */
 public class HelloApplication extends Application {
+    /**
+     * Stats collector for game.
+     */
+    public static final Stats STATS = new Stats();
+
     private static User user = new User();
-    private static final LevelManager levelManager = LevelManager.initLevel();
-    private static final MapManager mapManager = new MapManager();
-    private static final Random random = new Random();
-    public static final Stats stats = new Stats();
-    MediaPlayer mediaPlayer;
+    private static final LevelManager LEVEL_MANAGER = LevelManager.initLevel();
+    private static final MapManager MAP_MANAGER = new MapManager();
+    private static final Random RANDOM = new Random();
+    private static MediaPlayer mediaPlayer;
 
     private static final int PIXEL_COUNT = 64;
-    public static int BACKGROUND_WIDTH = 576;
-    public static int BACKGROUND_HEIGHT = 576;
-    public static int BACKGROUND_BOUND = 257;
-    public static ImageView displaySprite(InputStream inputStream) throws IOException {
+
+
+    /**
+     * Creates a new Sprite object.
+     * @param inputStream Input Stream for the sprite file
+     * @return New Image View
+     * @throws IOException If file not found
+     */
+    public static ImageView displaySprite(final InputStream inputStream) throws IOException {
         Image img = new Image(inputStream);
         inputStream.close();
 
@@ -39,7 +52,9 @@ public class HelloApplication extends Application {
         imageView.setTranslateY(y);
         return imageView;
     }
-    private static int nextPowerOf2(int n) {
+    private static int nextPowerOf2(final int number) {
+        int n = number;
+        final int bound = 257;
         n = n - 1;
 
         while ((n & n - 1) != 0) {
@@ -48,30 +63,40 @@ public class HelloApplication extends Application {
 
         int nextPowerOf2 = n << 1;
         if (nextPowerOf2 < PIXEL_COUNT && nextPowerOf2 != 0) {
-            return nextPowerOf2(random.nextInt(0, 257));
+            return nextPowerOf2(RANDOM.nextInt(0, bound));
         }
         return nextPowerOf2;
     }
+
+    /**
+     * Generates a new random coordinate.
+     * @return New coordinate
+     */
     public static int generateRandomCoordinate() {
-        if (random.nextInt(0,2) == 0) {
-            return nextPowerOf2(random.nextInt(0, 257));
+        final int bound = 257;
+        final int randomChance = 2;
+        if (RANDOM.nextInt(0, randomChance) == 0) {
+            return nextPowerOf2(RANDOM.nextInt(0, bound));
         } else {
-            return nextPowerOf2(random.nextInt(0, 257)) * -1;
+            return nextPowerOf2(RANDOM.nextInt(0, bound)) * -1;
         }
     }
 
+    /**
+     * Starts the program.
+     * @param stage Window stage
+     */
     @Override
     public void start(final Stage stage) {
         playMusic();
         // Create a new scene manager
-        SceneManager sceneManager = new SceneManager(stage, levelManager, mapManager, user);
+        SceneManager sceneManager = new SceneManager(stage, LEVEL_MANAGER, MAP_MANAGER, user);
 
         // set name of the game
         stage.setTitle("Cosmos");
         // ensure user cannot resize
         stage.setResizable(false);
         // make scene-manager generate a new level
-//        stage.setScene(sceneManager.createGame());
         stage.setScene(sceneManager.createTitleScene());
         // show the game on screen
         stage.show();
@@ -86,30 +111,37 @@ public class HelloApplication extends Application {
         mediaPlayer.setCycleCount(INDEFINITE);
         mediaPlayer.play();
     }
-    public static void setBackgroundHeight(int backgroundHeight) {
-        BACKGROUND_HEIGHT = backgroundHeight;
-    }
 
-    public static void setBackgroundWidth(int backgroundWidth) {
-        BACKGROUND_WIDTH = backgroundWidth;
-    }
-    public static void setBackgroundBound(int backgroundBound) {
-        BACKGROUND_BOUND = backgroundBound;
-    }
 
+    /**
+     * Get Map Manager instance.
+     * @return This map manager instance
+     */
     public static MapManager getMapManager() {
-        return mapManager;
+        return MAP_MANAGER;
     }
 
+    /**
+     * Get Level Manager instance.
+     * @return This level manager instance
+     */
     public static LevelManager getLevelManager() {
-        return levelManager;
+        return LEVEL_MANAGER;
     }
 
-    public static void setUser(User inputUser) {
+    /**
+     * Set the user.
+     * @param inputUser Current User
+     */
+    public static void setUser(final User inputUser) {
         user = inputUser;
     }
 
-    public static void main(String[] args) {
+    /**
+     * Driver of the program.
+     * @param args System Arguments, Not Used
+     */
+    public static void main(final String[] args) {
         launch();
     }
 }

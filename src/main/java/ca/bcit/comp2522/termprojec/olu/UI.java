@@ -15,8 +15,16 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
+/**
+ * Manages UI for game.
+ * @author Urjit, Leo
+ * @version 2022
+ */
 public class UI {
-
+    /**
+     * Boolean for if the player has the sword.
+     */
+    public boolean respawnSword = false;
     private final StackPane stackPane;
     private final SceneManager sceneManager;
     private final Countdown timer = new Countdown();
@@ -24,13 +32,20 @@ public class UI {
     private ImageView heartTwo;
     private ImageView heartThree;
     private ImageView sword;
-
+    private int backgroundBound;
 
     private Text coinCounterText;
     private Text countdownText;
-    public boolean respawnSword = false;
+
     private boolean specialLevel = false;
-    public UI(StackPane stackPane, SceneManager sceneManager) throws IOException {
+
+    /**
+     * Constructs new UI.
+     * @param stackPane Pane to place images on
+     * @param sceneManager Scene Manager
+     * @throws IOException If file for images not found
+     */
+    public UI(final StackPane stackPane, final SceneManager sceneManager) throws IOException {
         this.stackPane = stackPane;
         this.sceneManager = sceneManager;
         createCoinCounter();
@@ -38,15 +53,27 @@ public class UI {
         createCountdown();
     }
 
-    private void createBackGround(InputStream is) {
+    private void createBackGround(final InputStream is) {
+        final int normalArea = 576;
+        final int largeArea = 704;
         Image img = new Image(is);
         ImageView imageView = new ImageView(img);
-        imageView.setFitWidth(HelloApplication.BACKGROUND_WIDTH);
-        imageView.setFitHeight(HelloApplication.BACKGROUND_HEIGHT);
+        if (specialLevel) {
+            imageView.setFitWidth(largeArea);
+            imageView.setFitHeight(largeArea);
+        } else {
+            imageView.setFitWidth(normalArea);
+            imageView.setFitHeight(normalArea);
+        }
         stackPane.getChildren().addAll(imageView);
     }
-    public void createBackGroundTile()throws IOException {
 
+    /**
+     * Creates background tiles.
+     * @throws IOException If file for images not found
+     */
+    public void createBackGroundTile()throws IOException {
+        final int bound = 257;
         InputStream is;
         if (HelloApplication.getMapManager().getEnemy(HelloApplication.getLevelManager().getLevel()) != null) {
             is = Files.newInputStream(Paths.get(HelloApplication.getMapManager()
@@ -54,17 +81,22 @@ public class UI {
         } else {
             is = Files.newInputStream(Paths.get("src/main/resources/images/backgrounds/background.png"));
         }
+        this.backgroundBound = bound;
 
-        HelloApplication.setBackgroundBound(257);
-        HelloApplication.setBackgroundHeight(576);
-        HelloApplication.setBackgroundWidth(576);
         createBackGround(is);
         is.close();
     }
+
+    /**
+     * Creates special background tiles.
+     * @throws IOException If file for images not found
+     */
     public void createSpecialBackGroundTile()throws IOException {
+        final int countDownLocation = -390;
+        final int bound = 321;
         this.specialLevel = true;
-        countdownText.setTranslateY(-390);
-        HelloApplication.setBackgroundBound(321);
+        countdownText.setTranslateY(countDownLocation);
+        this.backgroundBound = bound;
 
         InputStream is;
         if (HelloApplication.getMapManager().getEnemy(HelloApplication.getLevelManager().getLevel()) != null) {
@@ -74,12 +106,22 @@ public class UI {
             is = Files.newInputStream(Paths.get("src/main/resources/images/backgrounds/biggerBackground.png"));
         }
 
-        HelloApplication.setBackgroundHeight(704);
-        HelloApplication.setBackgroundWidth(704);
         createBackGround(is);
         is.close();
     }
+
+    /**
+     * Creates Hearts.
+     * @throws IOException If file for images not found
+     */
     public void createHeart() throws IOException {
+        final int pixelSize = 64;
+        final int heart1Location = -540;
+        final int heart1LocationY = -380;
+        final int heart2Location = -466;
+        final int heart2LocationY = -380;
+        final int heart3Location = -392;
+        final int heart3LocationY = -380;
         InputStream firstHeart = Files.newInputStream(Paths.get("src/main/resources/images/c.png"));
         InputStream secondHeart = Files.newInputStream(Paths.get("src/main/resources/images/c.png"));
         InputStream thirdHeart = Files.newInputStream(Paths.get("src/main/resources/images/c.png"));
@@ -92,23 +134,23 @@ public class UI {
         heartTwo = new ImageView(heartImageTwo);
         heartThree = new ImageView(heartImageThree);
 
-        heartOne.setFitWidth(64);
-        heartOne.setFitHeight(64);
+        heartOne.setFitWidth(pixelSize);
+        heartOne.setFitHeight(pixelSize);
 
-        heartTwo.setFitWidth(64);
-        heartTwo.setFitHeight(64);
+        heartTwo.setFitWidth(pixelSize);
+        heartTwo.setFitHeight(pixelSize);
 
-        heartThree.setFitWidth(64);
-        heartThree.setFitHeight(64);
+        heartThree.setFitWidth(pixelSize);
+        heartThree.setFitHeight(pixelSize);
 
-        heartOne.setTranslateX(-540);
-        heartOne.setTranslateY(-380);
+        heartOne.setTranslateX(heart1Location);
+        heartOne.setTranslateY(heart1LocationY);
 
-        heartTwo.setTranslateX(-466);
-        heartTwo.setTranslateY(-380);
+        heartTwo.setTranslateX(heart2Location);
+        heartTwo.setTranslateY(heart2LocationY);
 
-        heartThree.setTranslateX(-392);
-        heartThree.setTranslateY(-380);
+        heartThree.setTranslateX(heart3Location);
+        heartThree.setTranslateY(heart3LocationY);
 
         stackPane.getChildren().addAll(heartOne, heartTwo, heartThree);
 
@@ -116,8 +158,12 @@ public class UI {
         secondHeart.close();
         thirdHeart.close();
     }
+
+    /**
+     * Removes hearts from UI.
+     */
     public void removeHeart() {
-        HelloApplication.stats.incrementNumberOfEnemiesPlayerHit();
+        HelloApplication.STATS.incrementNumberOfEnemiesPlayerHit();
         if (heartThree.isVisible()) {
             heartThree.setVisible(false);
         } else if (heartTwo.isVisible()) {
@@ -127,6 +173,10 @@ public class UI {
         }
         checkPlayerDead();
     }
+
+    /**
+     * Add hearts to UI.
+     */
     public void addHeart() {
         if (!heartTwo.isVisible()) {
             heartTwo.setVisible(true);
@@ -134,6 +184,10 @@ public class UI {
             heartThree.setVisible(true);
         }
     }
+
+    /**
+     * Checks if player has died.
+     */
     private void checkPlayerDead() {
         if (!heartOne.isVisible()) {
             // add code to stop timer
@@ -143,23 +197,32 @@ public class UI {
     }
 
     private void createCoinCounter() throws IOException {
-//        InputStream is = Files.newInputStream(Paths.get("src/main/resources/images/items/coin.png"));
+        final int pixelSize = 64;
+        final int location = 456;
+        final int locationY = -350;
+        final int fontSize = 50;
+        final int textLocation = 505;
+        final int textLocationY = -353;
         InputStream is = Files.newInputStream(Paths.get("src/main/resources/images/items/soul.gif"));
         Image img = new Image(is);
         ImageView coinDisplay = new ImageView(img);
-        coinDisplay.setFitWidth(64);
-        coinDisplay.setFitHeight(64);
-        coinDisplay.setTranslateX(456);
-        coinDisplay.setTranslateY(-350);
+        coinDisplay.setFitWidth(pixelSize);
+        coinDisplay.setFitHeight(pixelSize);
+        coinDisplay.setTranslateX(location);
+        coinDisplay.setTranslateY(locationY);
         coinCounterText = new Text("0");
         coinCounterText.setFill(Color.WHITE);
-        coinCounterText.setFont(Font.font(50));
-        coinCounterText.setTranslateX(505);
-        coinCounterText.setTranslateY(-353);
+        coinCounterText.setFont(Font.font(fontSize));
+        coinCounterText.setTranslateX(textLocation);
+        coinCounterText.setTranslateY(textLocationY);
         stackPane.getChildren().addAll(coinCounterText, coinDisplay);
     }
+
+    /**
+     * Updates coin counter.
+     */
     public void updateCoinCounter() {
-        HelloApplication.stats.incrementCoinsCollected();
+        HelloApplication.STATS.incrementCoinsCollected();
         int currentCount = Integer.parseInt(coinCounterText.getText());
         currentCount++;
         // update total coin counter
@@ -168,15 +231,22 @@ public class UI {
     }
 
     private void createCountdown() {
-        timer.startCountdown(this, 40); // changed for testing purposes
+        final int duration = 40;
+        final int font = 50;
+        final int locationY = -350;
+        timer.startCountdown(this, duration); // changed for testing purposes
         countdownText = new Text("40"); // changed for testing purposes
         countdownText.setFill(Color.WHITE);
-        countdownText.setFont(Font.font(50));
-        countdownText.setTranslateY(-350);
+        countdownText.setFont(Font.font(font));
+        countdownText.setTranslateY(locationY);
 
         stackPane.getChildren().addAll(countdownText);
     }
 
+    /**
+     * Updates countdown.
+     * @param time Length of countdown
+     */
     public void updateCountdown(final int time) {
         countdownText.setText(String.valueOf(time));
         if (time == 0) {
@@ -189,25 +259,42 @@ public class UI {
         }
     }
 
+    /**
+     * Get background bound of image.
+     * @return Current background Bound
+     */
+    public int getBackgroundBound() {
+        return backgroundBound;
+    }
+
     private void createRequiredSouls() {
+        final int font = 25;
+        final int locationX = 480;
+        final int locationY = -300;
         Text requiredSoulsText = new Text(
                 String.format("Required Souls: %d", HelloApplication.getLevelManager().getLevel()));
         requiredSoulsText.setFill(Color.WHITE);
-        requiredSoulsText.setFont(Font.font(25));
-        requiredSoulsText.setTranslateX(480);
-        requiredSoulsText.setTranslateY(-300);
+        requiredSoulsText.setFont(Font.font(font));
+        requiredSoulsText.setTranslateX(locationX);
+        requiredSoulsText.setTranslateY(locationY);
         stackPane.getChildren().addAll(requiredSoulsText);
     }
 
+    /**
+     * Adds swords to UI.
+     */
     public void addSword() {
+        final int size = 64;
+        final int locationX = 480;
+        final int locationY = -230;
         try {
             InputStream is = Files.newInputStream(Paths.get("src/main/resources/images/items/shield.png"));
             Image img = new Image(is);
             sword = new ImageView(img);
-            sword.setFitWidth(64);
-            sword.setFitHeight(64);
-            sword.setTranslateX(480);
-            sword.setTranslateY(-230);
+            sword.setFitWidth(size);
+            sword.setFitHeight(size);
+            sword.setTranslateX(locationX);
+            sword.setTranslateY(locationY);
             stackPane.getChildren().addAll(sword);
 
             is.close();
@@ -216,6 +303,10 @@ public class UI {
         }
 
     }
+
+    /**
+     * Removes sword from UI.
+     */
     public void removeSword() {
         if (sword.isVisible()) {
             if (specialLevel) {
@@ -225,7 +316,11 @@ public class UI {
         }
     }
 
-    public void setRespawnSword(boolean respawnSword) {
+    /**
+     * Sets sword respawn.
+     * @param respawnSword state of respawnSword
+     */
+    public void setRespawnSword(final boolean respawnSword) {
         this.respawnSword = respawnSword;
     }
 }

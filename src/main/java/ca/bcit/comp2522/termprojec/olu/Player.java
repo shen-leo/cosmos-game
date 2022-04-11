@@ -48,8 +48,8 @@ public class Player {
         pane.getChildren().addAll(imageView);
     }
     private boolean clamp(final Double cordToCompare, final int nextCord) {
-        return cordToCompare + nextCord <= (HelloApplication.BACKGROUND_BOUND - 1)
-                && cordToCompare + nextCord >= (HelloApplication.BACKGROUND_BOUND - 1) * -1;
+        return cordToCompare + nextCord <= (ui.getBackgroundBound() - 1)
+                && cordToCompare + nextCord >= (ui.getBackgroundBound() - 1) * -1;
     }
 
     /**
