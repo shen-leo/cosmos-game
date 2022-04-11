@@ -27,6 +27,7 @@ public class UI {
 
 
     private Text coinCounterText;
+    private Text requiredSoulsText;
     private Text countdownText;
     public boolean respawnSword = false;
     private boolean specialLevel = false;
@@ -34,6 +35,7 @@ public class UI {
         this.stackPane = stackPane;
         this.sceneManager = sceneManager;
         createCoinCounter();
+        createRequiredSouls();
         createCountdown();
     }
 
@@ -168,8 +170,8 @@ public class UI {
     }
 
     private void createCountdown() {
-        timer.startCountdown(this, 10); // changed for testing purposes
-        countdownText = new Text("30"); // changed for testing purposes
+        timer.startCountdown(this, 40); // changed for testing purposes
+        countdownText = new Text("40"); // changed for testing purposes
         countdownText.setFill(Color.WHITE);
         countdownText.setFont(Font.font(50));
         countdownText.setTranslateY(-350);
@@ -181,7 +183,7 @@ public class UI {
         countdownText.setText(String.valueOf(time));
         if (time == 0) {
             int currentCount = Integer.parseInt(coinCounterText.getText());
-            if (currentCount >= 1) { // changed for testing purposes
+            if (currentCount >= HelloApplication.getLevelManager().getLevel()) { // changed for testing purposes
                 sceneManager.nextLevel();
             } else {
                 sceneManager.gameOver();
@@ -189,15 +191,24 @@ public class UI {
         }
     }
 
+    private void createRequiredSouls() throws IOException {
+        requiredSoulsText = new Text(String.format("Required Souls: %d", HelloApplication.getLevelManager().getLevel()));
+        requiredSoulsText.setFill(Color.WHITE);
+        requiredSoulsText.setFont(Font.font(25));
+        requiredSoulsText.setTranslateX(480);
+        requiredSoulsText.setTranslateY(-300);
+        stackPane.getChildren().addAll(requiredSoulsText);
+    }
+
     public void addSword() {
         try {
-            InputStream is = Files.newInputStream(Paths.get("src/main/resources/images/items/sword.png"));
+            InputStream is = Files.newInputStream(Paths.get("src/main/resources/images/items/green_blade.png"));
             Image img = new Image(is);
             sword = new ImageView(img);
             sword.setFitWidth(64);
             sword.setFitHeight(64);
-            sword.setTranslateX(456);
-            sword.setTranslateY(-250);
+            sword.setTranslateX(480);
+            sword.setTranslateY(-230);
             stackPane.getChildren().addAll(sword);
 
             is.close();

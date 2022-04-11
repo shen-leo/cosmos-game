@@ -35,19 +35,35 @@ public class MapManager {
         enemiesMap.put(5, "src/main/resources/images/enemy/archfiend.gif");
     }
 
-    public File getMap(int level) {
+    private int convertLevel(final int level) {
+        return level % 5 % 5;
+    }
+
+    public File getMap(final int level) {
+        if (level > 5) {
+            return backgroundMap.get(convertLevel(level));
+        }
         return backgroundMap.get(level);
     }
 
-    public String getEnemy(int level) {
+    public String getEnemy(final int level) {
+        if (level > 5) {
+            return enemiesMap.get(convertLevel(level));
+        }
         return enemiesMap.get(level);
     }
 
-    public String getTiles(int level) {
+    public String getTiles(final int level) {
+        if (level > 5) {
+            return tilesMap.get(convertLevel(level));
+        }
         return tilesMap.get(level);
     }
 
-    public String getBigTiles(int level) {
+    public String getBigTiles(final int level) {
+        if (level > 5) {
+            return bigTilesMap.get(convertLevel(level));
+        }
         return bigTilesMap.get(level);
     }
 

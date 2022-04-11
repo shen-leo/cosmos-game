@@ -171,7 +171,7 @@ public class SceneManager {
         root.setPrefSize(1200, 800);
 
         Scene scene = new Scene(root);
-        Text text = new Text("YOU WON!");
+        Text text = new Text("LEVEL CLEARED!");
         text.setFont(Font.font(50));
         text.setTranslateY(-50);
         Button button = new Button("Next Level: " + level);

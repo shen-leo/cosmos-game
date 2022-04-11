@@ -26,10 +26,10 @@ public class Item {
         InputStream is = null;
 
         switch (itemID) {
-            case 1 -> is = Files.newInputStream(Paths.get("src/main/resources/images/items/heart_icon.png"));
+            case 1 -> is = Files.newInputStream(Paths.get("src/main/resources/images/items/red_potion.gif"));
 //            case 2 -> is = Files.newInputStream(Paths.get("src/main/resources/images/items/coin.png"));
             case 2 -> is = Files.newInputStream(Paths.get("src/main/resources/images/items/soul.gif"));
-            case 3 -> is = Files.newInputStream(Paths.get("src/main/resources/images/items/sword.png"));
+            case 3 -> is = Files.newInputStream(Paths.get("src/main/resources/images/items/green_blade.png"));
         }
 
         x = HelloApplication.generateRandomCoordinate();
