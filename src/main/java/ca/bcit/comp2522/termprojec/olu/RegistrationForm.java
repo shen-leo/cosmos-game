@@ -18,7 +18,20 @@ import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Properties;
 
+/**
+ * Facilitates the back-end logic for the user registration form.
+ * @author Urjit, Leo
+ * @version 2022
+ */
 public class RegistrationForm extends JDialog {
+    private static final int FORM_WIDTH = 450;
+    private static final int FORM_HEIGHT = 474;
+    private static final int INDEX_ONE = 1;
+    private static final int INDEX_TWO = 2;
+    private static final int INDEX_THREE = 3;
+    private static final int INDEX_FOUR = 4;
+    private static final int INDEX_FIVE = 5;
+
     private JTextField tfName;
     private JTextField tfUsername;
     private JPasswordField pfPassword;
@@ -29,24 +42,28 @@ public class RegistrationForm extends JDialog {
 
     private User user;
 
+    /**
+     * Declares the registration form settings and defines action listeners for buttons.
+     * @param parent the parent JFrame parent window
+     */
     public RegistrationForm(final JFrame parent) {
         super(parent);
         setTitle("Create a New Account");
         setContentPane(registerPanel);
-        setMinimumSize(new Dimension(450, 474));
+        setMinimumSize(new Dimension(FORM_WIDTH, FORM_HEIGHT));
         setModal(true);
         setLocationRelativeTo(parent);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         btnRegister.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 registerUser();
             }
         });
         btnCancel.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 dispose();
             }
         });
@@ -85,19 +102,20 @@ public class RegistrationForm extends JDialog {
     }
 
     private User addUserToDatabase(final String name, final String username, final String inputPassword) {
-        User user = null;
+
+//        User user = null;
         int totalDeaths = 0;
         int totalSouls = 0;
-        final String DB_URL = "jdbc:mysql://localhost:3306/comp2522-game";
+        final String connectionURL = "jdbc:mysql://localhost:3306/comp2522-game";
 
-        String password = PasswordHash.encrypt(inputPassword);
+        String password = PasswordHash.encrypt(inputPassword); // encrypts the inputted password
 
         final Properties connectionProperties = new Properties();
         connectionProperties.put("user", "root"); // change to local MySQL username
         connectionProperties.put("password", ""); // change to local MySQL password
 
         try {
-            Connection conn = DriverManager.getConnection(DB_URL, connectionProperties);
+            Connection conn = DriverManager.getConnection(connectionURL, connectionProperties);
             if (conn != null) {
                 System.out.println("Successfully connected to MySQL database test");
             }
@@ -108,14 +126,12 @@ public class RegistrationForm extends JDialog {
             String sql = "INSERT INTO users (name, username, password, totalDeaths, totalSouls) "
                     + "VALUES (?, ?, ?, ? , ?)";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
-            preparedStatement.setString(1, name);
-            preparedStatement.setString(2, username);
-            preparedStatement.setString(3, password);
-            preparedStatement.setInt(4, totalDeaths);
-            preparedStatement.setInt(5, totalSouls);
+            preparedStatement.setString(INDEX_ONE, name);
+            preparedStatement.setString(INDEX_TWO, username);
+            preparedStatement.setString(INDEX_THREE, password);
+            preparedStatement.setInt(INDEX_FOUR, totalDeaths);
+            preparedStatement.setInt(INDEX_FIVE, totalSouls);
 
-
-            //Insert row into the table
             int addedRows = preparedStatement.executeUpdate();
             if (addedRows > 0) {
                 user = new User();
@@ -136,12 +152,15 @@ public class RegistrationForm extends JDialog {
                 e.printStackTrace();
             }
         }
-
         setVisible(false);
         dispose();
         return user;
     }
 
+    /**
+     * Getter for the registered user.
+     * @return a User object, representing the registered user
+     */
     public static User getRegisterUser() {
 
         RegistrationForm myForm = new RegistrationForm(null);

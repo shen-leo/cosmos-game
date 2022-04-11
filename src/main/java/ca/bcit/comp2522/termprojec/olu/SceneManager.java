@@ -186,6 +186,8 @@ public class SceneManager {
 
         Button button = new Button("Play Again");
         resetButton(button);
+        button.setPrefHeight(50);
+        button.setPrefWidth(150);
         root.getChildren().addAll(gameOver, button, coinsCollected, damageTaken);
         return scene;
     }
