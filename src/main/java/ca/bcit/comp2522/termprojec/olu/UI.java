@@ -190,7 +190,6 @@ public class UI {
      */
     private void checkPlayerDead() {
         if (!heartOne.isVisible()) {
-            // add code to stop timer
             timer.stopTimer();
             sceneManager.gameOver();
         }
@@ -301,7 +300,6 @@ public class UI {
         } catch (Exception e) {
             System.out.println(Arrays.toString(e.getStackTrace()));
         }
-
     }
 
     /**
