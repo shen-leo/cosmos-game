@@ -7,7 +7,13 @@ import java.security.NoSuchAlgorithmException;
  * @author Urjit, Leo
  * @version 2022
  */
-public class PasswordHash {
+public final class PasswordHash {
+
+    private static final int HEX_VALUE_ONE = 0xff;
+    private static final int HEX_VALUE_TWO = 0x100;
+    private static final int TO_STRING_RADIX = 16;
+    private PasswordHash() {
+    }
     /**
      * Encrypts password given.
      * @param passwordToHash Password to hash
@@ -23,7 +29,7 @@ public class PasswordHash {
 
             StringBuilder sb = new StringBuilder();
             for (byte aByte : bytes) {
-                sb.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1));
+                sb.append(Integer.toString((aByte & HEX_VALUE_ONE) + HEX_VALUE_TWO, TO_STRING_RADIX).substring(1));
             }
             generatedPassword = sb.toString();
 
