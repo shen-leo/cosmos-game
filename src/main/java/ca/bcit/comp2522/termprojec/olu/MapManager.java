@@ -3,51 +3,58 @@ package ca.bcit.comp2522.termprojec.olu;
 import java.io.File;
 import java.util.HashMap;
 /**
- * Manages Map graphics.
+ * Manages Map specific graphical assets.
  * @author Urjit, Leo
  * @version 2022
  */
 public class MapManager {
+    private static final int INDEX_ONE = 1;
+    private static final int INDEX_TWO = 2;
+    private static final int INDEX_THREE = 3;
+    private static final int INDEX_FOUR = 4;
+    private static final int INDEX_FIVE = 5;
+    private static final int MAPSET_MOD_VALUE = 5;
+
     private final HashMap<Integer, File> backgroundMap = new HashMap<>();
     private final HashMap<Integer, String> enemiesMap = new HashMap<>();
     private final HashMap<Integer, String> tilesMap = new HashMap<>();
     private final HashMap<Integer, String> bigTilesMap = new HashMap<>();
 
     /**
-     * Zero Parameter Constructor.
+     * Zero Parameter Constructor to set the level assets.
      */
     public MapManager() {
-        backgroundMap.put(1, new File("src/main/resources/images/Backgrounds/wallpapers/purple_nebula.jpg"));
-        backgroundMap.put(2, new File("src/main/resources/images/Backgrounds/wallpapers/green_nebula.jpg"));
-        backgroundMap.put(3, new File("src/main/resources/images/Backgrounds/wallpapers/sand_nebula.jpg"));
-        backgroundMap.put(4, new File("src/main/resources/images/Backgrounds/wallpapers/blue_nebula.jpg"));
-        backgroundMap.put(5, new File("src/main/resources/images/Backgrounds/wallpapers/red_nebula.jpg"));
+        backgroundMap.put(INDEX_ONE, new File("src/main/resources/images/Backgrounds/wallpapers/purple_nebula.jpg"));
+        backgroundMap.put(INDEX_TWO, new File("src/main/resources/images/Backgrounds/wallpapers/green_nebula.jpg"));
+        backgroundMap.put(INDEX_THREE, new File("src/main/resources/images/Backgrounds/wallpapers/sand_nebula.jpg"));
+        backgroundMap.put(INDEX_FOUR, new File("src/main/resources/images/Backgrounds/wallpapers/blue_nebula.jpg"));
+        backgroundMap.put(INDEX_FIVE, new File("src/main/resources/images/Backgrounds/wallpapers/red_nebula.jpg"));
 
-        tilesMap.put(1, "src/main/resources/images/Backgrounds/purple_background.png");
-        tilesMap.put(2, "src/main/resources/images/Backgrounds/green_background.png");
-        tilesMap.put(3, "src/main/resources/images/Backgrounds/sand_background.png");
-        tilesMap.put(4, "src/main/resources/images/Backgrounds/blue_background.png");
-        tilesMap.put(5, "src/main/resources/images/Backgrounds/black_background.png");
+        tilesMap.put(INDEX_ONE, "src/main/resources/images/Backgrounds/purple_background.png");
+        tilesMap.put(INDEX_TWO, "src/main/resources/images/Backgrounds/green_background.png");
+        tilesMap.put(INDEX_THREE, "src/main/resources/images/Backgrounds/sand_background.png");
+        tilesMap.put(INDEX_FOUR, "src/main/resources/images/Backgrounds/blue_background.png");
+        tilesMap.put(INDEX_FIVE, "src/main/resources/images/Backgrounds/black_background.png");
 
-        bigTilesMap.put(1, "src/main/resources/images/Backgrounds/purple_bigger_background.png");
-        bigTilesMap.put(2, "src/main/resources/images/Backgrounds/green_bigger_background.png");
-        bigTilesMap.put(3, "src/main/resources/images/Backgrounds/sand_bigger_background.png");
-        bigTilesMap.put(4, "src/main/resources/images/Backgrounds/blue_bigger_background.png");
-        bigTilesMap.put(5, "src/main/resources/images/Backgrounds/black_bigger_background.png");
+        bigTilesMap.put(INDEX_ONE, "src/main/resources/images/Backgrounds/purple_bigger_background.png");
+        bigTilesMap.put(INDEX_TWO, "src/main/resources/images/Backgrounds/green_bigger_background.png");
+        bigTilesMap.put(INDEX_THREE, "src/main/resources/images/Backgrounds/sand_bigger_background.png");
+        bigTilesMap.put(INDEX_FOUR, "src/main/resources/images/Backgrounds/blue_bigger_background.png");
+        bigTilesMap.put(INDEX_FIVE, "src/main/resources/images/Backgrounds/black_bigger_background.png");
 
-        enemiesMap.put(1, "src/main/resources/images/enemy/eye_monster.gif");
-        enemiesMap.put(2, "src/main/resources/images/enemy/chimera.gif");
-        enemiesMap.put(3, "src/main/resources/images/enemy/anubis.gif");
-        enemiesMap.put(4, "src/main/resources/images/enemy/warlock.gif");
-        enemiesMap.put(5, "src/main/resources/images/enemy/archfiend.gif");
+        enemiesMap.put(INDEX_ONE, "src/main/resources/images/enemy/eye_monster.gif");
+        enemiesMap.put(INDEX_TWO, "src/main/resources/images/enemy/chimera.gif");
+        enemiesMap.put(INDEX_THREE, "src/main/resources/images/enemy/anubis.gif");
+        enemiesMap.put(INDEX_FOUR, "src/main/resources/images/enemy/warlock.gif");
+        enemiesMap.put(INDEX_FIVE, "src/main/resources/images/enemy/archfiend.gif");
     }
 
     private int convertLevel(final int level) {
-        return level % 5 % 5;
+        return level % MAPSET_MOD_VALUE % MAPSET_MOD_VALUE;
     }
 
     /**
-     * Get the map.
+     * Get the game's background.
      * @param level Current level
      * @return File corresponding to level
      */
@@ -73,7 +80,7 @@ public class MapManager {
     }
 
     /**
-     * Get tiles.
+     * Get regular tiles.
      * @param level Current Level
      * @return String path for tile
      */
@@ -86,7 +93,7 @@ public class MapManager {
     }
 
     /**
-     * Get bigger tiles.
+     * Get bigger tileset for special levels.
      * @param level Current level
      * @return String path for big tiles
      */
