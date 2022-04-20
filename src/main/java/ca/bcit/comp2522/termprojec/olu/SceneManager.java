@@ -19,19 +19,45 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 
 
 public class SceneManager {
+
+    private static final int ROOT_SIZE_V = 1200;
+    private static final int ROOT_SIZE_V1 = 850;
+    private static final int TITLE_FONT_SIZE = 120;
+    private static final int TITLE_TEXT_Y_TRANSLATE = -140;
+    private static final int PLAY_BUTTON_Y_TRANSLATE = 50;
+    private static final int LOGIN_BUTTON_Y_TRANSLATE = 200;
+    private static final int REGISTER_BUTTON_Y_TRANSLATE = 280;
+    private static final int LEVEL_THREE = 3;
+    private static final int GAME_OVER_FONT_SIZE = 50;
+    private static final int GAME_OVER_Y_TRANSLATE = -175;
+    private static final int GAME_OVER_STATS_FONT_SIZE = 20;
+    private static final int GAME_OVER_STATS_Y_TRANSLATE = -50;
+    private static final int GAME_OVER_STATS_X_TRANSLATE = 200;
+    private static final int PLAY_AGAIN_BUTTON_HEIGHT = 50;
+    private static final int PLAY_AGAIN_BUTTON_WIDTH = 150;
+    private static final int RESET_BUTTON_Y_TRANSLATE = 50;
+    private static final int LEVEL_CLEAR_TEXT_FONT_SIZE = 50;
+    private static final int LEVEL_CLEAR_TEXT_Y_TRANSLATE = -50;
+    private static final int NEXT_LEVEL_BUTTON_HEIGHT = 50;
+    private static final int NEXT_LEVEL_BUTTON_WIDTH = 150;
+    private static final int NEXT_LEVEL_BUTTON_Y_TRANSLATE = 60;
+    private static final int SAVE_BUTTON_Y_TRANSLATE = 180;
+
     private Scene nextLevelScene;
     private final Stage stage;
     private final LevelManager levelManager;
     private final MapManager mapManager;
     private User user;
-    public SceneManager(Stage stage, LevelManager levelManager, MapManager mapManager, User user) {
 
+    public SceneManager(final Stage stage, final LevelManager levelManager, final MapManager mapManager,
+                        final User user) {
         this.stage = stage;
         this.user = user;
         this.levelManager = levelManager;
@@ -40,8 +66,9 @@ public class SceneManager {
     }
 
     public Scene createTitleScene() {
+
         StackPane root = new StackPane();
-        root.setPrefSize(1200, 850);
+        root.setPrefSize(ROOT_SIZE_V, ROOT_SIZE_V1);
 
         Scene scene = new Scene(root);
 
@@ -58,37 +85,35 @@ public class SceneManager {
 
         Text text = new Text("COSMOS");
         text.setFill(Color.WHITE);
-        text.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 120));
-//        text.setFont(Font.font(80));
-        text.setTranslateY(-140);
-//        text.setFont(Font.font(60));
+        text.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, TITLE_FONT_SIZE));
+        text.setTranslateY(TITLE_TEXT_Y_TRANSLATE);
 
         Button playButton = new Button("Play");
         resetButton(playButton);
-        playButton.setTranslateY(50);
+        playButton.setTranslateY(PLAY_BUTTON_Y_TRANSLATE);
         playButton.setStyle("-fx-background-color: #73a9c2; -fx-font-size: 3em; -fx-text-fill: #FFFFFF");
 
         Button loginButton = new Button("Login");
-        loginButton.setTranslateY(200);
+        loginButton.setTranslateY(LOGIN_BUTTON_Y_TRANSLATE);
         loginButton.setStyle("-fx-background-color: #73a9c2; -fx-font-size: 1.5em; -fx-text-fill: #FFFFFF");
         EventHandler<ActionEvent> loginEvent = e -> {
             try {
                 this.user = LoginForm.loginUser();
                 HelloApplication.setUser(user);
-            } catch (Exception ex) {
+            } catch (NullPointerException ex) {
                 ex.printStackTrace();
             }
         };
         loginButton.setOnAction(loginEvent);
 
         Button registerButton = new Button("Register");
-        registerButton.setTranslateY(280);
+        registerButton.setTranslateY(REGISTER_BUTTON_Y_TRANSLATE);
         registerButton.setStyle("-fx-background-color: #73a9c2; -fx-font-size: 1.5em; -fx-text-fill: #FFFFFF");
         EventHandler<ActionEvent> registerEvent = e -> {
             try {
                 this.user = RegistrationForm.getRegisterUser();
                 HelloApplication.setUser(user);
-            } catch (Exception ex) {
+            } catch (NullPointerException ex) {
                 ex.printStackTrace();
             }
         };
@@ -100,7 +125,7 @@ public class SceneManager {
 
     public Scene createGame() throws Exception {
         StackPane root = new StackPane();
-        root.setPrefSize(1200, 850);
+        root.setPrefSize(ROOT_SIZE_V, ROOT_SIZE_V1);
 
         Scene scene = new Scene(root);
         File backgroundFile;
@@ -127,8 +152,7 @@ public class SceneManager {
         List<Enemy> enemies = new ArrayList<>();
         enemies.add(enemy);
 
-
-        if (levelManager.getLevel() >= 3) {
+        if (levelManager.getLevel() >= LEVEL_THREE) {
             ui.createSpecialBackGroundTile();
             InputHandler inputHandler = new InputHandler(scene, player, enemies, itemSpawner, true);
         } else {
@@ -142,9 +166,8 @@ public class SceneManager {
         return scene;
     }
 
-    private Background createTransition(StackPane root) {
+    private Background createTransition(final StackPane root) {
 
-//        Scene scene = new Scene(root);
         File backgroundFile = new File("src/main/resources/images/Backgrounds/wallpapers/game_over.jpeg");
         Image img = new Image(backgroundFile.toURI().toString());
         BackgroundImage bImg = new BackgroundImage(img,
@@ -156,44 +179,46 @@ public class SceneManager {
     }
 
     private Scene createGameOverScene() {
+
         levelManager.setLevel(1);
         StackPane root = new StackPane();
-        root.setPrefSize(1200, 800);
+        root.setPrefSize(ROOT_SIZE_V, ROOT_SIZE_V1);
 
         Scene scene = new Scene(root);
         root.setBackground(createTransition(root));
         Text gameOver = new Text("You Died...");
         gameOver.setFill(Color.WHITE);
-        gameOver.setFont(Font.font(50));
-        gameOver.setTranslateY(-175);
+        gameOver.setFont(Font.font(GAME_OVER_FONT_SIZE));
+        gameOver.setTranslateY(GAME_OVER_Y_TRANSLATE);
 
         Text coinsCollected = new Text("Total Souls Collected: "
                 + HelloApplication.STATS.getCoinsCollected());
-        coinsCollected.setFont(Font.font(20));
+        coinsCollected.setFont(Font.font(GAME_OVER_STATS_FONT_SIZE));
         coinsCollected.setFill(Color.WHITE);
-        coinsCollected.setTranslateX(-200);
-        coinsCollected.setTranslateY(-50);
+        coinsCollected.setTranslateX(-GAME_OVER_STATS_X_TRANSLATE);
+        coinsCollected.setTranslateY(GAME_OVER_STATS_Y_TRANSLATE);
 
         Text damageTaken = new Text("Total Damage taken: "
                 + HelloApplication.STATS.getNumberOfEnemiesPlayerHit());
-        damageTaken.setFont(Font.font(20));
+        damageTaken.setFont(Font.font(GAME_OVER_STATS_FONT_SIZE));
         damageTaken.setFill(Color.WHITE);
-        damageTaken.setTranslateX(200);
-        damageTaken.setTranslateY(-50);
-
+        damageTaken.setTranslateX(GAME_OVER_STATS_X_TRANSLATE);
+        damageTaken.setTranslateY(GAME_OVER_STATS_Y_TRANSLATE);
 
         this.getUser().incrementDeaths();
 
         Button button = new Button("Play Again");
         resetButton(button);
-        button.setPrefHeight(50);
-        button.setPrefWidth(150);
+
+        button.setPrefHeight(PLAY_AGAIN_BUTTON_HEIGHT);
+        button.setPrefWidth(PLAY_AGAIN_BUTTON_WIDTH);
         root.getChildren().addAll(gameOver, button, coinsCollected, damageTaken);
         return scene;
     }
 
-    private void resetButton(Button button) {
-        button.setTranslateY(50);
+    private void resetButton(final Button button) {
+
+        button.setTranslateY(RESET_BUTTON_Y_TRANSLATE);
         EventHandler<ActionEvent> event = e -> {
             try {
                 levelManager.resetLevel(); // reset the game to level one
@@ -209,20 +234,21 @@ public class SceneManager {
         stage.setScene(createGameOverScene());
     }
 
-    private Scene createNextLevelScene(int level) {
+    private Scene createNextLevelScene(final int level) {
+
         StackPane root = new StackPane();
-        root.setPrefSize(1200, 800);
+        root.setPrefSize(ROOT_SIZE_V, ROOT_SIZE_V1);
 
         Scene scene = new Scene(root);
         root.setBackground(createTransition(root));
         Text text = new Text("LEVEL CLEARED!");
-        text.setFont(Font.font(50));
+        text.setFont(Font.font(LEVEL_CLEAR_TEXT_FONT_SIZE));
         text.setFill(Color.WHITE);
-        text.setTranslateY(-50);
+        text.setTranslateY(LEVEL_CLEAR_TEXT_Y_TRANSLATE);
         Button button = new Button("Next Level: " + level);
-        button.setPrefHeight(50);
-        button.setPrefWidth(150);
-        button.setTranslateY(60);
+        button.setPrefHeight(NEXT_LEVEL_BUTTON_HEIGHT);
+        button.setPrefWidth(NEXT_LEVEL_BUTTON_WIDTH);
+        button.setTranslateY(NEXT_LEVEL_BUTTON_Y_TRANSLATE);
         EventHandler<ActionEvent> event = e -> {
             try {
                 stage.setScene(createGame());
@@ -233,13 +259,13 @@ public class SceneManager {
         button.setOnAction(event);
 
         Button saveButton = new Button("Save");
-        saveButton.setTranslateY(180);
+        saveButton.setTranslateY(SAVE_BUTTON_Y_TRANSLATE);
         EventHandler<ActionEvent> saveEvent = e -> {
             try {
                 if (this.user.getUsername() != null) {
                     this.user.saveGame();
                 }
-            } catch (Exception ex) {
+            } catch (SQLException | ClassNotFoundException ex) {
                 ex.printStackTrace();
             }
         };
@@ -255,10 +281,6 @@ public class SceneManager {
         stage.setScene(this.nextLevelScene);
         System.out.println("Current Level: " + levelManager.getLevel());
     }
-//
-//    public MapManager getMapManager() {
-//        return this.mapManager;
-//    }
 
     public User getUser() {
         return this.user;
