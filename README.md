@@ -2,11 +2,11 @@
 
 Cosmos is a tile-based strategy game where the player battles the peculiar monstrosities of deep space. You play as a
 Cosmic Knight, a warrior sent to explore the deep Cosmos in order to vanquish the deadly creatures that threaten planet 
-Earth. Collect the Souls found in the various planets of space in order to gain energy to travel deeper into the Cosmos.
+Earth. Collect the Souls found on the various planets of space in order to gain energy to travel deeper into the Cosmos. Be ready to face the strange array of monsters that await you in the Cosmos.
 
 # Gameplay
 
-Use WASD or the arrow keys to navigate the Cosmic Knight around the space dungeon tilemap. Coming into contact with an
+Use WASD or the directional keys to navigate the Cosmic Knight around the space dungeon tilemap. Coming into contact with an
 enemy will defeat them at the expense of losing one of your three lives. Be careful! The enemies will follow your 
 movement!
 
@@ -23,7 +23,7 @@ Challenge yourself by collecting as many Souls as possible within the time limit
 For the user authentication and stat tracking system to work, the local instance of the game must have the local user's 
 MySQL credentials in the LoginForm (line 77), RegistrationForm (line 115), and User (line 105) classes. This will
 facilitate the connection between MySQL and Java. The database schema is called comp2522-game-cosmos.sql. Please ensure 
-to run the code in the SQL file to create the database schema.
+to run the code in the SQL file to create the database schema on your local machine.
 
 The default test account is **Username: test**, **Password: test1234**. The password will be stored in the MySQL
 database in its encrypted form.
