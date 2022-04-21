@@ -97,7 +97,7 @@ public class User {
         Class.forName("com.mysql.cj.jdbc.Driver");
 
         // We identify the driver, the rdbms, the host, the port, and the schema name
-        final String sqlURL = "jdbc:mysql://localhost:3306/comp2522-game";
+        final String sqlURL = "jdbc:mysql://localhost:3306/comp2522-game-cosmos";
 
         // We need to send a user and a password when we try to connect!
         final Properties connectionProperties = new Properties();

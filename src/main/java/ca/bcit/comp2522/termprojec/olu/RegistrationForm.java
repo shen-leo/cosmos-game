@@ -106,7 +106,7 @@ public class RegistrationForm extends JDialog {
 //        User user = null;
         int totalDeaths = 0;
         int totalSouls = 0;
-        final String connectionURL = "jdbc:mysql://localhost:3306/comp2522-game";
+        final String connectionURL = "jdbc:mysql://localhost:3306/comp2522-game-cosmos";
 
         String password = PasswordHash.encrypt(inputPassword); // encrypts the inputted password
 
