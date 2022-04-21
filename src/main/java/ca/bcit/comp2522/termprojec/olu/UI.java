@@ -225,7 +225,9 @@ public class UI {
         int currentCount = Integer.parseInt(coinCounterText.getText());
         currentCount++;
         // update total coin counter
-        sceneManager.getUser().incrementSouls();
+        if (sceneManager.getUser() != null) {
+            sceneManager.getUser().incrementSouls();
+        }
         coinCounterText.setText(String.valueOf(currentCount));
     }
 
