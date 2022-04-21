@@ -24,7 +24,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
+/**
+ * Manages the scenes and transition screens of the game.
+ * @author Urjit, Leo
+ * @version 2022
+ */
 public class SceneManager {
 
     private static final int ROOT_SIZE_V = 1200;
@@ -56,6 +60,13 @@ public class SceneManager {
     private final MapManager mapManager;
     private User user;
 
+    /**
+     * Constructor for the SceneManager class.
+     * @param stage the current JavaFX stage
+     * @param levelManager levelManager object that tracks the current level
+     * @param mapManager mapManager object that holds the level-specific assets for each map
+     * @param user an object representing the current user
+     */
     public SceneManager(final Stage stage, final LevelManager levelManager, final MapManager mapManager,
                         final User user) {
         this.stage = stage;
@@ -65,6 +76,10 @@ public class SceneManager {
         this.nextLevelScene = createNextLevelScene(levelManager.getLevel());
     }
 
+    /**
+     * Creates the title screen for the game.
+     * @return a Scene object representing the game's title screen
+     */
     public Scene createTitleScene() {
 
         StackPane root = new StackPane();
@@ -123,6 +138,11 @@ public class SceneManager {
         return scene;
     }
 
+    /**
+     * Creates a normal level for the game.
+     * @return a Scene object representing a normal level
+     * @throws Exception an error where the createGame scene fails to be created
+     */
     public Scene createGame() throws Exception {
         StackPane root = new StackPane();
         root.setPrefSize(ROOT_SIZE_V, ROOT_SIZE_V1);
@@ -230,6 +250,9 @@ public class SceneManager {
         button.setOnAction(event);
     }
 
+    /**
+     * Method called to indicate that the player has lost the game; calls the createGameOverScene method.
+     */
     public void gameOver() {
         stage.setScene(createGameOverScene());
     }
@@ -275,6 +298,9 @@ public class SceneManager {
         return scene;
     }
 
+    /**
+     * Method called to indicate that the player has passed the current level; calls the createNextLevelScene method.
+     */
     public void nextLevel() {
         this.levelManager.nextLevel();
         this.nextLevelScene = createNextLevelScene(levelManager.getLevel());
@@ -282,6 +308,10 @@ public class SceneManager {
         System.out.println("Current Level: " + levelManager.getLevel());
     }
 
+    /**
+     * Getter to retrieve the current user.
+     * @return a User object representing the current player
+     */
     public User getUser() {
         return this.user;
     }
