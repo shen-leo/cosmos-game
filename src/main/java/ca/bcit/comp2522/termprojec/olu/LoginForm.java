@@ -70,7 +70,7 @@ public class LoginForm extends JDialog {
 
         String password = PasswordHash.encrypt(inputPassword); // converts the inputted password to encrypted form
 
-        final String urlConnection = "jdbc:mysql://localhost:3306/comp2522-game";
+        final String urlConnection = "jdbc:mysql://localhost:3306/comp2522-game-cosmos";
 
         final Properties connectionProperties = new Properties();
         connectionProperties.put("user", "root"); // change to local MySQL username
