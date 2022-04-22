@@ -46,8 +46,8 @@ public class HelloApplication extends Application {
         ImageView imageView = new ImageView(img);
         imageView.setFitWidth(PIXEL_COUNT);
         imageView.setFitHeight(PIXEL_COUNT);
-        int x = generateRandomCoordinate();
-        int y = generateRandomCoordinate();
+        double x = generateRandomCoordinate();
+        double y = generateRandomCoordinate();
         imageView.setTranslateX(x);
         imageView.setTranslateY(y);
         return imageView;
@@ -72,7 +72,7 @@ public class HelloApplication extends Application {
      * Generates a new random coordinate.
      * @return New coordinate
      */
-    public static int generateRandomCoordinate() {
+    public static double generateRandomCoordinate() {
         final int bound = 257;
         final int randomChance = 2;
         if (RANDOM.nextInt(0, randomChance) == 0) {
@@ -104,10 +104,10 @@ public class HelloApplication extends Application {
     }
     private void playMusic() {
         String musicFile = "src/main/resources/sfx/background.wav";
-
+        final double volume = 0.1;
         Media sound = new Media(new File(musicFile).toURI().toString());
         mediaPlayer = new MediaPlayer(sound);
-        mediaPlayer.setVolume(0.1);
+        mediaPlayer.setVolume(volume);
         mediaPlayer.setCycleCount(INDEFINITE);
         mediaPlayer.play();
     }

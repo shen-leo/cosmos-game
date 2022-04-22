@@ -17,7 +17,7 @@ public class ItemSpawner {
     private final ArrayList<Item> items = new ArrayList<>();
     private final StackPane root;
     private final UI ui;
-
+    private ArrayList<HashMap<String, Double>> itemLocations = new ArrayList<>();
     /**
      * Constructor for ItemSpawner.
      * @param root Root to add items to
@@ -51,6 +51,7 @@ public class ItemSpawner {
             it.next();
             it.remove();
         }
+        itemLocations = new ArrayList<>();
     }
     private void initialSpawn() throws Exception {
         final int swordID = 3;
@@ -71,13 +72,13 @@ public class ItemSpawner {
                 item.createItem(heartID);
             }
         }
+        itemLocations.add(coin.getCoordinates());
+        itemLocations.add(heart.getCoordinates());
+        itemLocations.add(sword.getCoordinates());
     }
 
     private boolean checkEqual(final Player player) {
-        ArrayList<HashMap<String, Double>> coordinateList = new ArrayList<>();
-        for (Item item : items) {
-            coordinateList.add(item.getCoordinates());
-        }
+        ArrayList<HashMap<String, Double>> coordinateList = new ArrayList<>(itemLocations);
         coordinateList.add(player.getCoordinates());
 
 
@@ -90,7 +91,20 @@ public class ItemSpawner {
         }
         return false;
     }
-
+    private boolean checkIfExists(final HashMap<String, Double> newCoordinate) {
+        for (HashMap<String, Double> cord : itemLocations) {
+            if (cord.equals(newCoordinate)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    private HashMap<String, Double> makeNewCoordinate() {
+        HashMap<String, Double> coordinate = new HashMap<>();
+        coordinate.put("x", HelloApplication.generateRandomCoordinate());
+        coordinate.put("y", HelloApplication.generateRandomCoordinate());
+        return coordinate;
+    }
     /**
      * Check if items or player collide.
      * @param player Player
@@ -107,17 +121,21 @@ public class ItemSpawner {
                 if (ui.respawnSword) {
                     ui.setRespawnSword(false);
                     item.setImageView(true);
-                    item.setX(HelloApplication.generateRandomCoordinate());
-                    item.setY(HelloApplication.generateRandomCoordinate());
-                    while (checkEqual(player)) {
-                        item.setX(HelloApplication.generateRandomCoordinate());
-                        item.setY(HelloApplication.generateRandomCoordinate());
+                    HashMap<String, Double> newCord = makeNewCoordinate();
+                    while (checkIfExists(newCord)) {
+                        newCord = makeNewCoordinate();
                     }
+                    item.setX(newCord.get("x"));
+                    item.setY(newCord.get("y"));
                 }
             } else if (item.getType().equals("Coin") && player.getCoordinates().equals(item.getCoordinates())) {
                 item.collectable();
-                item.setX(HelloApplication.generateRandomCoordinate());
-                item.setY(HelloApplication.generateRandomCoordinate());
+                HashMap<String, Double> newCord = makeNewCoordinate();
+                while (checkIfExists(newCord)) {
+                    newCord = makeNewCoordinate();
+                }
+                item.setX(newCord.get("x"));
+                item.setY(newCord.get("y"));
             } else if (item.getType().equals("Heart") && player.getCoordinates().equals(item.getCoordinates())) {
                 item.collectable();
                 item.nullImage();

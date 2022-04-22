@@ -39,15 +39,9 @@ public abstract class Item {
         InputStream is;
         final int caseThree = 3;
         switch (itemID) {
-            case 2 -> {
-                is = Files.newInputStream(Paths.get("src/main/resources/images/items/soul.gif"));
-            }
-            case caseThree -> {
-                is = Files.newInputStream(Paths.get("src/main/resources/images/items/shield.png"));
-            }
-            default -> {
-                is = Files.newInputStream(Paths.get("src/main/resources/images/items/red_potion.gif"));
-            }
+            case 2 -> is = Files.newInputStream(Paths.get("src/main/resources/images/items/soul.gif"));
+            case caseThree -> is = Files.newInputStream(Paths.get("src/main/resources/images/items/shield.png"));
+            default -> is = Files.newInputStream(Paths.get("src/main/resources/images/items/red_potion.gif"));
         }
 
         x = HelloApplication.generateRandomCoordinate();
@@ -69,7 +63,7 @@ public abstract class Item {
      * Set Item X coordinate.
      * @param x New X coordinate
      */
-    public void setX(final int x) {
+    public void setX(final double x) {
         this.x = x;
         imageView.setTranslateX(x);
     }
@@ -77,7 +71,7 @@ public abstract class Item {
      * Set Item Y coordinate.
      * @param y New Y coordinate
      */
-    public void setY(final int y) {
+    public void setY(final double y) {
         this.y = y;
         imageView.setTranslateY(y);
     }
