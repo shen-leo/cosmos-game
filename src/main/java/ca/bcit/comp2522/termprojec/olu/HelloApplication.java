@@ -31,7 +31,7 @@ public class HelloApplication extends Application {
 
     private static final int PIXEL_COUNT = 64;
 
-
+    private static MediaPlayer mediaPlayer;
     /**
      * Creates a new Sprite object.
      * @param inputStream Input Stream for the sprite file
@@ -105,7 +105,7 @@ public class HelloApplication extends Application {
         String musicFile = "src/main/resources/sfx/background.wav";
         final double volume = 0.1;
         Media sound = new Media(new File(musicFile).toURI().toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer = new MediaPlayer(sound);
         mediaPlayer.setVolume(volume);
         mediaPlayer.setCycleCount(INDEFINITE);
         mediaPlayer.play();

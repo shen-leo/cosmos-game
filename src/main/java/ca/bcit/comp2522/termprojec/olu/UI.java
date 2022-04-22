@@ -236,7 +236,7 @@ public class UI {
         final int font = 50;
         final int locationY = -350;
         timer.startCountdown(this, duration); // changed for testing purposes
-        countdownText = new Text("40"); // changed for testing purposes
+        countdownText = new Text("30"); // changed for testing purposes
         countdownText.setFill(Color.WHITE);
         countdownText.setFont(Font.font(font));
         countdownText.setTranslateY(locationY);
