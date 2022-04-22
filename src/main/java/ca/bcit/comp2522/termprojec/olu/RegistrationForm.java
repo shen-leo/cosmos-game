@@ -111,8 +111,8 @@ public class RegistrationForm extends JDialog {
         String password = PasswordHash.encrypt(inputPassword); // encrypts the inputted password
 
         final Properties connectionProperties = new Properties();
-        connectionProperties.put("user", "root"); // change to local MySQL username
-        connectionProperties.put("password", ""); // change to local MySQL password
+        connectionProperties.put("user", "comp2522"); // change to local MySQL username
+        connectionProperties.put("password", "I was born in 1973"); // change to local MySQL password
 
         try {
             Connection conn = DriverManager.getConnection(connectionURL, connectionProperties);

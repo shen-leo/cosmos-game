@@ -73,8 +73,8 @@ public class LoginForm extends JDialog {
         final String urlConnection = "jdbc:mysql://localhost:3306/comp2522-game-cosmos";
 
         final Properties connectionProperties = new Properties();
-        connectionProperties.put("user", "root"); // change to local MySQL username
-        connectionProperties.put("password", ""); // change to local MySQL password
+        connectionProperties.put("user", "comp2522"); // change to local MySQL username
+        connectionProperties.put("password", "I was born in 1973"); // change to local MySQL password
 
         try {
             Connection conn = DriverManager.getConnection(urlConnection, connectionProperties);
