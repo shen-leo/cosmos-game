@@ -232,7 +232,7 @@ public class UI {
     }
 
     private void createCountdown() {
-        final int duration = 40;
+        final int duration = 30;
         final int font = 50;
         final int locationY = -350;
         timer.startCountdown(this, duration); // changed for testing purposes

@@ -28,7 +28,6 @@ public class HelloApplication extends Application {
     private static final LevelManager LEVEL_MANAGER = LevelManager.initLevel();
     private static final MapManager MAP_MANAGER = new MapManager();
     private static final Random RANDOM = new Random();
-    private static MediaPlayer mediaPlayer;
 
     private static final int PIXEL_COUNT = 64;
 
@@ -106,7 +105,7 @@ public class HelloApplication extends Application {
         String musicFile = "src/main/resources/sfx/background.wav";
         final double volume = 0.1;
         Media sound = new Media(new File(musicFile).toURI().toString());
-        mediaPlayer = new MediaPlayer(sound);
+        MediaPlayer mediaPlayer = new MediaPlayer(sound);
         mediaPlayer.setVolume(volume);
         mediaPlayer.setCycleCount(INDEFINITE);
         mediaPlayer.play();
