@@ -21,7 +21,9 @@ in level through the dungeons, you will be required to collect a greater number 
 
 Challenge yourself by collecting as many Souls as possible within the time limit!
 
-![Cosmos Demo](./src/main/resources/demo/cosmos_demo.gif)
+<p align="center">
+    <img src=./src/main/resources/demo/cosmos_demo.gif>
+<p>
 
 # MySQL User Authentication
 
